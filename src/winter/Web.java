@@ -51,6 +51,13 @@ public class Web {
 
 	}
 
+	/**
+	 * 获取用户列表
+	 * 
+	 * @param request
+	 * @param session
+	 * @return
+	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public String listUser(HttpServletRequest request, HttpSession session)
 	{
@@ -59,11 +66,13 @@ public class Web {
 
 		if (session.getAttribute("id") == null) {
 
-			result.put("login", true);
+			result.put("login", false);
 
 			return JSONObject.toJSONString(result);
 
 		}
+
+		result.put("login", true);
 
 		String sql = "SELECT id, name, SUBSTRING(create_time, 3, 14) create_time FROM t_user ORDER BY  id DESC";
 
@@ -77,15 +86,11 @@ public class Web {
 
 			ex.printStackTrace();
 
-			result.put("login", true);
-
 			result.put("result", false);
 
 			return JSONObject.toJSONString(result);
 
 		}
-
-		result.put("login", true);
 
 		result.put("result", true);
 
