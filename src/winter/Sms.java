@@ -18,8 +18,6 @@ import com.aliyuncs.profile.IClientProfile;
 /**
  * 阿里云短信发送及查询
  * 
- * @author shiyu
- *
  */
 public class Sms {
 
