@@ -6,7 +6,7 @@ bind-address=0.0.0.0
 wsrep_on=ON
 wsrep_provider=/usr/lib/galera/libgalera_smm.so
 
-wsrep_cluster_name="my_cluster" # 集群名称
+wsrep_cluster_name="winter_mariadb_cluster" # 集群名称
 # wsrep_cluster_address="gcomm://" # 第一次运行可能要使用空IP地址列表
 wsrep_cluster_address="gcomm://192.168.1.201,192.168.1.202,192.168.1.203,192.168.1.204,192.168.1.205,192.168.1.206,192.168.1.207,192.168.1.208" # 节点列表的IP地址
 
@@ -17,3 +17,4 @@ wsrep_sst_method=rsync
 # Galera Node Configuration
 wsrep_node_address="192.168.1.201" #当前节点IP地址
 wsrep_node_name="db1" #当前节点名称
+
