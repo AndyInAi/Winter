@@ -1,0 +1,87 @@
+
+
+####### 节点安装 #######
+
+apt install -y mariadb-server mariadb-backup
+
+
+####### 节点配置 #######
+
+# 节点1
+
+# vi /etc/mysql/conf.d/galera.cnf
+
+[mysqld]
+binlog_format=ROW
+default-storage-engine=innodb
+innodb_autoinc_lock_mode=2
+bind-address=0.0.0.0
+wsrep_on=ON
+wsrep_provider=/usr/lib/galera/libgalera_smm.so
+
+wsrep_cluster_name="winter_mariadb_cluster" # 集群名称
+# wsrep_cluster_address="gcomm://" # 第一次运行可能要使用空IP地址列表
+wsrep_cluster_address="gcomm://192.168.1.201,192.168.1.202,192.168.1.203,192.168.1.204,192.168.1.205,192.168.1.206,192.168.1.207,192.168.1.208,192.168.1.209,192.168.1.210,192.168.1.211,192.168.1.212,192.168.1.213,192.168.1.214,192.168.1.215,192.168.1.216" # 节点列表的IP地址
+
+# Galera Synchronization Configuration
+wsrep_sst_method=rsync
+
+# 各个节点配置不同之处
+# Galera Node Configuration
+wsrep_node_address="192.168.1.201" #当前节点IP地址
+wsrep_node_name="db1" #当前节点名称
+
+
+####### 全部节点运行一次 #######
+
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/mariadb.conf.d/50-server.cnf
+mysql -e "grant all privileges on *.* to root@'%' identified by 'winter'"
+mysql -e "flush privileges"
+
+
+####### 第一个节点首次运行 #######
+
+galera_new_cluster
+
+# 查看状态
+
+mysql -e "SHOW STATUS LIKE 'wsrep_cluster_size'"
+
+
+####### 每个节点设置并重启  #######
+
+systemctl --now enable mysql
+
+reboot
+
+
+#######  高可用负载均衡  #######
+
+# apt install haproxy -y
+
+# vi /etc/haproxy/haproxy.cfg
+
+listen winter_mariadb_cluster
+
+	mode tcp
+	balance source
+	bind 0.0.0.0:3306
+	
+	server db1 192.168.1.201:3306
+	server db2 192.168.1.202:3306
+	server db3 192.168.1.203:3306
+	server db4 192.168.1.204:3306
+	server db5 192.168.1.205:3306
+	server db6 192.168.1.206:3306
+	server db7 192.168.1.207:3306
+	server db8 192.168.1.208:3306
+	server db9 192.168.1.209:3306
+	server db10 192.168.1.210:3306
+	server db11 192.168.1.211:3306
+	server db12 192.168.1.212:3306
+	server db13 192.168.1.213:3306
+	server db14 192.168.1.214:3306
+	server db15 192.168.1.215:3306
+	server db16 192.168.1.216:3306
+
+# systemctl --now enable haproxy
