@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -43,11 +44,22 @@ public class Web {
 	}
 
 	public Database db = null;
+	
+	Random random = null;
 
 	public Web()
 	{
 
 		db = new Database();
+		
+		random = new Random();
+
+	}
+
+	public String genToken()
+	{
+
+		return DigestUtils.md5Hex(random.nextInt(1, Integer.MAX_VALUE)+"-" +random.nextInt(1, Integer.MAX_VALUE));
 
 	}
 
@@ -74,7 +86,7 @@ public class Web {
 
 		result.put("login", true);
 
-		String sql = "SELECT id, name, SUBSTRING(create_time, 3, 14) create_time FROM t_user ORDER BY  id DESC";
+		String sql = "SELECT id, name, nick, SUBSTRING(create_time, 3, 14) create_time FROM t_user ORDER BY  id DESC";
 
 		ArrayList rows = null;
 
