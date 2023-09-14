@@ -40,6 +40,8 @@ INSERT INTO t_user (id,name,create_time,password,nick,intro) VALUES  (1,'andy','
 
 #### 生成一百万个用户记录
 
+<https://github.com/AndyInAi/Winter/blob/main/bash/t_user_1m>
+
 cd bash
 
 bash t_user_1m
