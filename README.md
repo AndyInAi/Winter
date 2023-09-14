@@ -43,3 +43,4 @@ INSERT INTO t_user (id,name,create_time,password,nick,intro) VALUES  (1,'andy','
 cd bash
 
 bash t_user_1m
+
