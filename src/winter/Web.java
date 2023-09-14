@@ -44,14 +44,14 @@ public class Web {
 	}
 
 	public Database db = null;
-	
+
 	Random random = null;
 
 	public Web()
 	{
 
 		db = new Database();
-		
+
 		random = new Random();
 
 	}
@@ -59,7 +59,7 @@ public class Web {
 	public String genToken()
 	{
 
-		return DigestUtils.md5Hex(random.nextInt(1, Integer.MAX_VALUE)+"-" +random.nextInt(1, Integer.MAX_VALUE));
+		return DigestUtils.md5Hex(random.nextInt(1, Integer.MAX_VALUE) + "-" + random.nextInt(1, Integer.MAX_VALUE));
 
 	}
 
@@ -86,7 +86,7 @@ public class Web {
 
 		result.put("login", true);
 
-		String sql = "SELECT id, name, nick, SUBSTRING(create_time, 3, 14) create_time FROM t_user ORDER BY  id DESC";
+		String sql = "SELECT id, name, nick, SUBSTRING(create_time, 3, 14) create_time FROM t_user ORDER BY  id DESC LIMIT 20";
 
 		ArrayList rows = null;
 
