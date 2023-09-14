@@ -27,7 +27,7 @@
 
 #### 查询记录
 
-		String sql = "SELECT id, name, nick, SUBSTRING(create_time, 3, 14) create_time FROM t_user ORDER BY  id DESC";
+		String sql = "SELECT id, name, nick, SUBSTRING(create_time, 3, 14) create_time FROM t_user ORDER BY  id DESC LIMIT 20";
 
 		ArrayList	rows = db.select(sql);
 
@@ -73,39 +73,31 @@
 
 #### 创建数据库 winter 及表 t_user 
 
-CREATE DATABASE winter /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+		CREATE DATABASE winter /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 
-USE winter;
+		USE winter;
 
--- DROP TABLE IF EXISTS winter.t_user;
+		-- DROP TABLE IF EXISTS winter.t_user;
 
-CREATE TABLE t_user (
-  id int(10) unsigned NOT NULL AUTO_INCREMENT,
-  
-  name varchar(20) NOT NULL,
-  
-  create_time timestamp NOT NULL DEFAULT current_timestamp(),
-  
-  password varchar(32) NOT NULL,
-  
-  nick varchar(20) DEFAULT NULL,
-  
-  intro varchar(1000) DEFAULT NULL,
-  
-  PRIMARY KEY (id)
-  
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+		CREATE TABLE t_user (
+		  id int(10) unsigned NOT NULL AUTO_INCREMENT,
+		  name varchar(20) NOT NULL,
+		  create_time timestamp NOT NULL DEFAULT current_timestamp(),
+		  password varchar(32) NOT NULL,
+		  nick varchar(20) DEFAULT NULL,
+		  intro varchar(1000) DEFAULT NULL,
+		  PRIMARY KEY (id)
+		) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- 用户密码 winter
+		-- 增加一个测试用户 andy 密码为 winter
 
+		INSERT INTO t_user (id,name,create_time,password,nick,intro) VALUES  (1,'andy','2023-09-13 20:30:40','f6432274349b5cb93433f8ed886a3f37','石大大',NULL);
 
-INSERT INTO t_user (id,name,create_time,password,nick,intro) VALUES  (1,'andy','2023-09-13 20:30:40','f6432274349b5cb93433f8ed886a3f37','石大大',NULL);
-
-#### 生成一百万个用户记录
+#### 增加一百万个测试用户
 
 <https://github.com/AndyInAi/Winter/blob/main/bash/t_user_1m>
 
-cd bash
+		cd bash
 
-bash t_user_1m
+		bash t_user_1m
 
