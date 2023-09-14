@@ -2,6 +2,10 @@
 # Winter
 一个百倍开发速度，每天轻松处理十亿请求的 Java Web 架构，告别垃圾类，让开发人员 99% 的精力用于业务。
 
+### MariaDB 集群安装配置 
+
+<https://github.com/AndyInAi/Winter/blob/main/doc/MariaDB%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.txt>
+
 ### 准备测试数据
 
 #### 创建数据库 winter 及表 t_user 
