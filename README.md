@@ -37,3 +37,9 @@ CREATE TABLE t_user (
 
 
 INSERT INTO t_user (id,name,create_time,password,nick,intro) VALUES  (1,'andy','2023-09-13 20:30:40','f6432274349b5cb93433f8ed886a3f37','石大大',NULL);
+
+#### 生成一百万个用户记录
+
+cd bash
+
+bash t_user_1m
