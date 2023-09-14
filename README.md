@@ -1,9 +1,10 @@
+
 # Winter
 一个百倍开发速度，每天轻松处理十亿请求的 Java Web 架构，告别垃圾类，让开发人员 99% 的精力用于业务。
 
-# 准备测试数据
+### 准备测试数据
 
-# 创建数据库 winter 及表 t_user
+#### 创建数据库 winter 及表 t_user 
 
 CREATE DATABASE `winter` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 
@@ -18,5 +19,5 @@ CREATE TABLE  `winter`.`t_user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- 用户密码 123456
 INSERT INTO `t_user` (`id`,`name`,`create_time`,`password`,`nick`,`intro`) VALUES  (1,'andy','2023-09-13 20:30:40','f6432274349b5cb93433f8ed886a3f37','石大大',NULL);
-
