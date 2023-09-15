@@ -69,6 +69,7 @@
 
 <https://github.com/AndyInAi/Winter/blob/main/doc/MariaDB%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.txt>
 
+
 ### 准备测试数据
 
 #### 创建数据库 winter 及表 t_user 
@@ -100,4 +101,18 @@
 		cd bash
 
 		bash t_user_1m
+
+
+### Redis 集群安装配置
+
+<https://github.com/AndyInAi/Winter/blob/main/doc/Redis%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.txt>
+
+
+###ElasticSearch 集群安装配置
+<https://github.com/AndyInAi/Winter/blob/main/doc/ElasticSearch%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.txt>
+
+
+### Resin 集群安装配置
+<https://github.com/AndyInAi/Winter/blob/main/doc/Resin%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.txt>
+
 
