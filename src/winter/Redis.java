@@ -21,42 +21,42 @@ public class Redis {
 	{
 
 		Redis redis = new Redis();
-		
+
 		// System.out.println(redis.get("hello"));
 
 		redis.test();
 
 	}
-	
-	public void closeConn(JedisCluster conn)
+
+	public void closeRedis(JedisCluster redis)
 	{
 
 		if (POOL.size() > IDLE) {
 
-			conn.close();
+			redis.close();
 
 		} else {
 
-			POOL.add(conn);
+			POOL.add(redis);
 
 		}
 
 	}
-	
+
 	public String get(String key)
 	{
 
-		JedisCluster conn = getConn();
+		JedisCluster redis = getRedis();
 
-		String value = conn.get(key);
+		String value = redis.get(key);
 
-		closeConn(conn);
+		closeRedis(redis);
 
 		return value;
 
 	}
 
-	public JedisCluster getConn()
+	public JedisCluster getRedis()
 	{
 
 		if (POOL.size() < IDLE) {
@@ -74,11 +74,11 @@ public class Redis {
 	public String hget(String key, String field)
 	{
 
-		JedisCluster conn = getConn();
+		JedisCluster redis = getRedis();
 
-		String value = conn.hget(key, field);
+		String value = redis.hget(key, field);
 
-		closeConn(conn);
+		closeRedis(redis);
 
 		return value;
 
@@ -87,69 +87,71 @@ public class Redis {
 	public Map<String, String> hgetAll(String key)
 	{
 
-		JedisCluster conn = getConn();
+		JedisCluster redis = getRedis();
 
-		Map<String, String> map = conn.hgetAll(key);
+		Map<String, String> map = redis.hgetAll(key);
 
-		closeConn(conn);
+		closeRedis(redis);
 
 		return map;
 
 	}
-	
+
 	public void hset(String key, Map<String, String> map)
 	{
 
-		JedisCluster conn = getConn();
+		JedisCluster redis = getRedis();
 
-		conn.hset(key, map);
+		redis.hset(key, map);
 
-		closeConn(conn);
+		closeRedis(redis);
 
 	}
 
 	public void set(String key, String value)
 	{
 
-		JedisCluster conn = getConn();
+		JedisCluster redis = getRedis();
 
-		conn.set(key, value);
+		redis.set(key, value);
 
-		closeConn(conn);
+		closeRedis(redis);
 
 	}
 
-	public void test() {
-		
+	public void test()
+	{
+
 		long start = System.currentTimeMillis();
-		
-		for (int i=0; i<10000; i++) {
-		
-		test2();
-		
+
+		for (int i = 0; i < 10000; i++) {
+
+			test2();
+
 		}
-		
+
 		System.out.println(System.currentTimeMillis() - start);
 
 	}
 
-	public void test2() {
-		
+	public void test2()
+	{
+
 		set("foo", "bar");
 
-		System.out.println(get("foo")); 
+		System.out.println(get("foo"));
 
 		Map<String, String> hash = new HashMap<>();
-		
+
 		hash.put("name", "John");
 		hash.put("surname", "Smith");
 		hash.put("company", "Redis");
 		hash.put("age", "29");
 
-		hset("user-session:123", hash);		
+		hset("user-session:123", hash);
 
 		System.out.println(hgetAll("user-session:123"));
-		
+
 	}
 
 }
