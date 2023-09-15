@@ -29,7 +29,7 @@
 
 		String sql = "SELECT id, name, nick, SUBSTRING(create_time, 3, 14) create_time FROM t_user ORDER BY  id DESC LIMIT 20";
 
-		ArrayList	rows = db.select(sql);
+		ArrayList rows = db.select(sql);
 
 		result.put("result", true);
 
