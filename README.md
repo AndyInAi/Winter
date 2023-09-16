@@ -5,8 +5,10 @@
 
 ### 快速预览
 
-#### 增加记录
+## MariaDB
 
+#### 增加记录
+		
 		row = new HashMap();
 
 		row.put("name", name);
@@ -63,6 +65,44 @@
 		    }
 		  ]
 		}		
+
+## Redis
+
+#### 设置值
+
+		redis.set("hello", "石大大");
+
+#### 取值
+
+		redis.get("hello");
+
+#### 设置 Map
+
+		hash = new HashMap();
+
+		hash.put("id", "2");
+
+		hash.put("name", "Andy");
+
+		hash.put("nick", "石大大");
+
+		redis.hset("session:2", hash);
+
+#### 取 Map
+
+		redis.hgetAll("session:2");
+
+#### 取 Map 结果
+
+		{nick=石大大, name=Andy, id=2}
+
+#### 取 Map 并转换为 JSON 字符串
+
+		redis.hgetJson("session:2");
+
+#### 取 Map 并转换为 JSON 字符串结果
+
+		{"nick":"石大大","name":"Andy","id":"2"}
 
 
 ### MariaDB 集群安装配置 
