@@ -142,6 +142,16 @@
 
 		bash t_user_1m
 
+#### 增加 5 万个测试文本数据
+
+<https://github.com/AndyInAi/Winter/tree/main/sql>
+
+#### 解压
+		gzip -d winter_t_review.sql.gz
+
+#### 导入 MariaDB 数据库 winter，表名为 t_review
+		time mysql -e "\. winter_t_review.sql" -h localhost -u root -pwinter winter
+
 
 ### Redis 集群安装配置
 
