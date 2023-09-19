@@ -119,6 +119,101 @@ public class Elastic {
 	}
 
 	/**
+	 * 删除记录
+	 * 
+	 * @param indexName
+	 * @param id
+	 * @return
+	 */
+	public boolean delete(String indexName, long id)
+	{
+
+		return delete(indexName, String.valueOf(id));
+
+	}
+
+	/**
+	 * 删除记录
+	 * 
+	 * @param indexName
+	 * @return
+	 */
+	public boolean delete(String indexName, String id)
+	{
+
+		if (indexName == null || id == null) {
+
+			return false;
+
+		}
+
+		String _indexName = indexName.trim().toLowerCase();
+
+		if (!_indexName.matches("[0-9a-z][0-9a-z_]*")) {
+
+			return false;
+
+		}
+
+		String _id = id.trim().toLowerCase();
+
+		if (!_id.matches("[0-9a-z][0-9a-z_]*")) {
+
+			return false;
+
+		}
+
+		HttpURLConnection conn = null;
+
+		BufferedInputStream bis = null;
+
+		try {
+
+			conn = (HttpURLConnection) getURL("/" + _indexName + "/_doc/" + id).openConnection();
+
+			conn.setRequestMethod("DELETE");
+
+			conn.setConnectTimeout(TIME_OUT);
+
+			conn.setReadTimeout(TIME_OUT);
+
+			conn.connect();
+
+			if (conn.getResponseCode() != 200) {
+
+				return false;
+
+			}
+
+			bis = new BufferedInputStream(conn.getInputStream());
+
+			byte[] bytes = bis.readAllBytes();
+
+			JSONParser p = new JSONParser();
+
+			JSONObject j = (JSONObject) p.parse(new String(bytes));
+
+			String result = (String) j.get("result");
+
+			return result != null && result.equals("deleted");
+
+		} catch (Exception ex) {
+
+			ex.printStackTrace();
+
+			return false;
+
+		} finally {
+
+			close(bis);
+
+			disconnect(conn);
+
+		}
+
+	}
+
+	/**
 	 * 删除索引
 	 * 
 	 * @param indexName
@@ -189,12 +284,107 @@ public class Elastic {
 
 	}
 
+	/**
+	 * 关闭连接
+	 * 
+	 * @param conn
+	 */
 	private void disconnect(HttpURLConnection conn)
 	{
 
 		if (conn != null) {
 
 			conn.disconnect();
+
+		}
+
+	}
+
+	/**
+	 * 获取记录
+	 * 
+	 * @param indexName
+	 * @param id
+	 * @return
+	 */
+	public JSONObject get(String indexName, long id)
+	{
+
+		return get(indexName, String.valueOf(id));
+
+	}
+
+	/**
+	 * 获取记录
+	 * 
+	 * @param indexName
+	 * @param id
+	 * @return
+	 */
+	public JSONObject get(String indexName, String id)
+	{
+
+		if (indexName == null) {
+
+			return null;
+
+		}
+
+		String _indexName = indexName.trim().toLowerCase();
+
+		if (!_indexName.matches("[0-9a-z][0-9a-z_]*")) {
+
+			return null;
+
+		}
+
+		String _id = id.trim().toLowerCase();
+
+		if (!_id.matches("[0-9a-z][0-9a-z_]*")) {
+
+			return null;
+
+		}
+
+		HttpURLConnection conn = null;
+
+		BufferedInputStream bis = null;
+
+		try {
+
+			conn = (HttpURLConnection) getURL("/" + _indexName + "/_doc/" + id).openConnection();
+
+			conn.setConnectTimeout(TIME_OUT);
+
+			conn.setReadTimeout(TIME_OUT);
+
+			conn.connect();
+
+			if (conn.getResponseCode() != 200) {
+
+				return null;
+
+			}
+
+			bis = new BufferedInputStream(conn.getInputStream());
+
+			byte[] bytes = bis.readAllBytes();
+
+			JSONParser p = new JSONParser();
+
+			return (JSONObject) p.parse(new String(bytes));
+
+		} catch (Exception ex) {
+
+			ex.printStackTrace();
+
+			return null;
+
+		} finally {
+
+			close(bis);
+
+			disconnect(conn);
 
 		}
 
@@ -343,7 +533,41 @@ public class Elastic {
 	}
 
 	/**
-	 * 添加数据
+	 * 添加记录
+	 * 
+	 * @param indexName
+	 * @param id
+	 * @param key1
+	 * @param value1
+	 * @return
+	 */
+	public boolean insert(String indexName, long id, String key1, String value1)
+	{
+
+		return insert(indexName, String.valueOf(id), key1, value1);
+
+	}
+
+	/**
+	 * 添加记录
+	 * 
+	 * @param indexName
+	 * @param id
+	 * @param key1
+	 * @param value1
+	 * @param key2
+	 * @param value2
+	 * @return
+	 */
+	public boolean insert(String indexName, long id, String key1, String value1, String key2, String value2)
+	{
+
+		return insert(indexName, String.valueOf(id), key1, value1, key2, value2);
+
+	}
+
+	/**
+	 * 添加记录
 	 * 
 	 * @param indexName
 	 * @param id
@@ -405,7 +629,7 @@ public class Elastic {
 
 			int code = conn.getResponseCode();
 
-			if (code != 200) {
+			if (code != 200 && code != 201) {
 
 				return false;
 
@@ -442,7 +666,7 @@ public class Elastic {
 	}
 
 	/**
-	 * 添加数据
+	 * 添加记录
 	 * 
 	 * @param indexName
 	 * @param id
@@ -458,7 +682,7 @@ public class Elastic {
 	}
 
 	/**
-	 * 添加数据
+	 * 添加记录
 	 * 
 	 * @param indexName
 	 * @param id
@@ -507,6 +731,78 @@ public class Elastic {
 		}
 
 		return insert(indexName, id, row);
+
+	}
+
+	/**
+	 * 记录列表
+	 * 
+	 * @param indexName
+	 * @param row
+	 * @return
+	 */
+	public JSONArray list(String indexName)
+	{
+
+		if (indexName == null) {
+
+			return new JSONArray();
+
+		}
+
+		String _indexName = indexName.trim().toLowerCase();
+
+		if (!_indexName.matches("[0-9a-z][0-9a-z_]*")) {
+
+			return new JSONArray();
+
+		}
+
+		HttpURLConnection conn = null;
+
+		InputStream bis = null;
+
+		try {
+
+			conn = (HttpURLConnection) getURL("/" + _indexName + "/_search").openConnection();
+
+			conn.setConnectTimeout(TIME_OUT);
+
+			conn.setReadTimeout(TIME_OUT);
+
+			conn.connect();
+
+			int code = conn.getResponseCode();
+
+			if (code != 200) {
+
+				return new JSONArray();
+
+			}
+
+			bis = conn.getInputStream();
+
+			byte[] bytes = bis.readAllBytes();
+
+			JSONParser p = new JSONParser();
+
+			JSONObject j = (JSONObject) p.parse(new String(bytes));
+
+			return (JSONArray) ((JSONObject) j.get("hits")).get("hits");
+
+		} catch (Exception ex) {
+
+			ex.printStackTrace();
+
+			return new JSONArray();
+
+		} finally {
+
+			close(bis);
+
+			disconnect(conn);
+
+		}
 
 	}
 
@@ -563,7 +859,7 @@ public class Elastic {
 	}
 
 	/**
-	 * 全文检索
+	 * 搜索记录
 	 * 
 	 * @param indexName
 	 * @param row
@@ -660,7 +956,7 @@ public class Elastic {
 	}
 
 	/**
-	 * 全文检索
+	 * 搜索记录
 	 * 
 	 * @param indexName
 	 * @param key1
@@ -703,23 +999,37 @@ public class Elastic {
 	public void test()
 	{
 
-		String review = "review";
+		String indexName = "review";
 
-//		 System.out.println(deleteIndex(index_test));
+		System.out.println(insert(indexName, 2, "title", "Hello World 2", "content", "Hello Movie 2"));
+
+		System.out.println(get(indexName, 2));
+
+		System.out.println(list(indexName));
+
+//
+//		System.out.println(delete(review, 1));
+//
+//		System.out.println(get(review, 1));
 
 //		System.out.println(getIndex(review));
+//
+//		System.out.println(deleteIndex(review));
+
 //
 //		System.out.println(createIndex(review));
 //
 //		System.out.println(getIndex(review));
 //
+//		System.out.println(getIndex(review));
+//
 //		System.out.println(listIndex());
-
-		System.out.println(insert(review, "1", "title", "Hello World", "content", "Hello Movie"));
-
-		System.out.println(search(review, "content", "Movie"));
-
-		System.out.println(search(review, "title", "Movie"));
+//
+		// System.out.println(insert(review, "1", "title", "Hello World", "content", "Hello Movie"));
+//
+//		System.out.println(search(review, "content", "Movie"));
+//
+//		System.out.println(search(review, "title", "Movie"));
 
 	}
 
