@@ -105,11 +105,6 @@
 		{"nick":"石大大","name":"Andy","id":"2"}
 
 
-### MariaDB 集群安装配置 
-
-<https://github.com/AndyInAi/Winter/blob/main/doc/MariaDB%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.txt>
-
-
 ### 准备测试数据
 
 #### 创建数据库 winter 及表 t_user 
@@ -151,6 +146,11 @@
 
 #### 导入 MariaDB 数据库 winter，表名为 t_review
 		time mysql -e "\. winter_t_review.sql" -h localhost -u root -pwinter winter
+
+
+### MariaDB 集群安装配置 
+
+<https://github.com/AndyInAi/Winter/blob/main/doc/MariaDB%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.txt>
 
 
 ### Redis 集群安装配置
