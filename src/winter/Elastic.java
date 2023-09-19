@@ -665,27 +665,12 @@ public class Elastic {
 	 * @param indexName
 	 * @param key1
 	 * @param value1
-	 * @return
-	 */
-	public JSONArray search(String indexName, String key1, String value1)
-	{
-
-		return search(indexName, key1, value1, null, null);
-
-	}
-
-	/**
-	 * 全文检索
-	 * 
-	 * @param indexName
-	 * @param key1
-	 * @param value1
 	 * @param key2
 	 * @param value2
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public JSONArray search(String indexName, String key1, String value1, String key2, String value2)
+	public JSONArray search(String indexName, String key1, String value1)
 	{
 
 		if (key1 == null || value1 == null) {
@@ -706,21 +691,7 @@ public class Elastic {
 
 		JSONObject row = new JSONObject();
 
-		row.put(key1, _value1);
-
-		if (key2 != null && value1 != null) {
-
-			String _key2 = key2.trim();
-
-			String _value2 = value2.trim();
-
-			if (_key2.matches(".+")) {
-
-				row.put(key2, _value2);
-
-			}
-
-		}
+		row.put(_key1, _value1);
 
 		return search(indexName, row);
 
@@ -747,6 +718,8 @@ public class Elastic {
 		System.out.println(insert(review, "1", "title", "Hello World", "content", "Hello Movie"));
 
 		System.out.println(search(review, "content", "Movie"));
+
+		System.out.println(search(review, "title", "Movie"));
 
 	}
 
