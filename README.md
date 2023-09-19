@@ -105,6 +105,61 @@
 		{"nick":"石大大","name":"Andy","id":"2"}
 
 
+## ElasticSearch
+
+#### 增加记录
+		
+		elastic.insert("t_review", 9999, "review", "Hello Movie!");
+
+#### 删除记录
+
+		elastic.delete("t_review", 9999);
+
+#### 获取记录
+
+		elastic.get("t_review", 9999);
+
+#### 修改记录
+
+		elastic.insert("t_review", 9999, "review", "Hello Movie World!");
+
+#### 搜索记录
+
+		elastic.search("t_review", "review", "Movie");
+
+##### 搜索结果
+
+		[
+		    {
+			"_index": "t_review",
+			"_source": {
+			    "review": "Hello Movie!"
+			},
+			"_id": "9999",
+			"_score": 0.2876821
+		    }
+		]
+
+
+## MariaDB && ElasticSearch
+
+#### 从 MariaDB 导出数据到 ElasticSearch
+
+		String sql = "SELECT * FROM t_review LIMIT 1000";
+
+		ArrayList rows = db.select(sql);
+
+		int size = rows.size();
+
+		for (int i = 0; i < size; i++) {
+
+			HashMap row = (HashMap) rows.get(i);
+
+			elastic.insert("t_review", (long) row.get("ID"), "review", (String) row.get("REVIEW"));
+		
+		}
+
+
 ### 准备测试数据
 
 #### 创建数据库 winter 及表 t_user 
