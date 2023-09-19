@@ -343,18 +343,17 @@ public class Elastic {
 	}
 
 	/**
-	 * 添加文本数据
+	 * 添加数据
 	 * 
 	 * @param indexName
 	 * @param id
-	 * @param text
+	 * @param row
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
-	public boolean insertText(String indexName, String id, String text)
+	public boolean insert(String indexName, String id, JSONObject row)
 	{
 
-		if (indexName == null || id == null || text == null) {
+		if (indexName == null || id == null || row == null) {
 
 			return false;
 
@@ -375,8 +374,6 @@ public class Elastic {
 			return false;
 
 		}
-
-		String _text = text.trim();
 
 		HttpURLConnection conn = null;
 
@@ -401,10 +398,6 @@ public class Elastic {
 			conn.connect();
 
 			bos = conn.getOutputStream();
-
-			JSONObject row = new JSONObject();
-
-			row.put("text", _text);
 
 			bos.write(row.toJSONString().getBytes());
 
@@ -445,6 +438,75 @@ public class Elastic {
 			disconnect(conn);
 
 		}
+
+	}
+
+	/**
+	 * 添加数据
+	 * 
+	 * @param indexName
+	 * @param id
+	 * @param key1
+	 * @param value1
+	 * @return
+	 */
+	public boolean insert(String indexName, String id, String key1, String value1)
+	{
+
+		return insert(indexName, id, key1, value1, null, null);
+
+	}
+
+	/**
+	 * 添加数据
+	 * 
+	 * @param indexName
+	 * @param id
+	 * @param key1
+	 * @param value1
+	 * @param key2
+	 * @param value2
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public boolean insert(String indexName, String id, String key1, String value1, String key2, String value2)
+	{
+
+		if (key1 == null || value1 == null) {
+
+			return false;
+
+		}
+
+		String _key1 = key1.trim();
+
+		if (!_key1.matches(".+")) {
+
+			return false;
+
+		}
+
+		String _value1 = value1.trim();
+
+		JSONObject row = new JSONObject();
+
+		row.put(key1, _value1);
+
+		if (key2 != null && value1 != null) {
+
+			String _key2 = key2.trim();
+
+			String _value2 = value2.trim();
+
+			if (_key2.matches(".+")) {
+
+				row.put(key2, _value2);
+
+			}
+
+		}
+
+		return insert(indexName, id, row);
 
 	}
 
@@ -492,27 +554,175 @@ public class Elastic {
 
 		} finally {
 
-			if (bis != null) {
+			close(bis);
 
-				try {
+			disconnect(conn);
 
-					bis.close();
+		}
 
-				} catch (IOException ex) {
+	}
 
-					ex.printStackTrace();
+	/**
+	 * 全文检索
+	 * 
+	 * @param indexName
+	 * @param row
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public JSONArray search(String indexName, JSONObject row)
+	{
 
-				}
+		if (indexName == null || row == null) {
+
+			return new JSONArray();
+
+		}
+
+		String _indexName = indexName.trim().toLowerCase();
+
+		if (!_indexName.matches("[0-9a-z][0-9a-z_]*")) {
+
+			return new JSONArray();
+
+		}
+
+		HttpURLConnection conn = null;
+
+		InputStream bis = null;
+
+		OutputStream bos = null;
+
+		try {
+
+			conn = (HttpURLConnection) getURL("/" + _indexName + "/_search").openConnection();
+
+			conn.setRequestMethod("POST");
+
+			conn.setRequestProperty("Content-Type", "application/json");
+
+			conn.setDoOutput(true);
+
+			conn.setConnectTimeout(TIME_OUT);
+
+			conn.setReadTimeout(TIME_OUT);
+
+			conn.connect();
+
+			bos = conn.getOutputStream();
+
+			JSONObject match = new JSONObject();
+
+			match.put("match", row);
+
+			JSONObject search = new JSONObject();
+
+			search.put("query", match);
+
+			bos.write(search.toJSONString().getBytes());
+
+			bos.flush();
+
+			int code = conn.getResponseCode();
+
+			if (code != 200) {
+
+				return new JSONArray();
 
 			}
 
-			if (conn != null) {
+			bis = conn.getInputStream();
 
-				conn.disconnect();
+			byte[] bytes = bis.readAllBytes();
+
+			JSONParser p = new JSONParser();
+
+			JSONObject j = (JSONObject) p.parse(new String(bytes));
+
+			return (JSONArray) ((JSONObject) j.get("hits")).get("hits");
+
+		} catch (Exception ex) {
+
+			ex.printStackTrace();
+
+			return new JSONArray();
+
+		} finally {
+
+			close(bos);
+
+			close(bis);
+
+			disconnect(conn);
+
+		}
+
+	}
+
+	/**
+	 * 全文检索
+	 * 
+	 * @param indexName
+	 * @param key1
+	 * @param value1
+	 * @return
+	 */
+	public JSONArray search(String indexName, String key1, String value1)
+	{
+
+		return search(indexName, key1, value1, null, null);
+
+	}
+
+	/**
+	 * 全文检索
+	 * 
+	 * @param indexName
+	 * @param key1
+	 * @param value1
+	 * @param key2
+	 * @param value2
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public JSONArray search(String indexName, String key1, String value1, String key2, String value2)
+	{
+
+		if (key1 == null || value1 == null) {
+
+			return new JSONArray();
+
+		}
+
+		String _key1 = key1.trim();
+
+		if (!_key1.matches(".+")) {
+
+			return new JSONArray();
+
+		}
+
+		String _value1 = value1.trim();
+
+		JSONObject row = new JSONObject();
+
+		row.put(key1, _value1);
+
+		if (key2 != null && value1 != null) {
+
+			String _key2 = key2.trim();
+
+			String _value2 = value2.trim();
+
+			if (_key2.matches(".+")) {
+
+				row.put(key2, _value2);
 
 			}
 
 		}
+
+		return search(indexName, row);
 
 	}
 
@@ -534,7 +744,9 @@ public class Elastic {
 //
 //		System.out.println(listIndex());
 
-		System.out.println(insertText(review, "1", "Hello World"));
+		System.out.println(insert(review, "1", "title", "Hello World", "content", "Hello Movie"));
+
+		System.out.println(search(review, "content", "Movie"));
 
 	}
 
