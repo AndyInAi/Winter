@@ -24,7 +24,15 @@ public class Elastic {
 
 		Elastic elastic = new Elastic();
 
-		elastic.test();
+		elastic.insert("t_review", 9999, "review", "Hello Movie!");
+
+		elastic.get("t_review", 9999);
+
+		System.out.println(elastic.search("t_review", "review", "Movie"));
+
+		// elastic.delete("t_review", 9999);
+
+		// elastic.test();
 
 	}
 
@@ -574,6 +582,21 @@ public class Elastic {
 	 * @param row
 	 * @return
 	 */
+	public boolean insert(String indexName, long id, JSONObject row)
+	{
+
+		return insert(indexName, String.valueOf(id), row);
+
+	}
+
+	/**
+	 * 添加记录
+	 * 
+	 * @param indexName
+	 * @param id
+	 * @param row
+	 * @return
+	 */
 	public boolean insert(String indexName, String id, JSONObject row)
 	{
 
@@ -999,37 +1022,25 @@ public class Elastic {
 	public void test()
 	{
 
-		String indexName = "review";
+		String indexName = "t_review";
 
-		System.out.println(insert(indexName, 2, "title", "Hello World 2", "content", "Hello Movie 2"));
+		insert("t_review", 9999, "review", "Hello Movie!");
 
-		System.out.println(get(indexName, 2));
+//		System.out.println(list(indexName));
 
-		System.out.println(list(indexName));
-
-//
-//		System.out.println(delete(review, 1));
-//
 //		System.out.println(get(review, 1));
 
 //		System.out.println(getIndex(review));
 //
-//		System.out.println(deleteIndex(review));
 
-//
-//		System.out.println(createIndex(review));
-//
 //		System.out.println(getIndex(review));
-//
+
 //		System.out.println(getIndex(review));
 //
 //		System.out.println(listIndex());
 //
-		// System.out.println(insert(review, "1", "title", "Hello World", "content", "Hello Movie"));
 //
-//		System.out.println(search(review, "content", "Movie"));
-//
-//		System.out.println(search(review, "title", "Movie"));
+		System.out.println(search("review", "review", "Andy"));
 
 	}
 

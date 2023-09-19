@@ -13,6 +13,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONStreamAware;
+import org.json.simple.parser.JSONParser;
 
 public class Web {
 
@@ -41,9 +42,13 @@ public class Web {
 
 		Web web = new Web();
 
+		web.elasticImportReview();
+
 	}
 
 	public Database db = null;
+
+	public Elastic elastic = null;
 
 	Random random = null;
 
@@ -52,7 +57,58 @@ public class Web {
 
 		db = new Database();
 
+		elastic = new Elastic();
+
 		random = new Random();
+
+	}
+
+	/**
+	 * 把 MariaDB 数据库 t_review 表里的部分数据，导出到 ElasticSearch
+	 */
+	@SuppressWarnings({ "rawtypes" })
+	public boolean elasticImportReview()
+	{
+
+		String sql = "SELECT * FROM t_review LIMIT 1000";
+
+		ArrayList rows = null;
+
+		try {
+
+			rows = db.select(sql);
+
+		} catch (SQLException ex) {
+
+			ex.printStackTrace();
+
+			return false;
+
+		}
+
+		int size = rows.size();
+
+		System.out.println("把 MariaDB 数据库 t_review 表里的部分数据，导出到 ElasticSearch ......");
+
+		for (int i = 0; i < size; i++) {
+
+			HashMap row = (HashMap) rows.get(i);
+
+			boolean ok = elastic.insert("t_review", (long) row.get("ID"), "review", (String) row.get("REVIEW"));
+
+			System.out.print('#');
+
+			if (!ok) {
+
+				return false;
+
+			}
+
+		}
+
+		System.out.println("\n导出完成");
+
+		return true;
 
 	}
 
