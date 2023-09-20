@@ -42,13 +42,17 @@ public class Web {
 
 		Web web = new Web();
 
-		web.elasticImportReview();
+		// web.elasticImportReview();
+
+		web.redisImportReview();
 
 	}
 
 	public Database db = null;
 
 	public Elastic elastic = null;
+
+	public Redis redis = null;
 
 	Random random = null;
 
@@ -58,6 +62,8 @@ public class Web {
 		db = new Database();
 
 		elastic = new Elastic();
+
+		redis = new Redis();
 
 		random = new Random();
 
@@ -165,6 +171,49 @@ public class Web {
 		result.put("users", rows);
 
 		return JSONObject.toJSONString(result);
+
+	}
+
+	/**
+	 * 把 MariaDB 数据库 t_review 表里的部分数据，导出到 Redis
+	 */
+	@SuppressWarnings({ "rawtypes" })
+	public boolean redisImportReview()
+	{
+
+		String sql = "SELECT * FROM t_review LIMIT 1000";
+
+		ArrayList rows = null;
+
+		try {
+
+			rows = db.select(sql);
+
+		} catch (SQLException ex) {
+
+			ex.printStackTrace();
+
+			return false;
+
+		}
+
+		int size = rows.size();
+
+		System.out.println("把 MariaDB 数据库 t_review 表里的部分数据，导出到 Redis ......");
+
+		for (int i = 0; i < size; i++) {
+
+			HashMap row = (HashMap) rows.get(i);
+
+			redis.set("review:" + row.get("ID"), (String) row.get("REVIEW"));
+
+			System.out.print('#');
+
+		}
+
+		System.out.println("\n导出完成");
+
+		return true;
 
 	}
 
