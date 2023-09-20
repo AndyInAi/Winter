@@ -141,7 +141,26 @@
 		]
 
 
-## MariaDB && ElasticSearch
+## MariaDB & Redis
+
+#### 从 MariaDB 导出数据到 Redis
+
+		String sql = "SELECT * FROM t_review LIMIT 1000";
+
+		ArrayList rows = db.select(sql);
+
+		int size = rows.size();
+
+		for (int i = 0; i < size; i++) {
+
+			HashMap row = (HashMap) rows.get(i);
+
+			redis.set("review:" + row.get("ID"), (String) row.get("REVIEW"));
+		
+		}
+
+
+## MariaDB & ElasticSearch
 
 #### 从 MariaDB 导出数据到 ElasticSearch
 
