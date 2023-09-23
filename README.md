@@ -243,3 +243,18 @@
 ### K8S 集群安装配置
 <https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.txt>
 
+
+### 全部代码在 Ubuntu 22.04.3 LTS 测试通过
+
+		PRETTY_NAME="Ubuntu 22.04.3 LTS"
+		NAME="Ubuntu"
+		VERSION_ID="22.04"
+		VERSION="22.04.3 LTS (Jammy Jellyfish)"
+		VERSION_CODENAME=jammy
+		ID=ubuntu
+		ID_LIKE=debian
+		HOME_URL="https://www.ubuntu.com/"
+		SUPPORT_URL="https://help.ubuntu.com/"
+		BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+		PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+		UBUNTU_CODENAME=jammy
