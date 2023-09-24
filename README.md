@@ -244,6 +244,10 @@
 <https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.txt>
 
 
+### 人工智能绘画服务安装配置
+<https://github.com/AndyInAi/Winter/blob/main/doc/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E7%BB%98%E7%94%BB%E6%9C%8D%E5%8A%A1%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md>
+
+
 ### 全部代码在 Ubuntu 22.04.3 LTS 测试通过
 
 		PRETTY_NAME="Ubuntu 22.04.3 LTS"
