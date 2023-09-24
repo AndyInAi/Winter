@@ -179,6 +179,23 @@
 		}
 
 
+## 人工智能绘画
+
+##### 提示词
+
+		8k, high detail, sea, beach, girl, detailed face
+
+##### 屏蔽提示词
+
+		logo, text
+
+##### 生成结果
+
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00003-2758902191.png)
+
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00004-2341789249.png)
+
+
 ### 准备测试数据
 
 #### 创建数据库 winter 及表 t_user 
