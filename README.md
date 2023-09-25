@@ -187,7 +187,6 @@
 
 ##### 生成结果
 
-![image](https://github.com/AndyInAi/Winter/blob/main/img/grid-0000.png)
 ![image](https://github.com/AndyInAi/Winter/blob/main/img/00000-1430822278.png)
 ![image](https://github.com/AndyInAi/Winter/blob/main/img/00001-1430822279.png)
 ![image](https://github.com/AndyInAi/Winter/blob/main/img/00002-1430822280.png)
