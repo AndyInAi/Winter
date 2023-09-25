@@ -181,19 +181,22 @@
 
 ## 人工智能绘画
 
-##### 提示词
+		SDWebUi sdWebUi = new SDWebUi();
 
-		8k, high detail, sea, beach, girl, detailed face
-
-##### 屏蔽提示词
-
-		logo, text
+		JSONObject o = sdWebUi.text2img("8k, high detail, sea, beach,   girl, detailed face", "logo, text", 3);
 
 ##### 生成结果
 
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00003-2758902191.png)
-
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00004-2341789249.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/grid-0000.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00000-1430822278.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00001-1430822279.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00002-1430822280.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00003-1430822281.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00004-1430822282.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00005-1430822283.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00006-1430822284.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00007-1430822285.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00008-1430822286.png)
 
 
 ### 准备测试数据
