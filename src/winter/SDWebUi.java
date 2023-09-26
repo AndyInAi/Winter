@@ -15,7 +15,7 @@ import org.json.simple.parser.JSONParser;
 
 public class SDWebUi {
 
-	public static String SDWEBUI_URL = "http://127.0.0.1:7860/sdapi/v1/txt2img";
+	public static String SDWEBUI_URL = "http://192.168.1.10/sdapi/v1/txt2img";
 
 	public static int CONN_TIME_OUT = 6000;
 
