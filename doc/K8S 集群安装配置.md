@@ -103,14 +103,14 @@
 
 		kubeadm config print init-defaults > kubeadm-init.yml
 
-		sed -i "s/ttl:.*/ttl: 0s/g" kubeadm-init.yml
+		sed -i "s/ttl:.*$/ttl: 0s/g" kubeadm-init.yml
 		sed -i "s/advertiseAddress.*/advertiseAddress: `ifconfig |grep inet |grep -v 127.0 |awk '{print $2}' | tail -n 1`/g" kubeadm-init.yml
 		sed -i "s/name:.*/name: `hostname`/g" kubeadm-init.yml
 		sed -i "s/imageRepository.*/imageRepository: registry.aliyuncs.com\/google_containers/g" kubeadm-init.yml
 		if [ "`grep 'podSubnet' kubeadm-init.yml`" == "" ]; then sed -i "s/serviceSubnet.*/serviceSubnet: 10.96.0.0\/12\n  podSubnet: 10.244.0.0\/16/g" kubeadm-init.yml; fi
 
 		 if [ "`grep 'pod-network-cidr' kubeadm-init.yml`" == "" ]; then echo "
-		# pod-network-cidr: '10.244.0.0/16'
+		pod-network-cidr: '10.244.0.0/16'
 		---
 		apiVersion: kubeproxy.config.k8s.io/v1alpha1
 		kind: KubeProxyConfiguration
@@ -120,6 +120,8 @@
 		apiVersion: kubelet.config.k8s.io/v1beta1
 		cgroupDriver: systemd
 		" >> kubeadm-init.yml; fi
+
+		sed -i "s/^\t*//g" kubeadm-init.yml
 
 		kubeadm init   --config=kubeadm-init.yml   --ignore-preflight-errors=all
 
