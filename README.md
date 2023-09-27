@@ -183,7 +183,7 @@
 
 		SDWebUi sdWebUi = new SDWebUi();
 
-		JSONObject o = sdWebUi.text2img("8k, high detail, sea, beach,   girl, detailed face", "logo, text", 3);
+		JSONObject o = sdWebUi.text2img("8k, high detail, sea, beach, girl, detailed face", "logo, text", 3);
 
 ##### 生成结果
 
@@ -195,6 +195,47 @@
 ![image](https://github.com/AndyInAi/Winter/blob/main/img/00006-1430822284.png)
 ![image](https://github.com/AndyInAi/Winter/blob/main/img/00007-1430822285.png)
 ![image](https://github.com/AndyInAi/Winter/blob/main/img/00008-1430822286.png)
+
+
+### 人工智能会话
+
+		ChatGLM chatGLM = new ChatGLM();
+
+		JSONObject o = chatGLM.chat("你好，我叫石大大，我的大学初恋女友林青霞嫁人了，请帮我给她写一封信");
+
+#### 会话结果
+
+{
+    "response": "亲爱的林青霞,\n\n我希望这封信能够传达出我真挚的祝福和感激之情。当我听到你的婚讯时,我感到非常惊讶和高兴。我知道你一直是我心中最珍贵的人,我们的初恋更是我心中一段美好的回忆。\n\n我从未忘记我们曾经一起度过的美好时光,那些无忧无虑的夜晚,以及你对我的爱和关怀。如今,我已经步入了成熟和稳定的婚姻生活,开始了新的生 命旅程。我也深刻理解到婚姻和爱情的责任和挑战,需要我们共同去面对和承担。\n\n我希望你和你的丈夫能够幸福美满,相互扶持,共同迎接未来的挑战。我也希望你能够在家庭和工作中继续保持你的热情和才华,继续实现你的梦想和理想。\n\n再次祝福你,希望你一切安好。\n\n爱你\n\n石大大",
+    "history": [
+    ],
+    "time": "2023-09-27 11:29:02",
+    "status": 200
+}
+
+#### 会话结果 response 内容
+
+		亲爱的林青霞,
+
+		我希望这封信能够传达出我真挚的祝福和感激之情。当我听到你的婚讯时,我感到非常惊讶和高兴。
+
+		我知道你一直是我心中最珍贵的人,我们的初恋更是我心中一段美好的回忆。
+
+		我从未忘记我们曾经一起度过的美好时光,那些无忧无虑的夜晚,以及你对我的爱和关怀。如今,我已
+
+		经步入了成熟和稳定的婚姻生活,开始了新的生 命旅程。我也深刻理解到婚姻和爱情的责任和挑战,
+
+		需要我们共同去面对和承担。
+
+		我希望你和你的丈夫能够幸福美满,相互扶持,共同迎接未来的挑战。我也希望你能够在家庭和工作
+
+		中继续保持你的热情和才华,继续实现你的梦想和理想。
+
+		再次祝福你,希望你一切安好。
+
+		爱你
+
+		石大大
 
 
 ### 准备测试数据
@@ -264,6 +305,10 @@
 
 ### 人工智能绘画集群安装配置
 <https://github.com/AndyInAi/Winter/blob/main/doc/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E7%BB%98%E7%94%BB%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md>
+
+
+### 人工智能会话集群安装配置
+https://github.com/AndyInAi/Winter/blob/main/doc/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BC%9A%E8%AF%9D%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md
 
 
 ### 全部代码在 Ubuntu 22.04.3 LTS 测试通过
