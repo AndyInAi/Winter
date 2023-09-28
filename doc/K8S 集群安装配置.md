@@ -101,6 +101,8 @@
 
 		export KUBE_PROXY_MODE=ipvs
 
+		echo "export KUBE_PROXY_MODE=ipvs" >> /etc/profile
+
 		kubeadm config print init-defaults > kubeadm-init.yml
 
 		sed -i "s/ttl:.*$/ttl: 0s/g" kubeadm-init.yml
