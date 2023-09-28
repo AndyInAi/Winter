@@ -183,7 +183,7 @@
 
 		SDWebUi sdWebUi = new SDWebUi();
 
-		JSONObject o = sdWebUi.text2img("8k, high detail, sea, beach, girl, detailed face", "logo, text", 3);
+		JSONObject o = sdWebUi.text2img("8k, high detail, sea, beach, girl, detailed face", "logo, text", 9);
 
 ##### 生成结果
 
@@ -195,6 +195,22 @@
 ![image](https://github.com/AndyInAi/Winter/blob/main/img/00006-1430822284.png)
 ![image](https://github.com/AndyInAi/Winter/blob/main/img/00007-1430822285.png)
 ![image](https://github.com/AndyInAi/Winter/blob/main/img/00008-1430822286.png)
+
+### 月亮钻石必须安排
+
+		JSONObject o = sdWebUi.text2img("8k, high detail, sea, beach, moon, diamond, girl, detailed face", "logo, text", 9);
+
+##### 生成结果
+
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00077-3078859337.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00078-3078859338.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00079-3078859339.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00080-3078859340.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00081-3078859341.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00082-3078859342.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00083-3078859343.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00084-3078859344.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00085-3078859345.png)
 
 
 ### 人工智能会话
