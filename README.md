@@ -8,9 +8,9 @@
 
 ## 人工智能绘画
 
-		SDWebUi sdWebUi = new SDWebUi();
+	SDWebUi sdWebUi = new SDWebUi();
 
-		JSONObject o = sdWebUi.text2img("8k, high detail, sea, beach, girl, detailed face", "logo, text", 9);
+	JSONObject o = sdWebUi.text2img("8k, high detail, sea, beach, girl, detailed face", "logo, text", 9);
 
 ##### 生成结果
 
@@ -25,7 +25,7 @@
 
 ### 月亮钻石安排上
 
-		JSONObject o = sdWebUi.text2img("8k, high detail, sea, beach, moon, diamond, girl, detailed face", "logo, text", 9);
+	JSONObject o = sdWebUi.text2img("8k, high detail, sea, beach, moon, diamond, girl, detailed face", "logo, text", 9);
 
 ##### 生成结果
 
@@ -42,9 +42,9 @@
 
 ## 人工智能会话
 
-		ChatGLM chatGLM = new ChatGLM();
+	ChatGLM chatGLM = new ChatGLM();
 
-		JSONObject o = chatGLM.chat("你好，我叫石大大，我的大学初恋女友林青霞嫁人了，请帮我给她写一封信");
+	JSONObject o = chatGLM.chat("你好，我叫石大大，我的大学初恋女友林青霞嫁人了，请帮我给她写一封信");
 
 #### 会话结果
 
@@ -58,245 +58,245 @@
 
 #### 会话结果 response 内容
 
-		亲爱的林青霞,
+	亲爱的林青霞,
 
-		我希望这封信能够传达出我真挚的祝福和感激之情。当我听到你的婚讯时,我感到非常惊讶和高兴。
+	我希望这封信能够传达出我真挚的祝福和感激之情。当我听到你的婚讯时,我感到非常惊讶和高兴。
 
-		我知道你一直是我心中最珍贵的人,我们的初恋更是我心中一段美好的回忆。
+	我知道你一直是我心中最珍贵的人,我们的初恋更是我心中一段美好的回忆。
 
-		我从未忘记我们曾经一起度过的美好时光,那些无忧无虑的夜晚,以及你对我的爱和关怀。如今,我已
+	我从未忘记我们曾经一起度过的美好时光,那些无忧无虑的夜晚,以及你对我的爱和关怀。如今,我已
 
-		经步入了成熟和稳定的婚姻生活,开始了新的生 命旅程。我也深刻理解到婚姻和爱情的责任和挑战,
+	经步入了成熟和稳定的婚姻生活,开始了新的生 命旅程。我也深刻理解到婚姻和爱情的责任和挑战,
 
-		需要我们共同去面对和承担。
+	需要我们共同去面对和承担。
 
-		我希望你和你的丈夫能够幸福美满,相互扶持,共同迎接未来的挑战。我也希望你能够在家庭和工作
+	我希望你和你的丈夫能够幸福美满,相互扶持,共同迎接未来的挑战。我也希望你能够在家庭和工作
 
-		中继续保持你的热情和才华,继续实现你的梦想和理想。
+	中继续保持你的热情和才华,继续实现你的梦想和理想。
 
-		再次祝福你,希望你一切安好。
+	再次祝福你,希望你一切安好。
 
-		爱你
+	爱你
 
-		石大大
+	石大大
 
 
 ## MariaDB
 
 #### 增加记录
-		
-		row = new HashMap();
+	
+	row = new HashMap();
 
-		row.put("name", name);
+	row.put("name", name);
 
-		row.put("password", DigestUtils.md5Hex(password));
+	row.put("password", DigestUtils.md5Hex(password));
 
-		row.put("create_time", new Timestamp(System.currentTimeMillis()));
+	row.put("create_time", new Timestamp(System.currentTimeMillis()));
 
-		db.insert("t_user", row);
+	db.insert("t_user", row);
 
 #### 删除记录
 
-		db.delete("t_user", "id", 2);
+	db.delete("t_user", "id", 2);
 
 #### 修改记录
 
-		db.update("t_user", "nick", "石大大", "id", 2);
+	db.update("t_user", "nick", "石大大", "id", 2);
 
 #### 查询记录
 
-		String sql = "SELECT id, name, nick, SUBSTRING(create_time, 3, 14) create_time FROM t_user ORDER BY  id DESC LIMIT 20";
+	String sql = "SELECT id, name, nick, SUBSTRING(create_time, 3, 14) create_time FROM t_user ORDER BY  id DESC LIMIT 20";
 
-		ArrayList rows = db.select(sql);
+	ArrayList rows = db.select(sql);
 
-		result.put("result", true);
+	result.put("result", true);
 
-		result.put("users", rows);
+	result.put("users", rows);
 
-		return JSONObject.toJSONString(result);
+	return JSONObject.toJSONString(result);
 
 ##### 查询结果
 
-		{
-		  "result": true,
-		  "login": true,
-		  "users": [
-		    {
-		      "NICK": "石大大2000000",
-		      "ID": 2000000,
-		      "CREATE_TIME": "23-09-13 20:30",
-		      "NAME": "andy2000000"
-		    },
-		    {
-		      "NICK": "石大大1999999",
-		      "ID": 1999999,
-		      "CREATE_TIME": "23-09-13 20:30",
-		      "NAME": "andy1999999"
-		    },
-		    {
-		      "NICK": "石大大1999981",
-		      "ID": 1999981,
-		      "CREATE_TIME": "23-09-13 20:30",
-		      "NAME": "andy1999981"
-		    }
-		  ]
-		}		
+	{
+	  "result": true,
+	  "login": true,
+	  "users": [
+	    {
+	      "NICK": "石大大2000000",
+	      "ID": 2000000,
+	      "CREATE_TIME": "23-09-13 20:30",
+	      "NAME": "andy2000000"
+	    },
+	    {
+	      "NICK": "石大大1999999",
+	      "ID": 1999999,
+	      "CREATE_TIME": "23-09-13 20:30",
+	      "NAME": "andy1999999"
+	    },
+	    {
+	      "NICK": "石大大1999981",
+	      "ID": 1999981,
+	      "CREATE_TIME": "23-09-13 20:30",
+	      "NAME": "andy1999981"
+	    }
+	  ]
+	}	
 
 
 ## Redis
 
 #### 设置值
 
-		redis.set("hello", "石大大");
+	redis.set("hello", "石大大");
 
 #### 取值
 
-		redis.get("hello");
+	redis.get("hello");
 
 #### 设置 Map
 
-		hash = new HashMap();
+	hash = new HashMap();
 
-		hash.put("id", "2");
+	hash.put("id", "2");
 
-		hash.put("name", "Andy");
+	hash.put("name", "Andy");
 
-		hash.put("nick", "石大大");
+	hash.put("nick", "石大大");
 
-		redis.hset("session:2", hash);
+	redis.hset("session:2", hash);
 
 #### 取 Map
 
-		redis.hgetAll("session:2");
+	redis.hgetAll("session:2");
 
 #### 取 Map 结果
 
-		{nick=石大大, name=Andy, id=2}
+	{nick=石大大, name=Andy, id=2}
 
 #### 取 Map 并转换为 JSON 字符串
 
-		redis.hgetJson("session:2");
+	redis.hgetJson("session:2");
 
 #### 取 Map 并转换为 JSON 字符串结果
 
-		{"nick":"石大大","name":"Andy","id":"2"}
+	{"nick":"石大大","name":"Andy","id":"2"}
 
 
 ## ElasticSearch
 
 #### 增加记录
-		
-		elastic.insert("t_review", 9999, "review", "Hello Movie!");
+	
+	elastic.insert("t_review", 9999, "review", "Hello Movie!");
 
 #### 删除记录
 
-		elastic.delete("t_review", 9999);
+	elastic.delete("t_review", 9999);
 
 #### 获取记录
 
-		elastic.get("t_review", 9999);
+	elastic.get("t_review", 9999);
 
 #### 修改记录
 
-		elastic.insert("t_review", 9999, "review", "Hello Movie World!");
+	elastic.insert("t_review", 9999, "review", "Hello Movie World!");
 
 #### 搜索记录
 
-		elastic.search("t_review", "review", "Movie");
+	elastic.search("t_review", "review", "Movie");
 
 ##### 搜索结果
 
-		[
-		    {
-			"_index": "t_review",
-			"_source": {
-			    "review": "Hello Movie!"
-			},
-			"_id": "9999",
-			"_score": 0.2876821
-		    }
-		]
+	[
+	    {
+		"_index": "t_review",
+		"_source": {
+		    "review": "Hello Movie!"
+		},
+		"_id": "9999",
+		"_score": 0.2876821
+	    }
+	]
 
 
 ## MariaDB & Redis
 
 #### 从 MariaDB 导出数据到 Redis
 
-		String sql = "SELECT * FROM t_review LIMIT 1000";
+	String sql = "SELECT * FROM t_review LIMIT 1000";
 
-		ArrayList rows = db.select(sql);
+	ArrayList rows = db.select(sql);
 
-		int size = rows.size();
+	int size = rows.size();
 
-		for (int i = 0; i < size; i++) {
+	for (int i = 0; i < size; i++) {
 
-			HashMap row = (HashMap) rows.get(i);
+		HashMap row = (HashMap) rows.get(i);
 
-			redis.set("review:" + row.get("ID"), (String) row.get("REVIEW"));
-		
-		}
+		redis.set("review:" + row.get("ID"), (String) row.get("REVIEW"));
+	
+	}
 
 
 ## MariaDB & ElasticSearch
 
 #### 从 MariaDB 导出数据到 ElasticSearch
 
-		String sql = "SELECT * FROM t_review LIMIT 1000";
+	String sql = "SELECT * FROM t_review LIMIT 1000";
 
-		ArrayList rows = db.select(sql);
+	ArrayList rows = db.select(sql);
 
-		int size = rows.size();
+	int size = rows.size();
 
-		for (int i = 0; i < size; i++) {
+	for (int i = 0; i < size; i++) {
 
-			HashMap row = (HashMap) rows.get(i);
+		HashMap row = (HashMap) rows.get(i);
 
-			elastic.insert("t_review", (long) row.get("ID"), "review", (String) row.get("REVIEW"));
-		
-		}
+		elastic.insert("t_review", (long) row.get("ID"), "review", (String) row.get("REVIEW"));
+	
+	}
 
 
 ### 准备测试数据
 
 #### 创建数据库 winter 及表 t_user 
 
-		CREATE DATABASE winter /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+	CREATE DATABASE winter /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 
-		USE winter;
+	USE winter;
 
-		-- DROP TABLE IF EXISTS winter.t_user;
+	-- DROP TABLE IF EXISTS winter.t_user;
 
-		CREATE TABLE t_user (
-		  id int(10) unsigned NOT NULL AUTO_INCREMENT,
-		  name varchar(20) NOT NULL,
-		  create_time timestamp NOT NULL DEFAULT current_timestamp(),
-		  password varchar(32) NOT NULL,
-		  nick varchar(20) DEFAULT NULL,
-		  intro varchar(1000) DEFAULT NULL,
-		  PRIMARY KEY (id)
-		) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+	CREATE TABLE t_user (
+	  id int(10) unsigned NOT NULL AUTO_INCREMENT,
+	  name varchar(20) NOT NULL,
+	  create_time timestamp NOT NULL DEFAULT current_timestamp(),
+	  password varchar(32) NOT NULL,
+	  nick varchar(20) DEFAULT NULL,
+	  intro varchar(1000) DEFAULT NULL,
+	  PRIMARY KEY (id)
+	) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-		-- 增加一个测试用户 andy 密码为 winter
+	-- 增加一个测试用户 andy 密码为 winter
 
-		INSERT INTO t_user (id,name,create_time,password,nick,intro) VALUES  (1,'andy','2023-09-13 20:30:40','f6432274349b5cb93433f8ed886a3f37','石大大',NULL);
+	INSERT INTO t_user (id,name,create_time,password,nick,intro) VALUES  (1,'andy','2023-09-13 20:30:40','f6432274349b5cb93433f8ed886a3f37','石大大',NULL);
 
 #### 增加一百万个测试用户
 
 <https://github.com/AndyInAi/Winter/blob/main/bash/t_user_1m>
 
-		cd bash
+	cd bash
 
-		bash t_user_1m
+	bash t_user_1m
 
 #### 增加 5 万个测试文本数据
 
 <https://github.com/AndyInAi/Winter/tree/main/sql>
 
 #### 解压
-		gzip -d winter_t_review.sql.gz
+	gzip -d winter_t_review.sql.gz
 
 #### 导入 MariaDB 数据库 winter，表名为 t_review
-		time mysql -e "\. winter_t_review.sql" -h localhost -u root -pwinter winter
+	time mysql -e "\. winter_t_review.sql" -h localhost -u root -pwinter winter
 
 
 ### MariaDB 集群安装配置 
@@ -335,17 +335,17 @@
 
 ### 全部代码在 Ubuntu 22.04.3 LTS 测试通过
 
-		PRETTY_NAME="Ubuntu 22.04.3 LTS"
-		NAME="Ubuntu"
-		VERSION_ID="22.04"
-		VERSION="22.04.3 LTS (Jammy Jellyfish)"
-		VERSION_CODENAME=jammy
-		ID=ubuntu
-		ID_LIKE=debian
-		HOME_URL="https://www.ubuntu.com/"
-		SUPPORT_URL="https://help.ubuntu.com/"
-		BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
-		PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
-		UBUNTU_CODENAME=jammy
+	PRETTY_NAME="Ubuntu 22.04.3 LTS"
+	NAME="Ubuntu"
+	VERSION_ID="22.04"
+	VERSION="22.04.3 LTS (Jammy Jellyfish)"
+	VERSION_CODENAME=jammy
+	ID=ubuntu
+	ID_LIKE=debian
+	HOME_URL="https://www.ubuntu.com/"
+	SUPPORT_URL="https://help.ubuntu.com/"
+	BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+	PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+	UBUNTU_CODENAME=jammy
 
 
