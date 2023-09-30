@@ -23,8 +23,6 @@
 ![image](https://github.com/AndyInAi/Winter/blob/main/img/00007-1430822285.png)
 ![image](https://github.com/AndyInAi/Winter/blob/main/img/00008-1430822286.png)
 
-### 月亮钻石安排上
-
 	JSONObject o = sdWebUi.text2img("8k, high detail, sea, beach, moon, diamond, girl, detailed face", "logo, text", 9);
 
 ##### 生成结果
