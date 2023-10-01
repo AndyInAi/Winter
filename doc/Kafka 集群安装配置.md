@@ -1,9 +1,9 @@
 
 ### 安装
 
-	wget https://dlcdn.apache.org/kafka/3.5.0/kafka_2.13-3.5.0.tgz -O ~/kafka_2.13-3.5.0.tgz
-
 	sudo apt install -y openjdk-11-jdk net-tools
+
+	wget https://dlcdn.apache.org/kafka/3.5.0/kafka_2.13-3.5.0.tgz -O ~/kafka_2.13-3.5.0.tgz
 
 	tar xvzf ~/kafka_2.13-3.5.0.tgz
 
@@ -44,15 +44,25 @@
 
 	if [ "`grep ^plugin.path= config/connect-standalone.properties`" == "" ]; then echo "plugin.path=libs/connect-file-3.5.0.jar" >> config/connect-standalone.properties; else sed -i "s/^plugin.path=.*$/plugin.path=libs\/connect-file-3.5.0.jar/g" config/connect-standalone.properties; fi
 
-	echo "nohup bin/zookeeper-server-start.sh config/zookeeper.properties > zookeeper.log 2>&1 &" > zk ; chmod +x zk
-	echo "ps aux | grep -v grep  | grep org.apache.zookeeper.server.quorum.QuorumPeerMain | awk '{print \$2}'" > zk_pid ; chmod +x zk_pid
-	echo "nohup bin/kafka-server-start.sh config/server.properties > kafka.log 2>&1 &" > kf ; chmod +x kf
-	echo "ps aux | grep -v grep  | grep kafka.Kafka | awk '{print \$2}'" > kf_pid ; chmod +x kf_pid
+	echo "ZK_PID=\"\`ps aux | grep -v grep  | grep org.apache.zookeeper.server.quorum.QuorumPeerMain | awk '{print \$2}'\`\" " > start
+	echo "KF_PID=\"\`ps aux | grep -v grep  | grep kafka.Kafka | awk '{print \$2}'\`\" " >> start
+	echo "cd ~/kafka; " >> start
+	echo "if [ \"\$ZK_PID\" == \"\" ]; then " >> start
+	echo "        export KAFKA_HEAP_OPTS=\"-Xmx512M -Xms512M\" ; bin/zookeeper-server-start.sh -daemon config/zookeeper.properties " >> start
+	echo "else " >> start
+	echo "        echo Zookeeper PID \$ZK_PID running ...; " >> start
+	echo "fi " >> start
+	echo "if [ \"\$KF_PID\" == \"\" ]; then " >> start
+	echo "        (sleep 8 ; export KAFKA_HEAP_OPTS=\"-Xmx6G -Xms6G\" ; bin/kafka-server-start.sh -daemon config/server.properties) & " >> start
+	echo "else " >> start
+	echo "        echo Kafka PID \$KF_PID running ... " >> start
+	echo "fi " >> start
+	chmod +x start
 
-	echo 'cd ~/kafka; zk_pid="`./zk_pid`"; if [ "$zk_pid" == "" ]; then ./zk; sleep 8; else echo Zookeeper PID $zk_pid running ...; fi' > start
-	echo 'cd ~/kafka; kf_pid="`./kf_pid`"; if [ "$kf_pid" == "" ]; then ./kf; else echo Kafka PID $kf_pid running ...; fi' >> start ; chmod +x start
-	echo 'cd ~/kafka; kf_pid="`./kf_pid`"; if [ ! "$kf_pid" == "" ]; then kill -9 $kf_pid; fi' > stop
-	echo 'cd ~/kafka; zk_pid="`./zk_pid`"; if [ ! "$zk_pid" == "" ]; then kill -9 $zk_pid; fi' >> stop ; chmod +x stop
+
+	echo 'cd ~/kafka; bin/kafka-server-stop.sh ' > stop
+	echo 'bin/zookeeper-server-stop.sh ' >> stop
+	chmod +x stop
 
 
 ### 运行服务
@@ -90,5 +100,4 @@
 	cd ~/kafka; bin/connect-standalone.sh config/connect-standalone.properties config/connect-file-source.properties config/connect-file-sink.properties
 
 	cd ~/kafka; more test.sink.txt
-
 
