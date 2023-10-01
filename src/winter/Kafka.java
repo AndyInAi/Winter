@@ -13,7 +13,13 @@ import java.util.stream.Collectors;
 import org.apache.kafka.clients.admin.Admin;
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.NewTopic;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.errors.TopicExistsException;
+import org.apache.kafka.common.serialization.IntegerSerializer;
+import org.apache.kafka.common.serialization.StringSerializer;
 
 public class Kafka {
 
@@ -29,7 +35,7 @@ public class Kafka {
 	 * 192.168.1.231 kk1 <br/>
 	 * 192.168.1.232 kk2 <br/>
 	 * 192.168.1.233 kk3 <br/>
-	 * 192.168.1.234 kk4<br/>
+	 * 192.168.1.234 kk4 <br/>
 	 * 
 	 */
 	public static String BOOTSTRAP_SERVERS_CONFIG = "192.168.1.231:9092, 192.168.1.232:9092, 192.168.1.233:9092, 192.168.1.234:9092";
@@ -41,8 +47,7 @@ public class Kafka {
 	 * 
 	 * @param o
 	 */
-	public static void log(Object o)
-	{
+	public static void log(Object o) {
 
 		String time = (new Timestamp(System.currentTimeMillis())).toString().substring(0, 19);
 
@@ -55,20 +60,61 @@ public class Kafka {
 	 * 
 	 * @param args
 	 */
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 
 		Kafka kf = new Kafka();
 
-		log(kf.createTopic("test_topic666"));
+		String topic = "test_topic_888";
+
+		RecordMetadata meta = kf.syncSend(topic, topic + " send test " + new java.util.Date());
+
+		if (meta == null) {
+
+			log(meta);
+
+		} else {
+
+			log(meta.topic());
+
+			log(meta.partition());
+
+		}
 
 	}
+
+	public KafkaProducer<Integer, String> producer = null;
 
 	/**
 	 * 构造方法
 	 */
-	private Kafka()
-	{
+	private Kafka() {
+
+		producer = createKafkaProducer();
+
+	}
+
+	public KafkaProducer<Integer, String> createKafkaProducer() {
+
+		Properties props = new Properties();
+
+		// bootstrap server config is required for producer to connect to
+		// brokers
+		props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS_CONFIG);
+
+		// client id is not required, but it's good to track the source of requests beyond just ip/port by allowing a logical application name to be included in server-side request logging
+		props.put(ProducerConfig.CLIENT_ID_CONFIG, "client-" + UUID.randomUUID());
+
+		// key and value are just byte arrays, so we need to set appropriate
+		// serializers
+		props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class);
+
+		props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+
+		// enable duplicates protection at the partition level
+		props.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, true);
+
+		return new KafkaProducer<>(props);
+
 	}
 
 	/**
@@ -78,8 +124,7 @@ public class Kafka {
 	 * @param topicNames
 	 * @return
 	 */
-	public boolean createTopic(int numPartitions, String... topicNames)
-	{
+	public boolean createTopic(int numPartitions, String... topicNames) {
 
 		return createTopics(BOOTSTRAP_SERVERS_CONFIG, numPartitions, topicNames);
 
@@ -92,10 +137,9 @@ public class Kafka {
 	 * @param topicName
 	 * @return
 	 */
-	public boolean createTopic(int numPartitions, String topicName)
-	{
+	public boolean createTopic(int numPartitions, String topicName) {
 
-		return createTopics(BOOTSTRAP_SERVERS_CONFIG, numPartitions, new String[] { topicName });
+		return createTopics(BOOTSTRAP_SERVERS_CONFIG, numPartitions, new String[]{topicName});
 
 	}
 
@@ -105,10 +149,9 @@ public class Kafka {
 	 * @param topicName
 	 * @return
 	 */
-	public boolean createTopic(String topicName)
-	{
+	public boolean createTopic(String topicName) {
 
-		return createTopics(BOOTSTRAP_SERVERS_CONFIG, NUM_PARTITIONS, new String[] { topicName });
+		return createTopics(BOOTSTRAP_SERVERS_CONFIG, NUM_PARTITIONS, new String[]{topicName});
 
 	}
 
@@ -118,8 +161,7 @@ public class Kafka {
 	 * @param topicNames
 	 * @return
 	 */
-	public boolean createTopic(String... topicNames)
-	{
+	public boolean createTopic(String... topicNames) {
 
 		return createTopics(BOOTSTRAP_SERVERS_CONFIG, NUM_PARTITIONS, topicNames);
 
@@ -133,10 +175,9 @@ public class Kafka {
 	 * @param topicName
 	 * @return
 	 */
-	public boolean createTopic(String bootstrapServers, int numPartitions, String topicName)
-	{
+	public boolean createTopic(String bootstrapServers, int numPartitions, String topicName) {
 
-		return createTopics(bootstrapServers, numPartitions, new String[] { topicName });
+		return createTopics(bootstrapServers, numPartitions, new String[]{topicName});
 
 	}
 
@@ -148,8 +189,7 @@ public class Kafka {
 	 * @param topicNames
 	 * @return
 	 */
-	public boolean createTopics(String bootstrapServers, int numPartitions, String... topicNames)
-	{
+	public boolean createTopics(String bootstrapServers, int numPartitions, String... topicNames) {
 
 		if (bootstrapServers == null || (bootstrapServers = bootstrapServers.trim()).length() == 0 || numPartitions < 1 || topicNames == null || topicNames.length == 0) {
 
@@ -165,10 +205,8 @@ public class Kafka {
 
 		try (Admin admin = Admin.create(props)) {
 
-			// create topics in a retry loop
-			while (true) {
+			for (int i = 0; i < 30; i++) {
 
-				// use default RF to avoid NOT_ENOUGH_REPLICAS error with minISR > 1
 				short replicationFactor = -1;
 
 				List<NewTopic> newTopics = Arrays.stream(topicNames).map(name -> new NewTopic(name, numPartitions, replicationFactor)).collect(Collectors.toList());
@@ -183,17 +221,17 @@ public class Kafka {
 
 				} catch (ExecutionException ex) {
 
-					if (!(ex.getCause() instanceof TopicExistsException)) {
+					if (ex.getCause() instanceof TopicExistsException) {
 
-						ex.printStackTrace();
+						return true;
 
 					}
+
+					ex.printStackTrace();
 
 					TimeUnit.MILLISECONDS.sleep(1_000);
 
 				}
-
-				return false;
 
 			}
 
@@ -201,9 +239,32 @@ public class Kafka {
 
 			e.printStackTrace();
 
-			return false;
+		}
+
+		return false;
+
+	}
+
+	/**
+	 * 发送消息
+	 * 
+	 * @param topic
+	 * @param message
+	 * @return
+	 */
+	public RecordMetadata syncSend(String topic, String message) {
+
+		try {
+
+			return producer.send(new ProducerRecord<>(topic, message)).get();
+
+		} catch (Exception ex) {
+
+			ex.printStackTrace();
 
 		}
+
+		return null;
 
 	}
 
