@@ -6,79 +6,6 @@
 ### 快速预览
 
 
-## 人工智能绘画
-
-	SDWebUi sdWebUi = new SDWebUi();
-
-	JSONObject o = sdWebUi.text2img("8k, high detail, sea, beach, girl, detailed face", "logo, text", 9);
-
-##### 生成结果
-
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00000-1430822278.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00002-1430822280.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00003-1430822281.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00004-1430822282.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00005-1430822283.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00006-1430822284.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00007-1430822285.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00008-1430822286.png)
-
-	JSONObject o = sdWebUi.text2img("8k, high detail, sea, beach, moon, diamond, girl, detailed face", "logo, text", 9);
-
-##### 生成结果
-
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00077-3078859337.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00078-3078859338.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00079-3078859339.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00080-3078859340.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00081-3078859341.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00082-3078859342.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00083-3078859343.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00084-3078859344.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00085-3078859345.png)
-
-
-## 人工智能会话
-
-	ChatGLM chatGLM = new ChatGLM();
-
-	JSONObject o = chatGLM.chat("你好，我叫石大大，我的大学初恋女友林青霞嫁人了，请帮我给她写一封信");
-
-#### 会话结果
-
-{
-    "response": "亲爱的林青霞,\n\n我希望这封信能够传达出我真挚的祝福和感激之情。当我听到你的婚讯时,我感到非常惊讶和高兴。我知道你一直是我心中最珍贵的人,我们的初恋更是我心中一段美好的回忆。\n\n我从未忘记我们曾经一起度过的美好时光,那些无忧无虑的夜晚,以及你对我的爱和关怀。如今,我已经步入了成熟和稳定的婚姻生活,开始了新的生 命旅程。我也深刻理解到婚姻和爱情的责任和挑战,需要我们共同去面对和承担。\n\n我希望你和你的丈夫能够幸福美满,相互扶持,共同迎接未来的挑战。我也希望你能够在家庭和工作中继续保持你的热情和才华,继续实现你的梦想和理想。\n\n再次祝福你,希望你一切安好。\n\n爱你\n\n石大大",
-    "history": [
-    ],
-    "time": "2023-09-27 11:29:02",
-    "status": 200
-}
-
-#### 会话结果 response 内容
-
-	亲爱的林青霞,
-
-	我希望这封信能够传达出我真挚的祝福和感激之情。当我听到你的婚讯时,我感到非常惊讶和高兴。
-
-	我知道你一直是我心中最珍贵的人,我们的初恋更是我心中一段美好的回忆。
-
-	我从未忘记我们曾经一起度过的美好时光,那些无忧无虑的夜晚,以及你对我的爱和关怀。如今,我已
-
-	经步入了成熟和稳定的婚姻生活,开始了新的生 命旅程。我也深刻理解到婚姻和爱情的责任和挑战,
-
-	需要我们共同去面对和承担。
-
-	我希望你和你的丈夫能够幸福美满,相互扶持,共同迎接未来的挑战。我也希望你能够在家庭和工作
-
-	中继续保持你的热情和才华,继续实现你的梦想和理想。
-
-	再次祝福你,希望你一切安好。
-
-	爱你
-
-	石大大
-
-
 ## MariaDB
 
 #### 增加记录
@@ -216,6 +143,27 @@
 	]
 
 
+## Kafka
+
+#### 发送消息
+
+		Kafka kf = new Kafka();
+
+		String topic = "test_topic_888";
+
+		RecordMetadata meta = kf.write(topic, topic + " Hello " + new java.util.Date());
+
+#### 接收消息
+
+	ConsumerRecords<Integer, String> records = kf.read(topic);
+
+	for (ConsumerRecord<Integer, String> record : records) {
+
+		System.out.println(record);
+
+	}
+
+
 ## MariaDB & Redis
 
 #### 从 MariaDB 导出数据到 Redis
@@ -252,6 +200,79 @@
 		elastic.insert("t_review", (long) row.get("ID"), "review", (String) row.get("REVIEW"));
 	
 	}
+
+
+## 人工智能绘画
+
+	SDWebUi sdWebUi = new SDWebUi();
+
+	JSONObject o = sdWebUi.text2img("8k, high detail, sea, beach, girl, detailed face", "logo, text", 9);
+
+##### 生成结果
+
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00000-1430822278.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00002-1430822280.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00003-1430822281.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00004-1430822282.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00005-1430822283.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00006-1430822284.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00007-1430822285.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00008-1430822286.png)
+
+	JSONObject o = sdWebUi.text2img("8k, high detail, sea, beach, moon, diamond, girl, detailed face", "logo, text", 9);
+
+##### 生成结果
+
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00077-3078859337.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00078-3078859338.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00079-3078859339.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00080-3078859340.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00081-3078859341.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00082-3078859342.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00083-3078859343.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00084-3078859344.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00085-3078859345.png)
+
+
+## 人工智能会话
+
+	ChatGLM chatGLM = new ChatGLM();
+
+	JSONObject o = chatGLM.chat("你好，我叫石大大，我的大学初恋女友林青霞嫁人了，请帮我给她写一封信");
+
+#### 会话结果
+
+{
+    "response": "亲爱的林青霞,\n\n我希望这封信能够传达出我真挚的祝福和感激之情。当我听到你的婚讯时,我感到非常惊讶和高兴。我知道你一直是我心中最珍贵的人,我们的初恋更是我心中一段美好的回忆。\n\n我从未忘记我们曾经一起度过的美好时光,那些无忧无虑的夜晚,以及你对我的爱和关怀。如今,我已经步入了成熟和稳定的婚姻生活,开始了新的生 命旅程。我也深刻理解到婚姻和爱情的责任和挑战,需要我们共同去面对和承担。\n\n我希望你和你的丈夫能够幸福美满,相互扶持,共同迎接未来的挑战。我也希望你能够在家庭和工作中继续保持你的热情和才华,继续实现你的梦想和理想。\n\n再次祝福你,希望你一切安好。\n\n爱你\n\n石大大",
+    "history": [
+    ],
+    "time": "2023-09-27 11:29:02",
+    "status": 200
+}
+
+#### 会话结果 response 内容
+
+	亲爱的林青霞,
+
+	我希望这封信能够传达出我真挚的祝福和感激之情。当我听到你的婚讯时,我感到非常惊讶和高兴。
+
+	我知道你一直是我心中最珍贵的人,我们的初恋更是我心中一段美好的回忆。
+
+	我从未忘记我们曾经一起度过的美好时光,那些无忧无虑的夜晚,以及你对我的爱和关怀。如今,我已
+
+	经步入了成熟和稳定的婚姻生活,开始了新的生 命旅程。我也深刻理解到婚姻和爱情的责任和挑战,
+
+	需要我们共同去面对和承担。
+
+	我希望你和你的丈夫能够幸福美满,相互扶持,共同迎接未来的挑战。我也希望你能够在家庭和工作
+
+	中继续保持你的热情和才华,继续实现你的梦想和理想。
+
+	再次祝福你,希望你一切安好。
+
+	爱你
+
+	石大大
 
 
 ### 准备测试数据
