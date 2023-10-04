@@ -11,7 +11,10 @@
 	if [ ! -s ~/flink ]; then ln -s ~/flink-1.17.1 ~/flink ; fi
 
 
-### 配置 master ip 192.168.1.71 worker ip 192.168.1.72-4
+### 配置 
+
+	# master ip 192.168.1.71
+	# worker ip 192.168.1.72-4
 
 	echo "192.168.1.71:8081" > ~/flink/conf/masters
 
@@ -43,35 +46,45 @@
 	sed -i "s/^taskmanager.memory.process.size.*$/taskmanager.memory.process.size: 6g/" ~/flink/conf/flink-conf.yaml
 
 
-### 配置 master 免密码登录 worker ，在 master 执行
+### 配置 master 免密码登录 worker 
+	
+ 	# 在 master 执行
 
 	ssh-copy-id -f 192.168.1.72
 	ssh-copy-id -f 192.168.1.73
 	ssh-copy-id -f 192.168.1.74
 
 
-### 运行； 在 master 192.168.1.71 执行
+### 运行	
 
 #### 启动
 
+	# 在 master 192.168.1.71 执行
+ 
 	(cd ~/flink; bin/start-cluster.sh)
 
 #### 停止
 
+	# 在 master 192.168.1.71 执行
+ 
 	(cd ~/flink; bin/stop-cluster.sh)
 
 #### 重启
 
+	# 在 master 192.168.1.71 执行
+ 
 	(cd ~/flink; bin/stop-cluster.sh && bin/start-cluster.sh)
 
 
-### 测试 ； 
+### 测试 
 
-#### 在 master 192.168.1.71 执行
+	# 在 master 192.168.1.71 执行
 
 	(cd ~/flink; bin/flink run examples/streaming/WordCount.jar)
 
-#### 在 worker 192.168.1.72-74 执行
+#### 
+	
+ 	# 在 worker 192.168.1.72-74 执行
 
 	(cd ~/flink; tail log/flink-*-taskexecutor-*.out)
 	
