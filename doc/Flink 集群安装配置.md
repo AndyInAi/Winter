@@ -48,7 +48,7 @@
 
 ### 配置 master 免密码登录 worker 
 	
- 	# 在 master 执行
+ 	# 在 master 192.168.1.71 执行
 
 	ssh-copy-id -f 192.168.1.72
 	ssh-copy-id -f 192.168.1.73
