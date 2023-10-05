@@ -49,6 +49,7 @@
 	# 任一节点执行
 	gluster volume create gv0 replica 4 gfs1:/data/brick1/gv0 gfs2:/data/brick1/gv0 gfs3:/data/brick1/gv0 gfs4:/data/brick1/gv0 force
 
+	gluster volume set gv0 performance.cache-size 1GB
 
 ### 启动存储
 
@@ -61,22 +62,31 @@
 	
 	apt install -y glusterfs-server
 
-	mkdir -p /mnt/gluster-test
-	
-	mount -t glusterfs 192.168.1.82:/gv0 /mnt/gluster-test
+	mkdir -p /mnt/gluster-gv0
+
+	mount -t glusterfs gfs1:/gv0 /mnt/gluster-gv0
 	
 	# 复制 10 个文件到存储
-	for i in `seq -w 1 10`; do cp  /var/log/dmesg /mnt/gluster-test/copy-test-$i; done
+	for i in `seq -w 1 10`; do cp  /var/log/dmesg /mnt/gluster-gv0/copy-test-$i; done
 
 	# 查看结果
 
-	ls -lA /mnt/gluster-test/copy*
+	ls -lA /mnt/gluster-gv0/copy*
 
 	# 在其它节点查看结果
 
 	ls -lA /data/brick1/gv0/copy*
 	
 	
+### 客户端安装配置
 
+	apt install -y glusterfs-client
+
+	NODES="192.168.1.81 192.168.1.82 192.168.1.83 192.168.1.84" # 4 个节点 IP 列表，对应主机名 gfs1 - gfs4
+
+	no=0; for i in $NODES; do no=$(($no+1)) ; ip="$i " ;  host="$ip gfs$no" ;  if [ "`grep \"^$ip\" /etc/hosts`" == "" ]; then echo "$host" >> /etc/hosts; else sed -i "s/^$ip.*$/$host/g" /etc/hosts; fi ; done
 	
+	mkdir -p /mnt/gluster-gv0
+
+	mount -t glusterfs gfs1:/gv0 /mnt/gluster-gv0
 
