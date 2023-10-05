@@ -77,16 +77,42 @@
 
 	ls -lA /data/brick1/gv0/copy*
 	
+
+### 负载均衡服务器安装配置 IP 192.168.1.80
+
+	apt install haproxy -y
+
+	(echo '
+	listen winter_gfs_cluster
+
+		mode tcp
+		balance source
+		bind 0.0.0.0:24007
+		
+		server gfs1 192.168.1.81:24007
+		server gfs2 192.168.1.82:24007
+		server gfs3 192.168.1.83:24007
+		server gfs4 192.168.1.84:24007
+
+	' > /etc/haproxy/haproxy.cfg;)
+
+	systemctl --now enable haproxy
+
+	systemctl status haproxy
+
 	
 ### 客户端安装配置
 
 	apt install -y glusterfs-client
 
-	NODES="192.168.1.81 192.168.1.82 192.168.1.83 192.168.1.84" # 4 个节点 IP 列表，对应主机名 gfs1 - gfs4
+	ip="192.168.1.80" # 负载均衡服务器；主机名 gfs
 
-	no=0; for i in $NODES; do no=$(($no+1)) ; ip="$i " ;  host="$ip gfs$no" ;  if [ "`grep \"^$ip\" /etc/hosts`" == "" ]; then echo "$host" >> /etc/hosts; else sed -i "s/^$ip.*$/$host/g" /etc/hosts; fi ; done
+	host="$ip gfs" ;  if [ "`grep \"^$ip \" /etc/hosts`" == "" ]; then echo "$host" >> /etc/hosts; else sed -i "s/^$ip .*$/$host/g" /etc/hosts; fi
 	
 	mkdir -p /mnt/gluster-gv0
 
 	mount -t glusterfs gfs1:/gv0 /mnt/gluster-gv0
+
+
+
 
