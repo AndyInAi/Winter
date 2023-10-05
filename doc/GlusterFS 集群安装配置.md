@@ -111,7 +111,7 @@
 	
 	mkdir -p /mnt/gluster-gv0
 
-	mount -t glusterfs gfs1:/gv0 /mnt/gluster-gv0
+	mount -t glusterfs gfs:/gv0 /mnt/gluster-gv0
 
 
 
