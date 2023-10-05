@@ -219,7 +219,7 @@
 ![image](https://github.com/AndyInAi/Winter/blob/main/img/00007-1430822285.png)
 ![image](https://github.com/AndyInAi/Winter/blob/main/img/00008-1430822286.png)
 
-	JSONObject o = sdWebUi.text2img("8k, high detail, sea, beach, moon, diamond, girl, detailed face", "logo, text", 9);
+	sdWebUi.text2img("8k, high detail, sea, beach, moon, diamond, girl, detailed face", "logo, text", 9);
 
 ##### 生成结果
 
@@ -350,6 +350,14 @@
 
 ### Kafka 集群安装配置
 <https://github.com/AndyInAi/Winter/blob/main/doc/Kafka%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md>
+
+
+### Flink 集群安装配置
+<https://github.com/AndyInAi/Winter/blob/main/doc/Flink%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md>
+
+
+### GlusterFS 集群安装配置
+<https://github.com/AndyInAi/Winter/blob/main/doc/GlusterFS%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md>
 
 
 ### 全部代码在 Ubuntu 22.04.3 LTS 测试通过
