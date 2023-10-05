@@ -108,6 +108,10 @@
 	ip="192.168.1.80" # 负载均衡服务器；主机名 gfs
 
 	host="$ip gfs" ;  if [ "`grep \"^$ip \" /etc/hosts`" == "" ]; then echo "$host" >> /etc/hosts; else sed -i "s/^$ip .*$/$host/g" /etc/hosts; fi
+
+	NODES="192.168.1.81 192.168.1.82 192.168.1.83 192.168.1.84" # 4 个节点 IP 列表，对应主机名 gfs1 - gfs4
+
+	no=0; for i in $NODES; do no=$(($no+1)) ; ip="$i " ;  host="$ip gfs$no" ;  if [ "`grep \"^$ip\" /etc/hosts`" == "" ]; then echo "$host" >> /etc/hosts; else sed -i "s/^$ip.*$/$host/g" /etc/hosts; fi ; done
 	
 	mkdir -p /mnt/gluster-gv0
 
