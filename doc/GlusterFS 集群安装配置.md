@@ -44,29 +44,34 @@
 ### 配置，需要所有节点执行完成以上操作后继续
 
 	# 所有节点执行
+
 	_hostname=`hostname`; for ((i=1; i<=4; i++)) do if [ ! "$_hostname" == "gfs$i" ]; then gluster peer probe gfs$i; fi;  done; gluster pool list
 
 	# 任一节点执行
-	gluster volume create gv0 replica 4 gfs1:/data/brick1/gv0 gfs2:/data/brick1/gv0 gfs3:/data/brick1/gv0 gfs4:/data/brick1/gv0 force
+
+	gluster volume create gv0 replica 2 gfs1:/data/brick1/gv0 gfs2:/data/brick1/gv0 gfs3:/data/brick1/gv0 gfs4:/data/brick1/gv0 force
 
 	gluster volume set gv0 performance.cache-size 1GB
-
-### 启动存储
 
 	gluster volume start gv0 ; gluster volume info gv0
 
 
-### 测试
+### 挂载存储
 
-	# 任一节点执行
-	
-	apt install -y glusterfs-server
+	# 所有节点执行
+
+	umount /mnt/gluster-gv0
 
 	mkdir -p /mnt/gluster-gv0
 
-	mount -t glusterfs gfs1:/gv0 /mnt/gluster-gv0
-	
-	# 复制 10 个文件到存储
+	if [ "`grep ^gfs:/gv0 /etc/fstab`" == "" ]; then echo 'localhost:/gv0 /mnt/gluster-gv0 glusterfs defaults 0 0' >> /etc/fstab; fi
+
+	mount -a && mount
+
+
+### 测试
+
+	# 任一节点执行；复制 10 个文件到存储
 	for i in `seq -w 1 10`; do cp  /var/log/dmesg /mnt/gluster-gv0/copy-test-$i; done
 
 	# 查看结果
@@ -113,10 +118,11 @@
 
 	no=0; for i in $NODES; do no=$(($no+1)) ; ip="$i " ;  host="$ip gfs$no" ;  if [ "`grep \"^$ip\" /etc/hosts`" == "" ]; then echo "$host" >> /etc/hosts; else sed -i "s/^$ip.*$/$host/g" /etc/hosts; fi ; done
 	
+	umount /mnt/gluster-gv0
+
 	mkdir -p /mnt/gluster-gv0
 
-	mount -t glusterfs gfs:/gv0 /mnt/gluster-gv0
+	if [ "`grep ^gfs:/gv0 /etc/fstab`" == "" ]; then echo 'gfs:/gv0 /mnt/gluster-gv0 glusterfs defaults 0 0' >> /etc/fstab; fi
 
-
-
+	mount -a && mount
 
