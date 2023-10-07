@@ -333,7 +333,7 @@
 
 
 ### Resin 集群安装配置
-<https://github.com/AndyInAi/Winter/blob/main/doc/Resin%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.txt>
+<https://github.com/AndyInAi/Winter/blob/main/doc/Resin%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md>
 
 
 ### K8S 集群安装配置
