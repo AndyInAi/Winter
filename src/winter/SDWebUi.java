@@ -1,6 +1,7 @@
 package winter;
 
 import java.io.Closeable;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -26,12 +27,11 @@ public class SDWebUi {
 	 * 
 	 * @param o
 	 */
-	public static void log(Object o)
-	{
+	public static void log(Object o) {
 
 		String time = (new Timestamp(System.currentTimeMillis())).toString().substring(0, 19);
 
-		System.out.println("[" + time + "] " + o.toString());
+		System.out.println("[" + time + "] " + (o == null ? null : o.toString()));
 
 	}
 
@@ -40,21 +40,40 @@ public class SDWebUi {
 	 * 
 	 * @param args
 	 */
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 
-		System.out.println("Start ...");
+		log("Start ...");
 
 		SDWebUi sdWebUi = new SDWebUi();
 
-		JSONObject o = sdWebUi.text2img("8k, high detail, sea, beach,   girl, detailed face", "logo, text", 3);
+		JSONObject txt2img = sdWebUi.txt2Img("8k, high detail, sea, beach, girl, detailed face", "logo, text", 2);
 
-		System.out.println("response:\n" + o.toJSONString());
+		File[] files = sdWebUi.saveImg(txt2img);
+
+		log(files.length);
+
+		for (int i = 0; i < files.length; i++) {
+
+			log(files[i].getAbsolutePath());
+
+		}
 
 	}
 
-	private void close(Closeable o)
-	{
+	public Image image = null;
+
+	public SDWebUi() {
+
+		image = new Image();
+
+	}
+
+	/**
+	 * 关闭
+	 * 
+	 * @param o
+	 */
+	private void close(Closeable o) {
 
 		if (o != null) {
 
@@ -77,8 +96,7 @@ public class SDWebUi {
 	 * 
 	 * @param conn
 	 */
-	private void disconnect(HttpURLConnection conn)
-	{
+	private void disconnect(HttpURLConnection conn) {
 
 		if (conn != null) {
 
@@ -94,8 +112,7 @@ public class SDWebUi {
 	 * @param path
 	 * @return
 	 */
-	private URL getURL()
-	{
+	private URL getURL() {
 
 		try {
 
@@ -112,24 +129,56 @@ public class SDWebUi {
 	}
 
 	/**
-	 * 测试
+	 * 把文本生成图像返回的 JSON 对象，其中的图像 base64 编码转换并保存为图像文件
+	 * 
+	 * @param txt2img
+	 * @return
 	 */
-	public void test()
-	{
+	public File[] saveImg(JSONObject txt2img) {
+
+		if (txt2img == null) {
+
+			return null;
+
+		}
+
+		Object images = txt2img.get("images");
+
+		if (images == null || !(images instanceof JSONArray)) {
+
+			return null;
+
+		}
+
+		JSONArray _images = (JSONArray) images;
+
+		int size = _images.size();
+
+		File[] files = new File[size];
+
+		for (int i = 0; i < size; i++) {
+
+			files[i] = image.base64ToImage((String) _images.get(i));
+
+		}
+
+		return files;
 
 	}
 
 	/**
 	 * 文本生成图像
 	 * 
-	 * @param prompt          提示词
-	 * @param negative_prompt 屏蔽提示词
-	 * @param count           生成图像数量
+	 * @param prompt
+	 *            提示词
+	 * @param negative_prompt
+	 *            屏蔽提示词
+	 * @param count
+	 *            生成图像数量
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public JSONObject text2img(String prompt, String negative_prompt, int count)
-	{
+	public JSONObject txt2Img(String prompt, String negative_prompt, int count) {
 
 		String _prompt = (prompt == null) ? "" : prompt.trim();
 
@@ -146,55 +195,12 @@ public class SDWebUi {
 		JSONObject req = new JSONObject();
 
 		req.put("prompt", _prompt);
+
 		req.put("negative_prompt", _negative_prompt);
-		req.put("styles", new JSONArray());
-		req.put("seed", -1);
-		req.put("subseed", -1);
-		req.put("subseed_strength", 0);
-		req.put("seed_resize_from_h", -1);
-		req.put("seed_resize_from_w", -1);
-		req.put("sampler_name", "");
+
 		req.put("batch_size", _count);
-		req.put("n_iter", 1);
+
 		req.put("steps", 50);
-		req.put("cfg_scale", 7);
-		req.put("width", 512);
-		req.put("height", 512);
-		req.put("restore_faces", true);
-		req.put("tiling", true);
-		req.put("do_not_save_samples", false);
-		req.put("do_not_save_grid", false);
-		req.put("eta", 0);
-		req.put("denoising_strength", 0);
-		req.put("s_min_uncond", 0);
-		req.put("s_churn", 0);
-		req.put("s_tmax", 0);
-		req.put("s_tmin", 0);
-		req.put("s_noise", 0);
-		req.put("override_settings", new JSONObject());
-		req.put("override_settings_restore_afterwards", true);
-		req.put("refiner_checkpoint", "");
-		req.put("refiner_switch_at", 0);
-		req.put("disable_extra_networks", false);
-		req.put("comments", new JSONObject());
-		req.put("enable_hr", false);
-		req.put("firstphase_width", 0);
-		req.put("firstphase_height", 0);
-		req.put("hr_scale", 2);
-		req.put("hr_upscaler", "");
-		req.put("hr_second_pass_steps", 0);
-		req.put("hr_resize_x", 0);
-		req.put("hr_resize_y", 0);
-		req.put("hr_checkpoint_name", "majicmixRealistic_betterV2V25");
-		req.put("hr_sampler_name", "");
-		req.put("hr_prompt", "");
-		req.put("hr_negative_prompt", "");
-		req.put("sampler_index", "DPM++ 2M Karras");
-		req.put("script_name", "");
-		req.put("script_args", new JSONArray());
-		req.put("send_images", true);
-		req.put("save_images", false);
-		req.put("alwayson_scripts", new JSONObject());
 
 		HttpURLConnection conn = null;
 
