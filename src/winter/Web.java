@@ -10,10 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.JSONStreamAware;
-import org.json.simple.parser.JSONParser;
 
 public class Web {
 
@@ -22,8 +19,7 @@ public class Web {
 	 * 
 	 * @param o
 	 */
-	public static void log(Object o)
-	{
+	public static void log(Object o) {
 
 		String time = (new Timestamp(System.currentTimeMillis())).toString().substring(0, 19);
 
@@ -37,8 +33,7 @@ public class Web {
 	 * @param args
 	 */
 	@SuppressWarnings({})
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 
 		Web web = new Web();
 
@@ -56,8 +51,7 @@ public class Web {
 
 	Random random = null;
 
-	public Web()
-	{
+	public Web() {
 
 		db = new Database();
 
@@ -72,9 +66,8 @@ public class Web {
 	/**
 	 * 把 MariaDB 数据库 t_review 表里的部分数据，导出到 ElasticSearch
 	 */
-	@SuppressWarnings({ "rawtypes" })
-	public boolean elasticImportReview()
-	{
+	@SuppressWarnings({"rawtypes"})
+	public boolean elasticImportReview() {
 
 		String sql = "SELECT * FROM t_review LIMIT 1000";
 
@@ -118,10 +111,67 @@ public class Web {
 
 	}
 
-	public String genToken()
-	{
+	public String genToken() {
 
 		return DigestUtils.md5Hex(random.nextInt(1, Integer.MAX_VALUE) + "-" + random.nextInt(1, Integer.MAX_VALUE));
+
+	}
+
+	/**
+	 * 获取自己的用户信息
+	 * 
+	 * @param request
+	 * @param session
+	 * @return
+	 */
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	public String getMyUserInfo(HttpServletRequest request, HttpSession session) {
+
+		long user_id = (session.getAttribute("id") == null ? 0 : (long) session.getAttribute("id"));
+
+		HashMap result = new HashMap();
+
+		result.put("login", false);
+
+		result.put("result", true);
+
+		if (user_id < 1) {
+
+			return JSONObject.toJSONString(result);
+
+		}
+
+		HashMap map = null;
+
+		try {
+
+			map = db.get("t_user", "id", user_id);
+
+		} catch (SQLException ex) {
+
+			ex.printStackTrace();
+
+			result.put("result", false);
+
+			return JSONObject.toJSONString(result);
+
+		}
+
+		if (map == null) {
+
+			return JSONObject.toJSONString(result);
+
+		}
+
+		result.put("login", true);
+
+		result.put("id", map.get("ID"));
+
+		result.put("name", map.get("NAME"));
+
+		result.put("nick", map.get("NICK"));
+
+		return JSONObject.toJSONString(result);
 
 	}
 
@@ -132,9 +182,8 @@ public class Web {
 	 * @param session
 	 * @return
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public String listUser(HttpServletRequest request, HttpSession session)
-	{
+	@SuppressWarnings({"rawtypes", "unchecked"})
+	public String listUser(HttpServletRequest request, HttpSession session) {
 
 		HashMap result = new HashMap();
 
@@ -177,9 +226,8 @@ public class Web {
 	/**
 	 * 把 MariaDB 数据库 t_review 表里的部分数据，导出到 Redis
 	 */
-	@SuppressWarnings({ "rawtypes" })
-	public boolean redisImportReview()
-	{
+	@SuppressWarnings({"rawtypes"})
+	public boolean redisImportReview() {
 
 		String sql = "SELECT * FROM t_review LIMIT 1000";
 
@@ -224,9 +272,8 @@ public class Web {
 	 * @param session
 	 * @return
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public String signIn(HttpServletRequest request, HttpSession session)
-	{
+	@SuppressWarnings({"rawtypes", "unchecked"})
+	public String signIn(HttpServletRequest request, HttpSession session) {
 
 		HashMap result = new HashMap();
 
@@ -281,15 +328,36 @@ public class Web {
 	}
 
 	/**
+	 * 退出登录
+	 * 
+	 * @param request
+	 * @param session
+	 * @return
+	 */
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	public String signOut(HttpServletRequest request, HttpSession session) {
+
+		session.invalidate();
+
+		HashMap result = new HashMap();
+
+		result.put("login", false);
+
+		result.put("result", true);
+
+		return JSONObject.toJSONString(result);
+
+	}
+
+	/**
 	 * 注册
 	 * 
 	 * @param request
 	 * @param session
 	 * @return
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public String signUp(HttpServletRequest request, HttpSession session)
-	{
+	@SuppressWarnings({"rawtypes", "unchecked"})
+	public String signUp(HttpServletRequest request, HttpSession session) {
 
 		HashMap result = new HashMap();
 
