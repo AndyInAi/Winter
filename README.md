@@ -280,7 +280,7 @@
 
 ### 服务端开发
 
-	一个方法 + 一个 JSP 页面
+	一个方法 + 一个 JSP 文件
 
 ##### 以获取自己的用户信息为例：
 
@@ -350,7 +350,7 @@
 
 	}
 
-#### 2) 创建一个 JSP 页面，实例化 Web.java ，调用方法，返回 JSON
+#### 2) 创建一个 JSP 文件，实例化 Web.java ，调用方法，返回 JSON
 
 	<%@ page contentType="application/json; charset=utf-8"  %>
 	<jsp:useBean id="webBean" scope="session" class="winter.Web" />
