@@ -350,7 +350,7 @@
 
 	}
 
-#### 2) 创建一个 JSP 文件，实例化 Web.java ，调用方法，返回 JSON
+#### 2) 创建一个 JSP 文件 /get_my_userinfo.jsp，实例化 Web.java ，调用方法，返回 JSON
 
 	<%@ page contentType="application/json; charset=utf-8"  %>
 	<jsp:useBean id="webBean" scope="session" class="winter.Web" />
@@ -360,6 +360,43 @@
 ### 开发完了？
 
 ### 对，完了！
+
+
+***
+
+
+### 客户端开发
+
+##### 以获取自己的用户信息为例：
+
+	<script src="/js/jquery.js" type="text/javascript"></script>
+
+	<script type="text/javascript">
+
+		$(document).ready(function(e) {
+		
+			$.getJSON("/get_my_userinfo.jsp?r=" + Math.random() , function(response) {
+				
+				if ( response.login == false ) {
+					
+					window.location = "/sign-in/?r=" + Math.random();
+				
+					return false;
+						
+				}
+				
+				$("#my_name").text(response.name);
+				
+			});
+			
+		});
+
+	</script>
+
+
+### 又开发完了？
+
+### 对，又完了！
 
 
 ***
