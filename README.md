@@ -275,6 +275,96 @@
 	石大大
 
 
+***
+
+
+### 服务端开发
+
+	一个方法 + 一个 JSP 页面
+
+##### 以获取自己的用户信息为例：
+
+#### 1) 在 Web.java 内创建一个方法，实现功能
+	
+	// 参数包括 HttpServletRequest 和 HttpSession
+	
+	// 返回 JSON 字符串，key 至少包括：login 表示是否登录，result 表示是否执行正常
+
+	/**
+	 * 获取自己的用户信息
+	 * 
+	 * @param request
+	 * @param session
+	 * @return
+	 */
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	public String getMyUserInfo(HttpServletRequest request, HttpSession session) {
+
+		long user_id = (session.getAttribute("id") == null ? 0 : (long) session.getAttribute("id"));
+
+		HashMap result = new HashMap();
+
+		result.put("login", false);
+
+		result.put("result", true);
+
+		if (user_id < 1) {
+
+			return JSONObject.toJSONString(result);
+
+		}
+
+		HashMap map = null;
+
+		try {
+
+			map = db.get("t_user", "id", user_id);
+
+		} catch (SQLException ex) {
+
+			ex.printStackTrace();
+
+			result.put("result", false);
+
+			return JSONObject.toJSONString(result);
+
+		}
+
+		if (map == null) {
+
+			return JSONObject.toJSONString(result);
+
+		}
+
+		result.put("login", true);
+
+		result.put("id", map.get("ID"));
+
+		result.put("name", map.get("NAME"));
+
+		result.put("nick", map.get("NICK"));
+
+		return JSONObject.toJSONString(result);
+
+	}
+
+	}
+
+#### 2) 创建一个 JSP 页面，实例化 Web.java ，调用方法，返回 JSON
+
+	<%@ page contentType="application/json; charset=utf-8"  %>
+	<jsp:useBean id="webBean" scope="session" class="winter.Web" />
+	<%= webBean.signIn(request, session) %>
+
+
+### 开发完了？
+
+### 对，完了！
+
+
+***
+
+
 ### 准备测试数据
 
 #### 创建数据库 winter 及表 t_user 
