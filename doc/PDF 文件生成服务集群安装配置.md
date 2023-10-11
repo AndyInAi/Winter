@@ -130,4 +130,8 @@
 
 	echo "https://www.sohu.com/" > /mnt/gluster-gv0/pdf/task/`uuid`
 
+	# 几秒钟后查看结果
+
+	ll /mnt/gluster-gv0/pdf/out/
+
 
