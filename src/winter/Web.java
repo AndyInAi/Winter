@@ -1,5 +1,11 @@
 package winter;
 
+import java.io.BufferedOutputStream;
+import java.io.Closeable;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -10,9 +16,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.kafka.common.Uuid;
 import org.json.simple.JSONObject;
 
 public class Web {
+
+	/**
+	 * PDF 根目录
+	 */
+	public static String PDF_DIR = "/mnt/gluster-gv0/pdf";
 
 	/**
 	 * 打印信息
@@ -40,7 +52,7 @@ public class Web {
 		// web.elasticImportReview();
 
 		web.redisImportReview();
-
+		
 	}
 
 	public Database db = null;
@@ -49,7 +61,7 @@ public class Web {
 
 	public Redis redis = null;
 
-	Random random = null;
+	public Random random = null;
 
 	public Web() {
 
@@ -64,9 +76,32 @@ public class Web {
 	}
 
 	/**
+	 * 关闭
+	 * 
+	 * @param o
+	 */
+	private void close(Closeable o) {
+
+		if (o != null) {
+
+			try {
+
+				o.close();
+
+			} catch (IOException ex) {
+
+				ex.printStackTrace();
+
+			}
+
+		}
+
+	}
+
+	/**
 	 * 把 MariaDB 数据库 t_review 表里的部分数据，导出到 ElasticSearch
 	 */
-	@SuppressWarnings({"rawtypes"})
+	@SuppressWarnings({ "rawtypes" })
 	public boolean elasticImportReview() {
 
 		String sql = "SELECT * FROM t_review LIMIT 1000";
@@ -124,7 +159,7 @@ public class Web {
 	 * @param session
 	 * @return
 	 */
-	@SuppressWarnings({"unchecked", "rawtypes"})
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public String getMyUserInfo(HttpServletRequest request, HttpSession session) {
 
 		long user_id = (session.getAttribute("id") == null ? 0 : (long) session.getAttribute("id"));
@@ -182,7 +217,7 @@ public class Web {
 	 * @param session
 	 * @return
 	 */
-	@SuppressWarnings({"rawtypes", "unchecked"})
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public String listUser(HttpServletRequest request, HttpSession session) {
 
 		HashMap result = new HashMap();
@@ -223,10 +258,78 @@ public class Web {
 
 	}
 
+	
+	/**
+	 * 生成 PDF 文件
+	 * 
+	 * @param request
+	 * @param session
+	 * @return
+	 */
+	public String makePDF(HttpServletRequest request, HttpSession session) {		
+					
+		return makePDF(request.getParameter("url"));		
+		
+	}
+	
+	/**
+	 * 生成 PDF 文件
+	 * 
+	 * @param url 生成 pdf 文件的 URL
+	 * @return
+	 */
+	public String makePDF(String url) {
+
+		if (url == null || (url = url.trim()).length() == 0) {
+
+			return null;
+
+		}
+
+		String uuid = Uuid.randomUuid().toString();
+
+		OutputStream bos = null;
+
+		try {
+
+			bos = new BufferedOutputStream(new FileOutputStream(new File(PDF_DIR + "/taks", uuid)));
+
+			bos.write(url.getBytes());
+
+		} catch (Exception ex) {
+
+			ex.printStackTrace();
+
+			return null;
+
+		} finally {
+
+			close(bos);
+
+		}
+
+		File pdf = new File(PDF_DIR + "/out", uuid + ".pdf");
+
+		for (int i = 0; i < 4; i++) {
+
+			sleep(random.nextInt(500, 3000));
+
+			if (pdf.exists()) {
+
+				return "/pdf/out/" + uuid + ".pdf";
+
+			}
+
+		}
+
+		return null;
+
+	}
+
 	/**
 	 * 把 MariaDB 数据库 t_review 表里的部分数据，导出到 Redis
 	 */
-	@SuppressWarnings({"rawtypes"})
+	@SuppressWarnings({ "rawtypes" })
 	public boolean redisImportReview() {
 
 		String sql = "SELECT * FROM t_review LIMIT 1000";
@@ -272,7 +375,7 @@ public class Web {
 	 * @param session
 	 * @return
 	 */
-	@SuppressWarnings({"rawtypes", "unchecked"})
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public String signIn(HttpServletRequest request, HttpSession session) {
 
 		HashMap result = new HashMap();
@@ -334,7 +437,7 @@ public class Web {
 	 * @param session
 	 * @return
 	 */
-	@SuppressWarnings({"unchecked", "rawtypes"})
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public String signOut(HttpServletRequest request, HttpSession session) {
 
 		session.invalidate();
@@ -356,7 +459,7 @@ public class Web {
 	 * @param session
 	 * @return
 	 */
-	@SuppressWarnings({"rawtypes", "unchecked"})
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public String signUp(HttpServletRequest request, HttpSession session) {
 
 		HashMap result = new HashMap();
@@ -418,6 +521,25 @@ public class Web {
 		result.put("result", true);
 
 		return JSONObject.toJSONString(result);
+
+	}
+
+	/**
+	 * 休眠
+	 * 
+	 * @param ms
+	 */
+	public void sleep(long ms) {
+
+		try {
+
+			Thread.sleep(random.nextInt(1000));
+
+		} catch (InterruptedException ex) {
+
+			ex.printStackTrace();
+
+		}
 
 	}
 
