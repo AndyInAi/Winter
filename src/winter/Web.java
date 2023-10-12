@@ -532,7 +532,7 @@ public class Web {
 
 		try {
 
-			Thread.sleep(random.nextInt(1000));
+			Thread.sleep(ms);
 
 		} catch (InterruptedException ex) {
 
