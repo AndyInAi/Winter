@@ -72,7 +72,7 @@
 				fi
 			done
 
-			sleep 3
+			sleep 2
 
 			if [ -f ~/tasks-kill ]; then rm -f ~/tasks-kill; exit 0; fi
 
@@ -132,6 +132,6 @@
 
 	# 几秒钟后查看结果
 
-	ll /mnt/gluster-gv0/pdf/out/
+	ll -t /mnt/gluster-gv0/pdf/out/ 
 
 
