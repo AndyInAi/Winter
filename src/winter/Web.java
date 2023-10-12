@@ -52,7 +52,7 @@ public class Web {
 		// web.elasticImportReview();
 
 		web.redisImportReview();
-		
+
 	}
 
 	public Database db = null;
@@ -258,7 +258,6 @@ public class Web {
 
 	}
 
-	
 	/**
 	 * 生成 PDF 文件
 	 * 
@@ -266,12 +265,12 @@ public class Web {
 	 * @param session
 	 * @return
 	 */
-	public String makePDF(HttpServletRequest request, HttpSession session) {		
-					
-		return makePDF(request.getParameter("url"));		
-		
+	public String makePDF(HttpServletRequest request, HttpSession session) {
+
+		return makePDF(request.getParameter("url"));
+
 	}
-	
+
 	/**
 	 * 生成 PDF 文件
 	 * 
@@ -292,7 +291,7 @@ public class Web {
 
 		try {
 
-			bos = new BufferedOutputStream(new FileOutputStream(new File(PDF_DIR + "/taks", uuid)));
+			bos = new BufferedOutputStream(new FileOutputStream(new File(PDF_DIR + "/task", uuid)));
 
 			bos.write(url.getBytes());
 
@@ -312,7 +311,7 @@ public class Web {
 
 		for (int i = 0; i < 4; i++) {
 
-			sleep(random.nextInt(500, 3000));
+			sleep(random.nextInt(1000, 3000));
 
 			if (pdf.exists()) {
 
