@@ -348,8 +348,6 @@
 
 	}
 
-	}
-
 #### 2) 创建一个 JSP 文件 /get_my_userinfo.jsp，实例化 Web.java ，调用方法，返回 JSON
 
 	<%@ page contentType="application/json; charset=utf-8"  %>
@@ -528,6 +526,10 @@
 
 ### PDF 文件生成服务集群安装配置
 <https://github.com/AndyInAi/Winter/blob/main/doc/PDF%20%E6%96%87%E4%BB%B6%E7%94%9F%E6%88%90%E6%9C%8D%E5%8A%A1%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md>
+
+
+### FFmpeg 集群安装配置
+<https://github.com/AndyInAi/Winter/blob/main/doc/FFmpeg%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md>
 
 
 ### 全部代码在 Ubuntu 22.04.3 LTS 测试通过
