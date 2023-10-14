@@ -1,7 +1,7 @@
 
 ### 安装
 
-	(export DEBIAN_FRONTEND=noninteractive && apt update -y && apt install -y xz)
+	(export DEBIAN_FRONTEND=noninteractive && apt update -y && apt install -y xz-utils)
 
 	(if [ ! -f ~/ffmpeg-release-amd64-static.tar.xz ]; then wget -O ~/ffmpeg-release-amd64-static.tar.xz https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz ; fi)
 	
