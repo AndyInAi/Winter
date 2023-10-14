@@ -90,7 +90,7 @@
 
 		done
 
-	" > ~/tasks; chmod +x ~/tasks; )
+	" > ~/tasks; sed -i '1 i #!/bin/bash' ~/tasks; chmod +x ~/tasks; )
 	# 结束
 
 	# 启动服务脚本 ~/start-tasks
@@ -108,7 +108,7 @@
 
 		nohup ~/tasks 9f954200-69c0-11ee-8de6-00155d010b78 > ~/tasks.log 2>&1 &
 
-	" > ~/start-tasks; chmod +x ~/start-tasks; )
+	" > ~/start-tasks; sed -i '1 i #!/bin/bash' ~/start-tasks; chmod +x ~/start-tasks; )
 	# 结束
 
 	# 停止服务脚本 ~/start-tasks
@@ -124,7 +124,7 @@
 
 		fi
 
-	" > ~/stop-tasks; chmod +x ~/stop-tasks; )
+	" > ~/stop-tasks; sed -i '1 i #!/bin/bash' ~/stop-tasks; chmod +x ~/stop-tasks; )
 	# 结束
 
 
@@ -142,7 +142,7 @@
 
 	# 准备一个视频文件 test.mkv
 
-	ln -s ~/test.mkv /mnt/gluster-gv0/mp4/task/`uuid`
+	ln -s ~/test.mkv /mnt/gluster-gv0/mp4/task/`uuid -v4`
 
 	# 几十秒钟或几分钟后查看结果，正常情况下会生成一个 mp4 文件
 
