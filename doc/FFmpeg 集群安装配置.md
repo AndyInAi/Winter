@@ -53,9 +53,9 @@
 
 		dir=\"/mnt/gluster-gv0/mp4\"
 
-		cmd=\"ffmpeg -y  -i\"
+		cmd=\"ffmpeg -y -v 0  -i\"
 
-		opts=\"-c:v libx264 -fpsmax 5M -c:a aac -b:a 384K\"
+		opts=\"-c:v libx264 -c:a aac -b:a 320K\"
 
 		while true; do
 
@@ -71,7 +71,11 @@
 					
 					if [ -f /dev/shm/\${i}.mp4 ]; then 
 
-						mv -f /dev/shm/\${i}.mp4 \${dir}/out/
+						ffmpeg -y -v 0 -i /dev/shm/\${i}.mp4  -t 10 -c copy /dev/shm/\${i}-review.mp4
+
+						ffmpeg -y -v 0 -i /dev/shm/\${i}-review.mp4  -t 9 -vf fps=1 /dev/shm/\${i}-%d.png
+
+						mv -f /dev/shm/\${i}* \${dir}/out/
 
 					fi
 
@@ -140,12 +144,33 @@
 
 ### 测试
 
-	# 准备一个视频文件 test.mkv 放在目录 /mnt/gluster-gv0/mp4/upload/ 后执行
+	# 复制或上传一个视频文件 test.mkv 到目录 /mnt/gluster-gv0/mp4/upload/ 后执行
 
 	ln -s /mnt/gluster-gv0/mp4/upload/test.mkv /mnt/gluster-gv0/mp4/task/`uuid -v4`
 
-	# 几十秒钟或几分钟后查看结果，正常情况下会生成一个 mp4 文件
+	# 根据源视频文件大小，需要几十秒钟至几分钟完成，查看结果
 
 	ll -t /mnt/gluster-gv0/mp4/out/
+
+	# 输出例子，包括一个标准 mp4 文件、一个 10 秒 mp4 文件、# 最多 9 个 png 图片
+
+	48aa87b8-6921-4e75-869d-7db2868384f3.mp4
+
+	48aa87b8-6921-4e75-869d-7db2868384f3-review.mp4
+
+	48aa87b8-6921-4e75-869d-7db2868384f3-1.png
+	48aa87b8-6921-4e75-869d-7db2868384f3-2.png
+	48aa87b8-6921-4e75-869d-7db2868384f3-3.png
+	48aa87b8-6921-4e75-869d-7db2868384f3-4.png
+	48aa87b8-6921-4e75-869d-7db2868384f3-5.png
+	48aa87b8-6921-4e75-869d-7db2868384f3-6.png
+	48aa87b8-6921-4e75-869d-7db2868384f3-7.png
+	48aa87b8-6921-4e75-869d-7db2868384f3-8.png
+	48aa87b8-6921-4e75-869d-7db2868384f3-9.png
+
+
+
+	
+
 
 
