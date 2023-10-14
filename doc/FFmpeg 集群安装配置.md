@@ -37,7 +37,7 @@
 
 	if [ "`grep ^gfs:/gv0 /etc/fstab`" == "" ]; then echo 'gfs:/gv0 /mnt/gluster-gv0 glusterfs defaults,_netdev 0 0' >> /etc/fstab; fi
 
-	mount -a && mkdir -p /mnt/gluster-gv0/mp4/{upload,task,lock,out,over} && mount
+	mount -a && mkdir -p /mnt/gluster-gv0/mp4/{task,lock,out,over} && mount
 
 
 ### 配置
@@ -140,7 +140,7 @@
 
 ### 测试
 
-	ln -s /mnt/gluster-gv0/mp4/upload/test.mkv /mnt/gluster-gv0/mp4/task/`uuid`
+	ln -s ~/test.mkv /mnt/gluster-gv0/mp4/task/`uuid`
 
 	# 几十秒钟或几分钟后查看结果，正常情况下会生成一个 mp4 文件
 
