@@ -1,7 +1,7 @@
 
 ### 安装
 
-	(export DEBIAN_FRONTEND=noninteractive && apt update -y && apt install -y xz-utils)
+	(export DEBIAN_FRONTEND=noninteractive && apt update -y && apt install -y xz-utils uuid)
 
 	(if [ ! -f ~/ffmpeg-release-amd64-static.tar.xz ]; then wget -O ~/ffmpeg-release-amd64-static.tar.xz https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz ; fi)
 	
@@ -55,7 +55,7 @@
 
 		cmd=\"ffmpeg -y  -i\"
 
-		opts=\"-c:v libx264 -fpsmax 5m -c:a aac -b:a 384k\"
+		opts=\"-c:v libx264 -fpsmax 5M -c:a aac -b:a 384K\"
 
 		while true; do
 
@@ -67,11 +67,11 @@
 
 					touch \${dir}/lock/\${i}
 
-					\$cmd \${dir}/task/\${i}  \${opts} /dev/shm/\${i}
+					\$cmd \${dir}/task/\${i}  \${opts} /dev/shm/\${i}.mp4
 					
-					if [ -f /dev/shm/\${i} ]; then 
+					if [ -f /dev/shm/\${i}.mp4 ]; then 
 
-						mv -f /dev/shm/\${i} \${dir}/out/\${i}.mp4
+						mv -f /dev/shm/\${i}.mp4 \${dir}/out/
 
 					fi
 
@@ -139,6 +139,8 @@
 
 
 ### 测试
+
+	# 准备一个视频文件 test.mkv
 
 	ln -s ~/test.mkv /mnt/gluster-gv0/mp4/task/`uuid`
 
