@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,6 +26,11 @@ public class Web {
 	 * PDF 根目录
 	 */
 	public static String PDF_DIR = "/mnt/gluster-gv0/pdf";
+
+	/**
+	 * MP4 根目录
+	 */
+	public static String MP4_DIR = "/mnt/gluster-gv0/mp4";
 
 	/**
 	 * 打印信息
@@ -51,7 +57,9 @@ public class Web {
 
 		// web.elasticImportReview();
 
-		web.redisImportReview();
+		// web.redisImportReview();
+
+		web.makeMP4("test.mkv");
 
 	}
 
@@ -72,6 +80,48 @@ public class Web {
 		redis = new Redis();
 
 		random = new Random();
+
+	}
+
+	/**
+	 * 系统调用执行命令行
+	 * 
+	 * @param cmd
+	 * @return
+	 */
+	public boolean cl(String cmd) {
+
+		return cl(cmd, 8000);
+
+	}
+
+	/**
+	 * 系统调用执行命令行
+	 * 
+	 * @param cmd
+	 * @return
+	 */
+	public boolean cl(String cmd, long timeout) {
+
+		Process p = null;
+
+		try {
+
+			Runtime r = Runtime.getRuntime();
+
+			p = r.exec(cmd);
+
+			p.waitFor();
+
+			return true;
+
+		} catch (Exception ex) {
+
+			ex.printStackTrace();
+
+		}
+
+		return false;
 
 	}
 
@@ -255,6 +305,70 @@ public class Web {
 		result.put("users", rows);
 
 		return JSONObject.toJSONString(result);
+
+	}
+
+	/**
+	 * 提交视频转码任务，提交失败返回 null，成功返回转码结果的文件名前缀
+	 * 
+	 * 转码成功后的文件包括 .mp4、-review.mp4、1.png 至 9.png 等后缀文件
+	 * 
+	 * 转码需要几秒至几分钟不等的时间，需要定期或不定期使用转码结果的文件检查任务是否成功
+	 * 
+	 * @param filename 源视频文件名
+	 * @return 转码结果的文件名前缀，
+	 */
+	public String makeMP4(String filename) {
+
+		return makeMP4("upload", filename);
+	}
+
+	/**
+	 * 提交视频转码任务，提交失败返回 null，成功返回转码结果的文件名前缀
+	 * 
+	 * 转码成功后的文件包括 .mp4、-review.mp4、1.png 至 9.png 等后缀文件
+	 * 
+	 * 转码需要几秒至几分钟不等的时间，需要定期或不定期使用转码结果的文件检查任务是否成功
+	 * 
+	 * @param subdir   源视频子目录
+	 * @param filename 源视频文件名
+	 * @return 转码结果的文件名前缀，转码成功后的文件包括 .mp4、-review.mp4、1.png 至 9.png 等后缀文件
+	 */
+	public String makeMP4(String subdir, String filename) {
+
+		if (filename == null || (filename = filename.trim()).length() == 0) {
+
+			return null;
+
+		}
+
+		if (subdir == null || (subdir = subdir.trim()).length() == 0) {
+
+			subdir = "upload";
+
+		}
+
+		String uuid = UUID.randomUUID().toString();
+
+		File src = new File(MP4_DIR + "/" + subdir, filename); // 源文件
+
+		File task = new File(MP4_DIR + "/task", uuid); // 任务文件，源文件的链接
+
+		if (!src.exists() || !src.isFile()) {
+
+			return null;
+
+		}
+
+		if (task.exists()) {
+
+			return uuid;
+
+		}
+
+		String cmd = "ln -s " + src.getAbsolutePath() + " " + task.getAbsolutePath();
+
+		return cl(cmd) ? uuid : null;
 
 	}
 
