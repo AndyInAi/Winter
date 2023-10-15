@@ -424,9 +424,6 @@
 	<%= webBean.makePDF(request, session) %>
 
 
-***
-
-
 ### 又又开发完了？
 
 ### 对，又又完了！
@@ -440,9 +437,6 @@
 	Web web = new Web();
 
 	web.makeMP4("test.mkv");
-
-
-***
 
 
 ### 又又又开发完了？
