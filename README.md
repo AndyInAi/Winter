@@ -206,7 +206,7 @@
 
 	SDWebUi sdWebUi = new SDWebUi();
 
-	JSONObject o = sdWebUi.text2img("8k, high detail, sea, beach, girl, detailed face", "logo, text", 9);
+	JSONObject o = sdWebUi.txt2img("8k, high detail, sea, beach, girl, detailed face", "logo, text", 9);
 
 ##### 生成结果
 
@@ -219,7 +219,7 @@
 ![image](https://github.com/AndyInAi/Winter/blob/main/img/00007-1430822285.png)
 ![image](https://github.com/AndyInAi/Winter/blob/main/img/00008-1430822286.png)
 
-	sdWebUi.text2img("8k, high detail, sea, beach, moon, diamond, girl, detailed face", "logo, text", 9);
+	sdWebUi.txt2img("8k, high detail, sea, beach, moon, diamond, girl, detailed face", "logo, text", 9);
 
 ##### 生成结果
 
@@ -430,6 +430,26 @@
 ### 又又开发完了？
 
 ### 对，又又完了！
+
+
+***
+
+
+### 快某、抖某 APP 太成功了，计划开发一个 APP，投资一个亿开发视频处理； 100 个高级软件工程师 996 开发 10 个月
+
+	Web web = new Web();
+
+	web.makeMP4("test.mkv");
+
+
+***
+
+
+### 又又又开发完了？
+
+### 对，又又又完了！
+
+### 一年的活，一天干完，活该失业
 
 
 ***
