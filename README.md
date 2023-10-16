@@ -438,6 +438,8 @@
 
 	web.makeMP4("test.mkv");
 
+	# 执行成功生成的文件包括标准视频 .mp4、预览视频 -review.mp4、截图 1.png 至 9.png 等文件
+
 
 ### 又又又开发完了？
 
@@ -499,7 +501,7 @@
 
 ### Redis 集群安装配置
 
-<https://github.com/AndyInAi/Winter/blob/main/doc/Redis%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.txt>
+<https://github.com/AndyInAi/Winter/blob/main/doc/Redis%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md>
 
 
 ### ElasticSearch 集群安装配置
