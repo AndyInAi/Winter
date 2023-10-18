@@ -213,11 +213,6 @@
 ![image](https://github.com/AndyInAi/Winter/blob/main/img/00000-1430822278.png)
 ![image](https://github.com/AndyInAi/Winter/blob/main/img/00002-1430822280.png)
 ![image](https://github.com/AndyInAi/Winter/blob/main/img/00003-1430822281.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00004-1430822282.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00005-1430822283.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00006-1430822284.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00007-1430822285.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00008-1430822286.png)
 
 	sdWebUi.txt2img("8k, high detail, sea, beach, moon, diamond, girl, detailed face", "logo, text", 9);
 
@@ -226,12 +221,6 @@
 ![image](https://github.com/AndyInAi/Winter/blob/main/img/00077-3078859337.png)
 ![image](https://github.com/AndyInAi/Winter/blob/main/img/00078-3078859338.png)
 ![image](https://github.com/AndyInAi/Winter/blob/main/img/00079-3078859339.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00080-3078859340.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00081-3078859341.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00082-3078859342.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00083-3078859343.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00084-3078859344.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00085-3078859345.png)
 
 
 ## 人工智能会话
@@ -546,6 +535,10 @@
 
 ### FFmpeg 集群安装配置
 <https://github.com/AndyInAi/Winter/blob/main/doc/FFmpeg%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md>
+
+
+### Prometheus 集群安装配置
+<https://github.com/AndyInAi/Winter/blob/main/doc/Prometheus%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md>
 
 
 ### 全部代码在 Ubuntu 22.04.3 LTS 测试通过
