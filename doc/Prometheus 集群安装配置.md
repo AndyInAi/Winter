@@ -101,6 +101,10 @@
 
 	~/stop-p8s; ~/start-p8s 
 
+### 结果
+
+![image](https://github.com/AndyInAi/Winter/blob/main/img/00000-1430822278.png)
+
 
 ### 未完待续
 
