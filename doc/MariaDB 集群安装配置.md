@@ -147,5 +147,5 @@
 
 ### 结果
 
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00000-1430822278.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/p8s/p8s-mariadb.png)
 
