@@ -13,7 +13,7 @@
 
 ### 配置
 
-	(ip=`ifconfig |grep inet |grep -v inet6 |grep -v 127.0.0.1 |awk '{print $2}' |head -n 1`; echo $ip; sed "s/\".*:9090\"/\"$ip:9090\"/g" ./p8s/prometheus.yml)
+	(cd ~ ; ip=`ifconfig |grep inet |grep -v inet6 |grep -v 127.0.0.1 |awk '{print $2}' |head -n 1`; echo $ip; sed -i "s/\".*:9090\"/\"$ip:9090\"/g" ./p8s/prometheus.yml)
 
 	# 生成启动脚本 ~/start-p8s
 	# 开始
@@ -75,6 +75,31 @@
 ### 停止
 
 	~/stop-p8s
+
+
+### MariaDB 监控配置
+
+	# 开始
+	(
+		cd ~;
+		if [ "`grep '\- job_name: \"mysql\"' ./p8s/prometheus.yml`" == "" ]; then
+			echo '
+				  - job_name: "mysql"
+				    static_configs:
+				      - targets: ["192.168.1.201:9104"]
+				      - targets: ["192.168.1.202:9104"]
+				      - targets: ["192.168.1.203:9104"]
+				      - targets: ["192.168.1.204:9104"]
+			'>> ./p8s/prometheus.yml;
+			sed -i "s/^\t*//g" ./p8s/prometheus.yml;
+		fi
+	)
+	# 结束
+
+
+#### 重启
+
+	~/stop-p8s; ~/start-p8s 
 
 
 ### 未完待续

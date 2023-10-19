@@ -89,7 +89,7 @@
 
 ### 负载均衡节点安装配置 
 
-	# IP: 192.168.1.200
+	# 节点 IP: 192.168.1.200
 
 	apt install haproxy -y
 
@@ -112,4 +112,36 @@
 
 	systemctl --now enable haproxy
 
+
+### Prometheus 监控安装配置 (可选)
+
+	# 每个节点执行
+
+#### 安装
+
+	apt install -y prometheus-mysqld-exporter
+
+	systemctl enable prometheus-mysqld-exporter
+
+#### 配置
+
+	systemctl stop prometheus-mysqld-exporter
+
+	mysql  -u root -pwinter -e "INSTALL SONAME 'query_response_time'; SET GLOBAL query_response_time_stats=ON "
+
+	if [ "`grep ^query_response_time_stats /etc/mysql/mariadb.conf.d/50-server.cnf`" == "" ]; then echo query_response_time_stats=ON >> /etc/mysql/mariadb.conf.d/50-server.cnf; fi
+
+	(ip=`ifconfig |grep inet |grep -v inet6 |grep -v 127.0.0.1 |awk '{print $2}' |head -n 1`; echo -e "[client]\nhost=${ip} \nuser=root \npassword=winter" > /root/.my.cnf)
+
+	sed -i '/^User=.*/d' /lib/systemd/system/prometheus-mysqld-exporter.service
+		
+	sed -i "s/ARGS=.*/ARGS=\"--config.my-cnf=\/root\/.my.cnf\ --log.level=info\"/g" /etc/default/prometheus-mysqld-exporter
+	
+	systemctl daemon-reload
+
+#### 启动
+
+	systemctl restart prometheus-mysqld-exporter
+	
+	systemctl status prometheus-mysqld-exporter
 
