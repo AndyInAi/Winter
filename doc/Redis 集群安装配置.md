@@ -83,5 +83,5 @@
 
 #### 截图
 
-	![image](https://github.com/AndyInAi/Winter/blob/main/img/p8s/p8s-2.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/p8s/p8s-2.png)
 

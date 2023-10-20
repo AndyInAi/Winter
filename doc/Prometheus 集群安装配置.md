@@ -146,7 +146,7 @@
 
 	# 截图
 
-	![image](https://github.com/AndyInAi/Winter/blob/main/img/p8s/p8s-1.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/p8s/p8s-1.png)
 
 
 ### Redis 监控配置
@@ -174,7 +174,7 @@
 
 	# 截图
 
-	![image](https://github.com/AndyInAi/Winter/blob/main/img/p8s/p8s-2.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/p8s/p8s-2.png)
 
 
 #### 重启
