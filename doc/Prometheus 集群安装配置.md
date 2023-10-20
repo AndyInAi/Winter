@@ -84,9 +84,9 @@
 	~/stop-p8s
 
 
-### 负载均衡安装配置 
+### 负载均衡节点安装配置
 	
-	# 实现高可用高并发高流量热备需求
+	# 实现高可用高并发高流量热备要求
 
 	# hostname: p8s
 	# ip: 192.168.1.210
@@ -128,7 +128,6 @@
 
 ### MariaDB 监控配置
 
-	# 开始
 	(
 		cd ~;
 		if [ "`grep '\- job_name: \"mysql\"' ./p8s/prometheus.yml`" == "" ]; then
@@ -142,16 +141,44 @@
 			'>> ./p8s/prometheus.yml;
 			sed -i "s/^\t*//g" ./p8s/prometheus.yml;
 		fi
+		~/stop-p8s; ~/start-p8s;
 	)
-	# 结束
+
+	# 截图
+
+	![image](https://github.com/AndyInAi/Winter/blob/main/img/p8s/p8s-1.png)
+
+
+### Redis 监控配置
+
+	(
+		cd ~;
+		if [ "`grep '\- job_name: \"redis\"' ./p8s/prometheus.yml`" == "" ]; then
+			echo '
+				  - job_name: "redis"
+				    static_configs:
+				      - targets: ["192.168.1.241:9121"]
+				      - targets: ["192.168.1.242:9121"]
+				      - targets: ["192.168.1.243:9121"]
+				      - targets: ["192.168.1.244:9121"]
+				      - targets: ["192.168.1.245:9121"]
+				      - targets: ["192.168.1.246:9121"]
+				      - targets: ["192.168.1.247:9121"]
+				      - targets: ["192.168.1.248:9121"]
+				      - targets: ["192.168.1.249:9121"]
+			'>> ./p8s/prometheus.yml;
+			sed -i "s/^\t*//g" ./p8s/prometheus.yml;
+		fi
+		~/stop-p8s; ~/start-p8s;
+	)
+
+	# 截图
+
+	![image](https://github.com/AndyInAi/Winter/blob/main/img/p8s/p8s-2.png)
 
 
 #### 重启
 
 	~/stop-p8s; ~/start-p8s 
-
-### 结果
-
-![image](https://github.com/AndyInAi/Winter/blob/main/img/p8s/p8s-1.png)
 
 
