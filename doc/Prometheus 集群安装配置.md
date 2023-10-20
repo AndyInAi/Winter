@@ -13,6 +13,13 @@
 
 ### 配置
 
+	# 开始
+	(
+		NODES="192.168.1.211 192.168.1.212 192.168.1.213 192.168.1.214"; NAME="p8s" # 4 个节点 IP 列表，对应主机名 p8s1 - p8s4
+		no=0; for i in $NODES; do no=$(($no+1)) ; ip="$i " ;  host="$ip ${NAME}$no" ;  if [ "`grep \"^$ip\" /etc/hosts`" == "" ]; then echo "$host" >> /etc/hosts; else sed -i "s/^$ip.*$/$host/g" /etc/hosts; fi ; done
+	)
+	# 结束
+
 	(cd ~ ; ip=`ifconfig |grep inet |grep -v inet6 |grep -v 127.0.0.1 |awk '{print $2}' |head -n 1`; echo $ip; sed -i "s/\".*:9090\"/\"$ip:9090\"/g" ./p8s/prometheus.yml)
 
 	# 生成启动脚本 ~/start-p8s
@@ -77,6 +84,48 @@
 	~/stop-p8s
 
 
+### 负载均衡安装配置 
+	
+	# 实现高可用高并发高流量热备需求
+
+	# hostname: p8s
+	# ip: 192.168.1.210
+
+	apt install -y nginx
+
+	if [ "`grep '#include \/etc\/nginx\/sites-enabled\/' /etc/nginx/nginx.conf`" == "" ]; then echo ok; sed -i "s/include \/etc\/nginx\/sites-enabled\//#include \/etc\/nginx\/sites-enabled\//g" /etc/nginx/nginx.conf; fi
+
+	systemctl --now enable nginx
+
+	# 开始
+	(
+		echo '
+		    upstream p8s {
+			ip_hash;
+			server 192.168.1.211:9090;
+			server 192.168.1.212:9090;
+			server 192.168.1.213:9090;
+			server 192.168.1.214:9090;
+		    }
+		    server {
+			listen 80;
+			location / {
+				proxy_pass http://p8s;
+				proxy_http_version	1.1;
+				proxy_set_header	Host $host;
+				proxy_set_header	X-Real-IP  $remote_addr;
+				proxy_set_header	X-Forwarded-For $proxy_add_x_forwarded_for;
+				proxy_set_header	Upgrade $http_upgrade;
+				proxy_set_header	Connection "upgrade";
+			}
+		    }
+		' > /etc/nginx/conf.d/p8s.conf ; 
+	)
+	# 结束
+
+	systemctl restart nginx
+
+
 ### MariaDB 监控配置
 
 	# 开始
@@ -103,8 +152,6 @@
 
 ### 结果
 
-![image](https://github.com/AndyInAi/Winter/blob/main/img/p8s/p8s-mariadb.png)
+![image](https://github.com/AndyInAi/Winter/blob/main/img/p8s/p8s-1.png)
 
-
-### 未完待续
 
