@@ -177,6 +177,41 @@
 ![image](https://github.com/AndyInAi/Winter/blob/main/img/p8s/p8s-2.png)
 
 
+### Resin 监控配置
+
+	(
+		~/stop-p8s;
+		cd ~;
+		if [ "`grep '\- job_name: \"resin\"' ./p8s/prometheus.yml`" == "" ]; then
+			echo '
+			  - job_name: "resin"
+			    metrics_path: /probe
+			    params:
+			      module: [http_2xx]
+			    static_configs:
+			      - targets:
+			        - http://192.168.1.181
+			        - http://192.168.1.182
+			        - http://192.168.1.183
+			        - http://192.168.1.184
+			    relabel_configs:
+			      - source_labels: [__address__]
+			        target_label: __param_target
+			      - source_labels: [__param_target]
+			        target_label: instance
+			      - target_label: __address__
+			        replacement: 192.168.1.181:9115
+			'>> ./p8s/prometheus.yml;
+			sed -i "s/^\t*//g" ./p8s/prometheus.yml;
+		fi
+		~/start-p8s;
+	)
+
+	# 截图
+
+![image](https://github.com/AndyInAi/Winter/blob/main/img/p8s/p8s-3.png)
+
+
 #### 重启
 
 	~/stop-p8s; ~/start-p8s 

@@ -57,7 +57,7 @@
 
 	mkdir -p /mnt/gluster-gv0
 
-	if [ "`grep ^gfs:/gv0 /etc/fstab`" == "" ]; then echo 'gfs:/gv0 /mnt/gluster-gv0 glusterfs defaults 0 0' >> /etc/fstab; fi
+	if [ "`grep ^gfs:/gv0 /etc/fstab`" == "" ]; then echo 'gfs:/gv0 /mnt/gluster-gv0 glusterfs defaults,_netdev 0 0' >> /etc/fstab; fi
 
 	mount -a && mount
 
@@ -107,4 +107,40 @@
 	)
 
 	systemctl restart nginx
+
+
+### Prometheus 监控安装配置 (可选)
+
+	# 在第一个节点执行
+	
+	# IP 192.168.1.181
+
+
+#### 安装
+
+	export DEBIAN_FRONTEND=noninteractive; apt install -y prometheus-blackbox-exporter ; systemctl enable prometheus-blackbox-exporter
+
+	(
+		systemctl stop prometheus-blackbox-exporter;
+
+		echo '
+			modules:
+			  http_2xx:
+			    prober: http
+		' > /etc/prometheus/blackbox.yml;
+		sed -i "s/^\t*//g" /etc/prometheus/blackbox.yml;
+
+		systemctl start prometheus-blackbox-exporter;		
+	)
+
+
+#### 启动
+
+	systemctl start prometheus-blackbox-exporter; 	systemctl status prometheus-blackbox-exporter
+
+
+#### 截图
+
+![image](https://github.com/AndyInAi/Winter/blob/main/img/p8s/p8s-3.png)
+
 
