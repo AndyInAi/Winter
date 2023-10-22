@@ -84,6 +84,11 @@
 	~/stop-p8s
 
 
+### 重启
+
+	~/stop-p8s; ~/start-p8s 
+
+
 ### 负载均衡节点安装配置
 	
 	# 实现高可用高并发高流量热备要求
@@ -212,8 +217,27 @@
 ![image](https://github.com/AndyInAi/Winter/blob/main/img/p8s/p8s-3.png)
 
 
-#### 重启
+### ElasticSearch 监控配置
 
-	~/stop-p8s; ~/start-p8s 
+	(
+		~/stop-p8s;
+		cd ~;
+		if [ "`grep '\- job_name: \"elasticsearch\"' ./p8s/prometheus.yml`" == "" ]; then
+			echo '
+				  - job_name: "elasticsearch"
+				    static_configs:
+				      - targets: ["192.168.1.221:9114"]
+				      - targets: ["192.168.1.222:9114"]
+				      - targets: ["192.168.1.223:9114"]
+				      - targets: ["192.168.1.224:9114"]
+			'>> ./p8s/prometheus.yml;
+			sed -i "s/^\t*//g" ./p8s/prometheus.yml;
+		fi
+		 ~/start-p8s;
+	)
+
+	# 截图
+
+![image](https://github.com/AndyInAi/Winter/blob/main/img/p8s/p8s-4.png)
 
 

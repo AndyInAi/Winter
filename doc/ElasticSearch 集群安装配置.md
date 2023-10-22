@@ -10,6 +10,11 @@
 
 	apt-get update -y && apt-get install -y elasticsearch
 
+	(
+		NODES="192.168.1.221 192.168.1.222 192.168.1.223 192.168.1.224"; NAME="es" # 4 个节点 IP 列表，对应主机名 es1 - es4
+		no=0; for i in $NODES; do no=$(($no+1)) ; ip="$i " ;  host="$ip ${NAME}$no" ;  if [ "`grep \"^$ip\" /etc/hosts`" == "" ]; then echo "$host" >> /etc/hosts; else sed -i "s/^$ip.*$/$host/g" /etc/hosts; fi ; done
+	)
+
 
 ### 配置
 
@@ -79,4 +84,30 @@
 	systemctl enable haproxy
 
 	systemctl restart haproxy
+
+
+### Prometheus 监控安装配置 (可选)
+
+	# 在每个节点执行
+
+
+#### 安装
+
+	export DEBIAN_FRONTEND=noninteractive; apt install -y prometheus-elasticsearch-exporter ; systemctl --now enable prometheus-elasticsearch-exporter
+
+
+#### 停止
+	
+	systemctl stop prometheus-elasticsearch-exporter;
+
+
+#### 启动
+
+	systemctl start prometheus-elasticsearch-exporter;  systemctl status prometheus-elasticsearch-exporter
+
+
+#### 截图
+
+![image](https://github.com/AndyInAi/Winter/blob/main/img/p8s/p8s-4.png)
+
 
