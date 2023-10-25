@@ -3,6 +3,7 @@
 一个开箱即用的 Web 集群架构
 
 
+
 ### 快速预览
 
 
@@ -208,60 +209,12 @@
 
 	JSONObject o = sdWebUi.txt2img("8k, high detail, sea, beach, girl, detailed face", "logo, text", 9);
 
-##### 生成结果
-
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00000-1430822278.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00002-1430822280.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00003-1430822281.png)
-
-	sdWebUi.txt2img("8k, high detail, sea, beach, moon, diamond, girl, detailed face", "logo, text", 9);
-
-##### 生成结果
-
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00077-3078859337.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00078-3078859338.png)
-![image](https://github.com/AndyInAi/Winter/blob/main/img/00079-3078859339.png)
-
 
 ## 人工智能会话
 
 	ChatGLM chatGLM = new ChatGLM();
 
 	JSONObject o = chatGLM.chat("你好，我叫石大大，我的大学初恋女友林青霞嫁人了，请帮我给她写一封信");
-
-#### 会话结果
-
-{
-    "response": "亲爱的林青霞,\n\n我希望这封信能够传达出我真挚的祝福和感激之情。当我听到你的婚讯时,我感到非常惊讶和高兴。我知道你一直是我心中最珍贵的人,我们的初恋更是我心中一段美好的回忆。\n\n我从未忘记我们曾经一起度过的美好时光,那些无忧无虑的夜晚,以及你对我的爱和关怀。如今,我已经步入了成熟和稳定的婚姻生活,开始了新的生 命旅程。我也深刻理解到婚姻和爱情的责任和挑战,需要我们共同去面对和承担。\n\n我希望你和你的丈夫能够幸福美满,相互扶持,共同迎接未来的挑战。我也希望你能够在家庭和工作中继续保持你的热情和才华,继续实现你的梦想和理想。\n\n再次祝福你,希望你一切安好。\n\n爱你\n\n石大大",
-    "history": [
-    ],
-    "time": "2023-09-27 11:29:02",
-    "status": 200
-}
-
-#### 会话结果 response 内容
-
-	亲爱的林青霞,
-
-	我希望这封信能够传达出我真挚的祝福和感激之情。当我听到你的婚讯时,我感到非常惊讶和高兴。
-
-	我知道你一直是我心中最珍贵的人,我们的初恋更是我心中一段美好的回忆。
-
-	我从未忘记我们曾经一起度过的美好时光,那些无忧无虑的夜晚,以及你对我的爱和关怀。如今,我已
-
-	经步入了成熟和稳定的婚姻生活,开始了新的生 命旅程。我也深刻理解到婚姻和爱情的责任和挑战,
-
-	需要我们共同去面对和承担。
-
-	我希望你和你的丈夫能够幸福美满,相互扶持,共同迎接未来的挑战。我也希望你能够在家庭和工作
-
-	中继续保持你的热情和才华,继续实现你的梦想和理想。
-
-	再次祝福你,希望你一切安好。
-
-	爱你
-
-	石大大
 
 
 ***
@@ -379,7 +332,7 @@
 ***
 
 
-### 开发一个每天生成 100 万个 PDF 文件的系统；计划 3 个高级软件工程师 996 开发 3 个月
+### 生成 PDF
 
 	//  一个方法
 
@@ -406,7 +359,7 @@
 ***
 
 
-### 快某、抖某 APP 太成功了，计划开发一个 APP，投资一个亿开发视频处理； 100 个高级软件工程师 996 开发 10 个月
+### 视频处理
 
 	Web web = new Web();
 
