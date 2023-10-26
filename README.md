@@ -214,7 +214,7 @@
 
 	ChatGLM chatGLM = new ChatGLM();
 
-	JSONObject o = chatGLM.chat("你好，我叫石大大，我的大学初恋女友林青霞嫁人了，请帮我给她写一封信");
+	JSONObject o = chatGLM.chat("你好，如何赚一个亿");
 
 
 ***
