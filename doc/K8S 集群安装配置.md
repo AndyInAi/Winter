@@ -103,35 +103,37 @@
 
 		echo "export KUBE_PROXY_MODE=ipvs" >> /etc/profile
 
-		kubeadm config print init-defaults > kubeadm-init.yml
-
-		sed -i "s/ttl:.*$/ttl: 0s/g" kubeadm-init.yml
-		sed -i "s/advertiseAddress.*/advertiseAddress: `ifconfig |grep inet |grep -v 127.0 |awk '{print $2}' | tail -n 1`/g" kubeadm-init.yml
-		sed -i "s/name:.*/name: `hostname`/g" kubeadm-init.yml
-		sed -i "s/imageRepository.*/imageRepository: registry.aliyuncs.com\/google_containers/g" kubeadm-init.yml
-		if [ "`grep 'podSubnet' kubeadm-init.yml`" == "" ]; then sed -i "s/serviceSubnet.*/serviceSubnet: 10.96.0.0\/12\n  podSubnet: 10.244.0.0\/16/g" kubeadm-init.yml; fi
-
-		 if [ "`grep 'pod-network-cidr' kubeadm-init.yml`" == "" ]; then echo "
-		pod-network-cidr: '10.244.0.0/16'
-		---
-		apiVersion: kubeproxy.config.k8s.io/v1alpha1
-		kind: KubeProxyConfiguration
-		mode: ipvs
-		---
-		kind: KubeletConfiguration
-		apiVersion: kubelet.config.k8s.io/v1beta1
-		cgroupDriver: systemd
-		" >> kubeadm-init.yml; fi
-
-		sed -i "s/^\t*//g" kubeadm-init.yml
+		(
+			kubeadm config print init-defaults > kubeadm-init.yml
+			sed -i "s/ttl:.*$/ttl: 0s/g" kubeadm-init.yml
+			sed -i "s/advertiseAddress.*/advertiseAddress: `ifconfig |grep inet |grep -v 127.0 |awk '{print $2}' | tail -n 1`/g" kubeadm-init.yml
+			sed -i "s/name:.*/name: `hostname`/g" kubeadm-init.yml
+			sed -i "s/imageRepository.*/imageRepository: registry.aliyuncs.com\/google_containers/g" kubeadm-init.yml
+			if [ "`grep 'podSubnet' kubeadm-init.yml`" == "" ]; then sed -i "s/serviceSubnet.*/serviceSubnet: 10.96.0.0\/12\n  podSubnet: 10.244.0.0\/16/g" kubeadm-init.yml; fi
+			if [ "`grep 'pod-network-cidr' kubeadm-init.yml`" == "" ]; then echo "
+				pod-network-cidr: '10.244.0.0/16'
+				---
+				apiVersion: kubeproxy.config.k8s.io/v1alpha1
+				kind: KubeProxyConfiguration
+				mode: ipvs
+				---
+				kind: KubeletConfiguration
+				apiVersion: kubelet.config.k8s.io/v1beta1
+				cgroupDriver: systemd
+			" >> kubeadm-init.yml; fi
+			sed -i "s/^\t*//g" kubeadm-init.yml
+		)
 
 		kubeadm init   --config=kubeadm-init.yml   --ignore-preflight-errors=all
 
-		mkdir -p $HOME/.kube
-		cp -f /etc/kubernetes/admin.conf $HOME/.kube/config
-		chown $(id -u):$(id -g) $HOME/.kube/config
+		(
+			mkdir -p $HOME/.kube
+			cp -f /etc/kubernetes/admin.conf $HOME/.kube/config
+			chown $(id -u):$(id -g) $HOME/.kube/config
+		)
 
 		export KUBECONFIG=/etc/kubernetes/admin.conf
+
 		echo "export KUBECONFIG=/etc/kubernetes/admin.conf" >> /etc/profile
 
 		kubectl apply -f kube-flannel.yml
@@ -156,4 +158,66 @@
 			kubectl label no k8s$i kubernetes.io/role=node
 
 		done
+
+
+### 主节点生成日常操作脚本命令
+
+
+#### List pod, svc, node
+
+	# ~/kl 
+
+	(
+		echo '#!/bin/bash
+
+		kubectl get pod,svc,node -n winter -o wide
+
+		' > ~/kl; chmod +x ~/kl; sed -i 's/^\t*//g' ~/kl;
+	)
+
+
+#### Pod shell
+
+	# ~/ks 
+
+	(
+		echo '#!/bin/bash
+
+		if [ "$1" == "" ]; then echo -e \\nPod shell\\n\\nuseage: \\n\\t$0 pod\\n; exit 0; fi
+
+		kubectl exec -it $1 -n winter -- bash
+
+		' > ~/ks; chmod +x ~/ks; sed -i 's/^\t*//g' ~/ks;
+	)
+
+
+#### Create deployment
+
+	# ~/kd 
+
+	(
+		echo '#!/bin/bash
+
+			if [ "$2" == "" ]; then echo -e \\nCreate deployment \\n\\nuseage: \\n\\t$0 image-name deploy-name\\n; exit 0; fi
+			
+			kubectl create deployment $2 --image=$1 -n winter
+		
+		' > ~/kd; chmod +x ~/kd; sed -i 's/^\t*//g' ~/kd;
+	)
+
+
+#### Expose port
+
+	# ~/kp 
+
+	(
+		echo '#!/bin/bash
+
+		if [ "$3" == "" ]; then echo -e \\nExpose port\\n\\nuseage: \\n\\t$0 deploy-name port target-port\\n; exit 0; fi
+
+		kubectl expose deployment $1 --port=$2 --target-port=$3 --type=NodePort --name $1 --namespace=winter
+
+		' > ~/kp; chmod +x ~/kp; sed -i 's/^\t*//g' ~/kp;
+	)
+
 
