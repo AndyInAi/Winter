@@ -160,6 +160,39 @@
 		done
 
 
+
+### GlusterFS 集群客户端安装配置
+
+	# 需要 GlusterFS 集群准备就绪正在运行
+
+	# <https://github.com/AndyInAi/Winter/blob/main/doc/GlusterFS%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md>
+
+	export DEBIAN_FRONTEND=noninteractive; apt install -y glusterfs-client
+
+	(
+		ip="192.168.1.80" # GlusterFS 集群负载均衡服务器；主机名 gfs
+
+		host="$ip gfs" ;  if [ "`grep \"^$ip \" /etc/hosts`" == "" ]; then echo "$host" >> /etc/hosts; else sed -i "s/^$ip .*$/$host/g" /etc/hosts; fi
+
+		NODES="192.168.1.81 192.168.1.82 192.168.1.83 192.168.1.84 192.168.1.85 192.168.1.86 192.168.1.87 192.168.1.88 192.168.1.89" # 9 个GlusterFS 集群节点 IP 列表，对应主机名 gfs1 - gfs9
+
+		no=0; for i in $NODES; do no=$(($no+1)) ; ip="$i " ;  host="$ip gfs$no" ;  if [ "`grep \"^$ip\" /etc/hosts`" == "" ]; then echo "$host" >> /etc/hosts; else sed -i "s/^$ip.*$/$host/g" /etc/hosts; fi ; done
+		
+		umount /mnt/gluster-gv0 > /dev/null 2>&1
+
+		mkdir -p /mnt/gluster-gv0
+
+		if [ "`grep ^gfs:/gv0 /etc/fstab`" == "" ]; then echo 'gfs:/gv0 /mnt/gluster-gv0 glusterfs defaults,_netdev 0 0' >> /etc/fstab; fi
+
+		mount -a
+
+		mkdir -p /mnt/gluster-gv0/k8s
+
+		ll /mnt/gluster-gv0/
+	)
+
+
+
 ### 主节点生成日常操作脚本命令
 
 
@@ -198,9 +231,9 @@
 	(
 		echo '#!/bin/bash
 
-			if [ "$2" == "" ]; then echo -e \\nCreate deployment \\n\\nuseage: \\n\\t$0 image-name deploy-name\\n; exit 0; fi
+			if [ "$3" == "" ]; then echo -e \\nCreate deployment \\n\\nuseage: \\n\\t$0 image-name deploy-name replicas\\n; exit 0; fi
 			
-			kubectl create deployment $2 --image=$1 -n winter
+			kubectl create deployment $2 --image=$1  --replicas=$3 -n winter
 		
 		' > ~/kd; chmod +x ~/kd; sed -i 's/^\t*//g' ~/kd;
 	)
@@ -215,7 +248,7 @@
 
 		if [ "$3" == "" ]; then echo -e \\nExpose port\\n\\nuseage: \\n\\t$0 deploy-name port target-port\\n; exit 0; fi
 
-		kubectl expose deployment $1 --port=$2 --target-port=$3 --type=NodePort --name $1 --namespace=winter
+		kubectl expose deployment $1 --port=$2 --target-port=$3 --type=LoadBalancer --name $1 --namespace=winter
 
 		' > ~/kp; chmod +x ~/kp; sed -i 's/^\t*//g' ~/kp;
 	)
