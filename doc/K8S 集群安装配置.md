@@ -165,7 +165,7 @@
 
 	# 需要 GlusterFS 集群准备就绪正在运行
 
-	<https://github.com/AndyInAi/Winter/blob/main/doc/GlusterFS%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md>
+<https://github.com/AndyInAi/Winter/blob/main/doc/GlusterFS%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md>
 
 	export DEBIAN_FRONTEND=noninteractive; apt install -y glusterfs-client
 
