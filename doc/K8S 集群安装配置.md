@@ -2,28 +2,63 @@
 ## K8S 集群安装配置
 
 
-### 每个节点执行
+### 准备
+
+	# 9 台主机：第 1 台作为主节点，其余 8 台作为工作节点
+
+	# IP 地址： 主节点 192.168.1.21 工作节点 192.168.1.22 - 29
+
+	# 每台主机配置：
+		12 核以上 CPU
+		16GB 以上内存 		
+		2TB 以上企业级 NVME 硬盘
+		10Gb 以上网卡
+
+	# 配置每台主机 /etc/hosts 
+
+	# 主机名 k8s1 - 9 对应 IP 地址 192.168.1.21 - 29
+
+	(
+		hosts=9; # 9 台主机
+
+		for ((i=1; i<=$hosts; i++)); do 
+
+			ip="192.168.1.$((20+$i)) " # 注意保留一个空格；主机 IP 这里以 192.168.1.21 开始
+
+			host="$ip k8s$i"
+
+			if [ "`grep \"^$ip\" /etc/hosts`" == "" ]; then echo "$host" >> /etc/hosts; else sed -i "s/^$ip.*$/$host/g" /etc/hosts; fi
+
+		done
+	)	
 
 
 #### 下载安装
 
+	# 在每个节点执行
+
+	# 保证网络能正常访问 GitHub.com
+
+	(
 		mkdir -p  /usr/local/lib/systemd/system/ /opt/cni/bin /etc/containerd /etc/apt/keyrings
 
-		wget https://github.com/containerd/containerd/releases/download/v1.6.24/containerd-1.6.24-linux-amd64.tar.gz -O containerd-1.6.24-linux-amd64.tar.gz
+		wget https://github.com/containerd/containerd/releases/download/v1.6.24/containerd-1.6.24-linux-amd64.tar.gz -O ~/containerd-1.6.24-linux-amd64.tar.gz
 
 		wget https://raw.githubusercontent.com/containerd/containerd/main/containerd.service -O /usr/local/lib/systemd/system/containerd.service
 
-		wget https://github.com/opencontainers/runc/releases/download/v1.1.9/runc.amd64 -O runc.amd64
+		wget https://github.com/opencontainers/runc/releases/download/v1.1.9/runc.amd64 -O ~/runc.amd64
 
-		wget https://github.com/containernetworking/plugins/releases/download/v1.3.0/cni-plugins-linux-amd64-v1.3.0.tgz -O cni-plugins-linux-amd64-v1.3.0.tgz
+		wget https://github.com/containernetworking/plugins/releases/download/v1.3.0/cni-plugins-linux-amd64-v1.3.0.tgz -O ~/cni-plugins-linux-amd64-v1.3.0.tgz
 
 		curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 
-		wget https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml -O kube-flannel.yml
+		wget https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml -O ~/kube-flannel.yml
 
 		chmod -R 755 /etc/apt/keyrings
 
 		echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+		export DEBIAN_FRONTEND=noninteractive
 
 		apt-get update -y
 
@@ -31,29 +66,21 @@
 
 		apt-mark hold kubelet kubeadm kubectl
 
-		tar Cxzvf /usr/local containerd-1.6.24-linux-amd64.tar.gz
+		tar Cxzvf /usr/local ~/containerd-1.6.24-linux-amd64.tar.gz
 
-		install -m 755 runc.amd64 /usr/local/sbin/runc
+		install -m 755 ~/runc.amd64 /usr/local/sbin/runc
 
-		tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v1.3.0.tgz
+		tar Cxzvf /opt/cni/bin ~/cni-plugins-linux-amd64-v1.3.0.tgz
 
 		apt install -y ipset ipvsadm apt-transport-https ca-certificates curl
 
 		kubectl version --client
+	)
 
 
 #### 系统配置
 
-		cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
-		overlay
-		br_netfilter
-		ip_vs
-		ip_vs_rr
-		ip_vs_wrr
-		ip_vs_sh
-		nf_conntrack 
-		EOF
-
+	(
 		modprobe overlay
 		modprobe br_netfilter
 		modprobe ip_vs
@@ -62,18 +89,30 @@
 		modprobe ip_vs_sh
 		modprobe nf_conntrack 
 
-		cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
-		net.bridge.bridge-nf-call-iptables  = 1
-		net.bridge.bridge-nf-call-ip6tables = 1
-		net.ipv4.ip_forward                 = 1
-		EOF
+		echo '
+			overlay
+			br_netfilter
+			ip_vs
+			ip_vs_rr
+			ip_vs_wrr
+			ip_vs_sh
+			nf_conntrack 
+		' > /etc/modules-load.d/k8s.conf;
+
+		echo '
+			net.bridge.bridge-nf-call-iptables  = 1
+			net.bridge.bridge-nf-call-ip6tables = 1
+			net.ipv4.ip_forward                 = 1
+		' > /etc/sysctl.d/k8s.conf;
 
 		sysctl --system
 
 		systemctl daemon-reload
 
 		systemctl enable --now containerd
+	)
 
+	(
 		containerd config default > /etc/containerd/config.toml
 
 		sed -i 's/sandbox_image .*/sandbox_image = "registry.aliyuncs.com\/google_containers\/pause:3.9"/g' /etc/containerd/config.toml
@@ -83,34 +122,31 @@
 		systemctl restart containerd
 
 		systemctl enable kubelet --now
-
-		nodes=4; # 节点数
-
-		for ((i=1; i<=$nodes; i++)); do 
-
-			ip="192.168.1.$((20+$i)) " # 注意保留一个空格；节点 IP 这里以 192.168.1.21 开始
-
-			host="$ip k8s$i"
-
-			if [ "`grep \"^$ip\" /etc/hosts`" == "" ]; then echo "$host" >> /etc/hosts; else sed -i "s/^$ip.*$/$host/g" /etc/hosts; fi
-
-		done
+	)
 
 
-### 主节点初始化
+### 初始化
 
+	# 仅需要在第一台主机，即 Master 主机执行
+
+	(
 		export KUBE_PROXY_MODE=ipvs
 
 		echo "export KUBE_PROXY_MODE=ipvs" >> /etc/profile
+	)
 
-		(
-			kubeadm config print init-defaults > kubeadm-init.yml
-			sed -i "s/ttl:.*$/ttl: 0s/g" kubeadm-init.yml
-			sed -i "s/advertiseAddress.*/advertiseAddress: `ifconfig |grep inet |grep -v 127.0 |awk '{print $2}' | tail -n 1`/g" kubeadm-init.yml
-			sed -i "s/name:.*/name: `hostname`/g" kubeadm-init.yml
-			sed -i "s/imageRepository.*/imageRepository: registry.aliyuncs.com\/google_containers/g" kubeadm-init.yml
-			if [ "`grep 'podSubnet' kubeadm-init.yml`" == "" ]; then sed -i "s/serviceSubnet.*/serviceSubnet: 10.96.0.0\/12\n  podSubnet: 10.244.0.0\/16/g" kubeadm-init.yml; fi
-			if [ "`grep 'pod-network-cidr' kubeadm-init.yml`" == "" ]; then echo "
+	(
+		kubeadm config print init-defaults > kubeadm-init.yml
+		
+		sed -i "s/ttl:.*$/ttl: 0s/g" kubeadm-init.yml
+		sed -i "s/advertiseAddress.*/advertiseAddress: `ifconfig |grep inet |grep -v 127.0 |awk '{print $2}' | tail -n 1`/g" kubeadm-init.yml
+		sed -i "s/name:.*/name: `hostname`/g" kubeadm-init.yml
+		sed -i "s/imageRepository.*/imageRepository: registry.aliyuncs.com\/google_containers/g" kubeadm-init.yml
+		
+		if [ "`grep 'podSubnet' kubeadm-init.yml`" == "" ]; then sed -i "s/serviceSubnet.*/serviceSubnet: 10.96.0.0\/12\n  podSubnet: 10.244.0.0\/16/g" kubeadm-init.yml; fi
+		
+		if [ "`grep 'pod-network-cidr' kubeadm-init.yml`" == "" ]; then 
+			echo "
 				pod-network-cidr: '10.244.0.0/16'
 				---
 				apiVersion: kubeproxy.config.k8s.io/v1alpha1
@@ -120,61 +156,73 @@
 				kind: KubeletConfiguration
 				apiVersion: kubelet.config.k8s.io/v1beta1
 				cgroupDriver: systemd
-			" >> kubeadm-init.yml; fi
-			sed -i "s/^\t*//g" kubeadm-init.yml
-		)
+			" >> kubeadm-init.yml; 
+		fi
+		
+		sed -i "s/^\t*//g" kubeadm-init.yml
+	)
 
-		kubeadm init   --config=kubeadm-init.yml   --ignore-preflight-errors=all
+	kubeadm init --config=kubeadm-init.yml --ignore-preflight-errors=all
 
-		(
-			mkdir -p $HOME/.kube
-			cp -f /etc/kubernetes/admin.conf $HOME/.kube/config
-			chown $(id -u):$(id -g) $HOME/.kube/config
-		)
+	(
+		mkdir -p ~/.kube
+		cp -f /etc/kubernetes/admin.conf ~/.kube/config
+		chown $(id -u):$(id -g) ~/.kube/config
+	)
 
+	(
 		export KUBECONFIG=/etc/kubernetes/admin.conf
 
 		echo "export KUBECONFIG=/etc/kubernetes/admin.conf" >> /etc/profile
 
-		kubectl apply -f kube-flannel.yml
+		kubectl apply -f ~/kube-flannel.yml
 
 		kubectl get nodes
+	)
 
 
-### 新节点加入集群
+
+### 新主机加入集群
 
 		kubeadm join 192.168.1.21:6443 --token abcdef.0123456789abcdef \
 			--discovery-token-ca-cert-hash sha256:297dd450baa2d4381d9c29425529fefae18d1ddf2d9f0c838000cbda11d2d188
 
 
-### 主节点设置 role，在全部节点加入集群后执行
+### 设置 role
+
+	# 全部主机加入集群后，在第一台主机，即主节点执行
+
+	(
+		hosts=9; # 9 台主机
 
 		kubectl label no k8s1 kubernetes.io/role=master
 
-		nodes=4; # 节点数
-
-		for ((i=2; i<=$nodes; i++)); do 
+		for ((i=2; i<=$hosts; i++)); do 
 
 			kubectl label no k8s$i kubernetes.io/role=node
 
 		done
-
+	)
 
 
 ### GlusterFS 集群客户端安装配置
 
-	# 需要 GlusterFS 集群准备就绪正在运行
+	# 安装时需要确保 GlusterFS 集群正在运行
 
-<https://github.com/AndyInAi/Winter/blob/main/doc/GlusterFS%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md>
-
-	export DEBIAN_FRONTEND=noninteractive; apt install -y glusterfs-client
+	# 相关文档： GlusterFS 集群安装配置.md
 
 	(
-		ip="192.168.1.80" # GlusterFS 集群负载均衡服务器；主机名 gfs
+		export DEBIAN_FRONTEND=noninteractive;
+		
+		apt install -y glusterfs-client
+	)
+
+	(
+		ip="192.168.1.80" # GlusterFS 集群负载均衡主机 gfs
 
 		host="$ip gfs" ;  if [ "`grep \"^$ip \" /etc/hosts`" == "" ]; then echo "$host" >> /etc/hosts; else sed -i "s/^$ip .*$/$host/g" /etc/hosts; fi
 
-		NODES="192.168.1.81 192.168.1.82 192.168.1.83 192.168.1.84 192.168.1.85 192.168.1.86 192.168.1.87 192.168.1.88 192.168.1.89" # 9 个GlusterFS 集群节点 IP 列表，对应主机名 gfs1 - gfs9
+		NODES="192.168.1.81 192.168.1.82 192.168.1.83 192.168.1.84 192.168.1.85 192.168.1.86 192.168.1.87 192.168.1.88 192.168.1.89" # 9 个GlusterFS 集群主机 IP 列表，对应主机名 gfs1 - gfs9
 
 		no=0; for i in $NODES; do no=$(($no+1)) ; ip="$i " ;  host="$ip gfs$no" ;  if [ "`grep \"^$ip\" /etc/hosts`" == "" ]; then echo "$host" >> /etc/hosts; else sed -i "s/^$ip.*$/$host/g" /etc/hosts; fi ; done
 		
@@ -192,11 +240,12 @@
 	)
 
 
+### 生成常用管理命令
 
-### 主节点生成日常操作脚本命令
+	# 在第一台主机，即主节点执行
 
 
-#### List pod, svc, node
+	# List pod, svc, node
 
 	# ~/kl 
 
@@ -209,7 +258,7 @@
 	)
 
 
-#### Pod shell
+	# Pod shell
 
 	# ~/ks 
 
@@ -224,7 +273,7 @@
 	)
 
 
-#### Create deployment
+	# Create deployment
 
 	# ~/kd 
 
@@ -239,7 +288,7 @@
 	)
 
 
-#### Expose port
+	# Expose port
 
 	# ~/kp 
 
