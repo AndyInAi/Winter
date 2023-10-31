@@ -1,9 +1,18 @@
 
 ### 条件
 
-	# 需要 K8S 集群准备就绪正在运行
+	# 安装时需要确保 K8S 集群正在运行，并且挂载了 GlusterFS 集群文件系统
 
-<https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md>
+	# 相关文档： K8S 集群安装配置.md、GlusterFS 集群安装配置.md
+
+	# 在各个主机检查 GlusterFS 集群文件系统
+
+	df -h /mnt/gluster-gv0
+
+	# 正常输出
+
+	Filesystem      Size  Used Avail Use% Mounted on
+	gfs:/gv0         48T  835G   48T   2% /mnt/gluster-gv0
 
 
 ### 部署
@@ -14,9 +23,11 @@
 
 	# 端口：30001
 	
-	mkdir -p /mnt/gluster-gv0/k8s/webapps-1/ROOT
-
 	(
+		mkdir -p /mnt/gluster-gv0/k8s/webapps-1/ROOT;
+
+		kubectl create namespace winter;
+
 		echo '
 			apiVersion: apps/v1
 			kind: Deployment
@@ -91,4 +102,17 @@
 	http://192.168.1.24:30001/hello.jsp
 	http://192.168.1.23:30001/hello.jsp
 	http://192.168.1.22:30001/hello.jsp
+
+
+### 扩缩
+
+	# 静态扩缩，指定 pod 数量，如 24
+
+	kubectl scale --replicas=24 -f ~/tomcat.yml
+
+	# 动态扩缩，指定最小和最大 pod 数量
+
+	kubectl autoscale  --max=32 --min=16 -f ~/tomcat.yml
+	
+
 

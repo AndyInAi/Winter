@@ -53,10 +53,12 @@
 		curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 
 		wget https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml -O ~/kube-flannel.yml
+	)
 
+	(
 		chmod -R 755 /etc/apt/keyrings
 
-		echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+		echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' > /etc/apt/sources.list.d/kubernetes.list
 
 		export DEBIAN_FRONTEND=noninteractive
 
