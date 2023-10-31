@@ -35,7 +35,7 @@
 
 #### 下载安装
 
-	# 在每个节点执行
+	# 在每个主机执行
 
 	# 保证网络能正常访问 GitHub.com
 
@@ -182,10 +182,13 @@
 
 
 
-### 新主机加入集群
+### 加入集群
 
-		kubeadm join 192.168.1.21:6443 --token abcdef.0123456789abcdef \
-			--discovery-token-ca-cert-hash sha256:297dd450baa2d4381d9c29425529fefae18d1ddf2d9f0c838000cbda11d2d188
+	# 除了第一台主机，即主节点外的主机执行，--discovery-token-ca-cert-hash 以主节点初始化结果为准
+
+	kubeadm join 192.168.1.21:6443 --token abcdef.0123456789abcdef \
+		--discovery-token-ca-cert-hash sha256:51f5189f8292ad983626949d9ba7504104d3fa58e1d68d9517dc8dbdcc17e9ff
+
 
 
 ### 设置 role
@@ -206,6 +209,8 @@
 
 
 ### GlusterFS 集群客户端安装配置
+
+	# 在每个主机执行
 
 	# 安装时需要确保 GlusterFS 集群正在运行
 
