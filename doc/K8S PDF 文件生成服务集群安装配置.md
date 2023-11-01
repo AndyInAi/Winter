@@ -132,8 +132,9 @@
 
 ### 测试
 
-	
-	_uuid=`uuid -v 4`; 
+	apt install -y uuid;
+
+q	_uuid=`uuid -v 4`; 
 
 	echo https://www.zhipin.com/ > /mnt/gluster-gv0/k8s/pdf/task/$_uuid
 
