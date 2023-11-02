@@ -146,7 +146,7 @@
 
 	# 复制或上传一个视频文件 test.mkv 到目录 /mnt/gluster-gv0/mp4/upload/ 后执行
 
-	ln -s /mnt/gluster-gv0/mp4/upload/test.mkv /mnt/gluster-gv0/mp4/task/`uuid -v4`
+	ln -s /mnt/gluster-gv0/mp4/upload/test.mkv /mnt/gluster-gv0/mp4/task/`uuid -v 4`
 
 	# 根据源视频文件大小，需要几十秒钟至几分钟完成，查看结果
 
