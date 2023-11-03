@@ -26,7 +26,7 @@
 	
 		echo '#!/bin/bash
 
-			dir="/home/blessuser/Downloads"
+			dir="/mnt"
 
 			cmd="google-chrome --headless --no-sandbox --no-pdf-header-footer"
 
@@ -63,7 +63,7 @@
 	(
 		echo '#!/bin/bash
 
-			nohup /home/blessuser/Downloads/tasks a3b8fe74-78ae-11ee-a7e4-00155d010b84 > /home/blessuser/tasks.log 2>&1 &
+			nohup /mnt/tasks a3b8fe74-78ae-11ee-a7e4-00155d010b84 > /home/blessuser/tasks.log 2>&1
 
 		' > /mnt/gluster-gv0/k8s/pdf/start-tasks; 
 		
@@ -112,11 +112,8 @@
 				  name: pdf
 				  volumeMounts:
 					- name: pdf
-					  mountPath: /home/blessuser/Downloads
-				  lifecycle:
-					postStart:
-					  exec:
-					    command: ["/home/blessuser/Downloads/start-tasks"]
+					  mountPath: /mnt
+				  command: ["/mnt/start-tasks"]
 		' > ~/pdf.yml;
 
 		sed -i 's/\t/        /g' ~/pdf.yml;
@@ -134,7 +131,7 @@
 
 	apt install -y uuid;
 
-q	_uuid=`uuid -v 4`; 
+	_uuid=`uuid -v 4`; 
 
 	echo https://www.zhipin.com/ > /mnt/gluster-gv0/k8s/pdf/task/$_uuid
 
