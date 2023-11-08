@@ -43,9 +43,9 @@
 
 			if [ ! "$1" == "16a20c49-7501-47c8-8352-ae2aec19ea8d" ]; then exit 0; fi
 
-			dir="/mnt"
+			dir="/mnt/mp4"
 
-			cmd="/mnt/ffmpeg -y -v 0  -i"
+			cmd="/mnt/mp4/ffmpeg -y -v 0  -i"
 
 			opts="-c:v libx264 -c:a aac -b:a 320K"
 
@@ -61,9 +61,9 @@
 						
 						if [ -f /tmp/${i}.mp4 ]; then 
 
-							/mnt/ffmpeg -y -v 0 -i /tmp/${i}.mp4  -t 10 -c copy /tmp/${i}-review.mp4
+							/mnt/mp4/ffmpeg -y -v 0 -i /tmp/${i}.mp4  -t 10 -c copy /tmp/${i}-review.mp4
 
-							/mnt/ffmpeg -y -v 0 -i /tmp/${i}-review.mp4  -t 9 -vf fps=1 /tmp/${i}-%d.png
+							/mnt/mp4/ffmpeg -y -v 0 -i /tmp/${i}-review.mp4  -t 9 -vf fps=1 /tmp/${i}-%d.png
 
 							mv -f /tmp/${i}* ${dir}/out/
 
@@ -93,7 +93,7 @@
 	(
 		echo '#!/bin/bash
 
-			nohup /mnt/tasks 16a20c49-7501-47c8-8352-ae2aec19ea8d > /root/tasks.log 2>&1
+			nohup /mnt/mp4/tasks 16a20c49-7501-47c8-8352-ae2aec19ea8d > /root/tasks.log 2>&1
 
 		' > /mnt/gluster-gv0/k8s/mp4/start-tasks; 
 
@@ -115,35 +115,35 @@
 		kubectl get namespace winter > /dev/null 2>&1 || kubectl create namespace winter;
 
 		echo '
-			apiVersion: apps/v1
-			kind: Deployment
-			metadata:
-			  labels:
-			    app: mp4
-			  name: mp4
-			  namespace: winter
-			spec:
-			  replicas: 4
-			  selector:
-			    matchLabels:
-			      app: mp4
-			  template:
-			    metadata:
-			      labels:
-				app: mp4
-			    spec:
-			      volumes:
-				- name: mp4
-				  hostPath:
-				    path: /mnt/gluster-gv0/k8s/mp4
-			      containers:
-				- image: ubuntu
-				  imagePullPolicy: IfNotPresent
-				  name: mp4
-				  volumeMounts:
-					- name: mp4
-					  mountPath: /mnt
-				  command: ["/mnt/start-tasks"]
+                        apiVersion: apps/v1
+                        kind: Deployment
+                        metadata:
+                          labels:
+                            app: mp4
+                          name: mp4
+                          namespace: winter
+                        spec:
+                          replicas: 16
+                          selector:
+                            matchLabels:
+                              app: mp4
+                          template:
+                            metadata:
+                              labels:
+                                app: mp4
+                            spec:
+                              volumes:
+                                - name: k8s
+                                  hostPath:
+                                    path: /mnt/gluster-gv0/k8s
+                              containers:
+                                - image: ubuntu
+                                  imagePullPolicy: IfNotPresent
+                                  name: mp4
+                                  volumeMounts:
+                                        - name: k8s
+                                          mountPath: /mnt
+                                  command: ["/mnt/mp4/start-tasks"]
 		' > ~/mp4.yml;
 
 		sed -i 's/\t/        /g' ~/mp4.yml;
@@ -161,7 +161,7 @@
 
 	# 复制或上传一个视频文件 test.mkv 到目录 /mnt/gluster-gv0/k8s/mp4/upload/ 后执行
 
-	kubectl exec deploy/mp4 ln -s /mnt/upload/test.mkv /mnt/task/48aa87b8-6921-4e75-869d-7db2868384f3
+	(cd /mnt/gluster-gv0/k8s/mp4/task && ln -s ../upload/test.mkv `uuid`)
 
 	# 根据源视频文件大小，需要几十秒钟至几分钟完成，查看结果
 

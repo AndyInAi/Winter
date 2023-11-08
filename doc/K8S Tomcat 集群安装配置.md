@@ -26,37 +26,42 @@
 	(
 		mkdir -p /mnt/gluster-gv0/k8s/webapps-1/ROOT;
 
-		kubectl create namespace winter;
+		kubectl get namespace winter > /dev/null 2>&1 || kubectl create namespace winter;
 
 		echo '
-			apiVersion: apps/v1
-			kind: Deployment
-			metadata:
-			  labels:
-			    app: tomcat
-			  name: tomcat
-			  namespace: winter
-			spec:
-			  replicas: 16
-			  selector:
-			    matchLabels:
-			      app: tomcat
-			  template:
-			    metadata:
-			      labels:
-				app: tomcat
-			    spec:
-			      volumes:
-				- name: webapps-1
-				  hostPath:
-				    path: /mnt/gluster-gv0/k8s/webapps-1
-			      containers:
-				- image: tomcat
-				  imagePullPolicy: Always
-				  name: tomcat
-				  volumeMounts:
-				    - name: webapps-1
-				      mountPath: /usr/local/tomcat/webapps
+                        apiVersion: apps/v1
+                        kind: Deployment
+                        metadata:
+                          labels:
+                            app: tomcat
+                          name: tomcat
+                          namespace: winter
+                        spec:
+                          replicas: 16
+                          selector:
+                            matchLabels:
+                              app: tomcat
+                          template:
+                            metadata:
+                              labels:
+                                app: tomcat
+                            spec:
+                              volumes:
+                                - name: k8s
+                                  hostPath:
+                                    path: /mnt/gluster-gv0/k8s
+                                - name: webapps-1
+                                  hostPath:
+                                    path: /mnt/gluster-gv0/k8s/webapps-1
+                              containers:
+                                - image: tomcat
+                                  imagePullPolicy: IfNotPresent
+                                  name: tomcat
+                                  volumeMounts:
+                                    - name: k8s
+                                      mountPath: /mnt
+                                    - name: webapps-1
+                                      mountPath: /usr/local/tomcat/webapps
 		' > ~/tomcat.yml;
 
 		echo '
