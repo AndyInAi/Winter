@@ -13,24 +13,26 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.kafka.common.Uuid;
 import org.json.simple.JSONObject;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 public class Web {
 
 	/**
 	 * PDF 根目录
 	 */
-	public static String PDF_DIR = "/mnt/gluster-gv0/pdf";
+	// public static String PDF_DIR = "/mnt/gluster-gv0/k8s/pdf";
+	public static String PDF_DIR = "/mnt/pdf"; // K8S版
 
 	/**
 	 * MP4 根目录
 	 */
-	public static String MP4_DIR = "/mnt/gluster-gv0/mp4";
+	// public static String MP4_DIR = "/mnt/gluster-gv0/k8s/mp4";
+	public static String MP4_DIR = "/mnt/mp4"; // K8S版
 
 	/**
 	 * 打印信息
@@ -151,7 +153,7 @@ public class Web {
 	/**
 	 * 把 MariaDB 数据库 t_review 表里的部分数据，导出到 ElasticSearch
 	 */
-	@SuppressWarnings({ "rawtypes" })
+	@SuppressWarnings("rawtypes")
 	public boolean elasticImportReview() {
 
 		String sql = "SELECT * FROM t_review LIMIT 1000";
@@ -389,7 +391,7 @@ public class Web {
 	 * 生成 PDF 文件
 	 * 
 	 * @param url 生成 pdf 文件的 URL
-	 * @return
+	 * @return pdf文件带绝对路径的文件名
 	 */
 	public String makePDF(String url) {
 
@@ -429,7 +431,7 @@ public class Web {
 
 			if (pdf.exists()) {
 
-				return "/pdf/out/" + uuid + ".pdf";
+				return pdf.getAbsolutePath();
 
 			}
 
