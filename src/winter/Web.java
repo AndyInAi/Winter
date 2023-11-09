@@ -93,6 +93,24 @@ public class Web {
 	 */
 	public boolean cl(String cmd) {
 
+		return cl(new String[] { cmd });
+
+	}
+
+	public boolean cl(String cmd, long timeout) {
+
+		return cl(new String[] { cmd }, timeout);
+
+	}
+
+	/**
+	 * 系统调用执行命令行
+	 * 
+	 * @param cmd
+	 * @return
+	 */
+	public boolean cl(String[] cmd) {
+
 		return cl(cmd, 8000);
 
 	}
@@ -103,7 +121,7 @@ public class Web {
 	 * @param cmd
 	 * @return
 	 */
-	public boolean cl(String cmd, long timeout) {
+	public boolean cl(String[] cmd, long timeout) {
 
 		Process p = null;
 
@@ -368,7 +386,7 @@ public class Web {
 
 		}
 
-		String cmd = "ln -s " + src.getAbsolutePath() + " " + task.getAbsolutePath();
+		String[] cmd = new String[] { "/bin/bash", "-c", "cd " + task.getParent() + " && ln -s ../" + src.getParentFile().getName() + "/" + src.getName() + " " + task.getName() };
 
 		return cl(cmd) ? uuid : null;
 
