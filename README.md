@@ -434,6 +434,10 @@ https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Tomcat%20%E9%9B%86%E7%BE%
 <https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20FFmpeg%20%E8%A7%86%E9%A2%91%E6%9C%8D%E5%8A%A1%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md>
 
 
+### Docker Whisper 音频服务集群安装配置
+<https://github.com/AndyInAi/Winter/blob/main/doc/Docker%20Whisper%20%E9%9F%B3%E9%A2%91%E6%9C%8D%E5%8A%A1%E9%9B%86%E7%BE%A4.md>
+
+
 ### MariaDB 集群安装配置
 <https://github.com/AndyInAi/Winter/blob/main/doc/MariaDB%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md>
 
