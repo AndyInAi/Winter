@@ -426,6 +426,10 @@ https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20%E9%9B%86%E7%BE%A4%E5%AE%
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Tomcat%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md
 
 
+### K8S Spring Boot 集群安装配置
+<https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Spring%20Boot%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md>
+
+
 ### K8S PDF 文件生成服务集群安装配置
 <https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20PDF%20%E6%96%87%E4%BB%B6%E7%94%9F%E6%88%90%E6%9C%8D%E5%8A%A1%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md>
 
