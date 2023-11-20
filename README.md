@@ -4,6 +4,7 @@
 
 
 
+
 ### GlusterFS 集群安装配置
 <https://github.com/AndyInAi/Winter/blob/main/doc/GlusterFS%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md>
 
@@ -32,16 +33,8 @@ https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Tomcat%20%E9%9B%86%E7%BE%
 <https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20FFmpeg%20%E8%A7%86%E9%A2%91%E6%9C%8D%E5%8A%A1%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md>
 
 
-### Docker Whisper 音频服务集群安装配置
-<https://github.com/AndyInAi/Winter/blob/main/doc/Docker%20Whisper%20%E9%9F%B3%E9%A2%91%E6%9C%8D%E5%8A%A1%E9%9B%86%E7%BE%A4.md>
-
-
 ### MariaDB 集群安装配置
 <https://github.com/AndyInAi/Winter/blob/main/doc/MariaDB%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md>
-
-
-### Prometheus 集群安装配置
-<https://github.com/AndyInAi/Winter/blob/main/doc/Prometheus%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md>
 
 
 ### 人工智能绘画集群安装配置
@@ -52,17 +45,21 @@ https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Tomcat%20%E9%9B%86%E7%BE%
 <https://github.com/AndyInAi/Winter/blob/main/doc/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BC%9A%E8%AF%9D%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md>
 
 
-### Redis 集群安装配置
-
-<https://github.com/AndyInAi/Winter/blob/main/doc/Redis%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md>
-
-
 ### ElasticSearch 集群安装配置
 <https://github.com/AndyInAi/Winter/blob/main/doc/ElasticSearch%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md>
 
 
 ### Kafka 集群安装配置
 <https://github.com/AndyInAi/Winter/blob/main/doc/Kafka%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md>
+
+
+### Docker Whisper 音频服务集群安装配置
+<https://github.com/AndyInAi/Winter/blob/main/doc/Docker%20Whisper%20%E9%9F%B3%E9%A2%91%E6%9C%8D%E5%8A%A1%E9%9B%86%E7%BE%A4.md>
+
+
+### Prometheus 集群安装配置
+<https://github.com/AndyInAi/Winter/blob/main/doc/Prometheus%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md>
+
 
 
 
