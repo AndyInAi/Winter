@@ -79,7 +79,7 @@ https://github.com/AndyInAi/Winter/blob/main/doc/Prometheus.md
 	UBUNTU_CODENAME=jammy
 
 
-### K8S 代码在 v1.28 测试通过
+### 全部 K8S 代码在 v1.28 测试通过
 
 	Client Version: v1.28.3
 	Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
