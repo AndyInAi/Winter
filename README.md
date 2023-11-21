@@ -37,11 +37,11 @@ https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20FFmpeg.md
 https://github.com/AndyInAi/Winter/blob/main/doc/MariaDB.md
 
 
-### AI 绘画
+### Stable Diffusion Webui
 https://github.com/AndyInAi/Winter/blob/main/doc/StableDiffusionWebui.md
 
 
-### AI 会话
+### ChatGLM
 https://github.com/AndyInAi/Winter/blob/main/doc/ChatGLM.md
 
 
