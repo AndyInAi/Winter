@@ -6,59 +6,59 @@
 
 
 ### GlusterFS 
-https://github.com/AndyInAi/Winter/blob/main/doc/GlusterFS%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md
+https://github.com/AndyInAi/Winter/blob/main/doc/GlusterFS.md
 
 
 ### K8S 
-https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md
+https://github.com/AndyInAi/Winter/blob/main/doc/K8S.md
 
 
-### K8S Spring Boot 
-https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Spring%20Boot%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md
+### K8S SpringBoot 
+https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20SpringBoot.md
 
 
 ### K8S Tomcat 
-https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Tomcat%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md
+https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Tomcat.md
 
 
 ### K8S Resin 
-https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Resin%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md
+https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Resin.md
 
 
 ### K8S PDF
-https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20PDF%20%E6%96%87%E4%BB%B6%E7%94%9F%E6%88%90%E6%9C%8D%E5%8A%A1%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md
+https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20PDF.md
 
 
 ### K8S FFmpeg
-https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20FFmpeg%20%E8%A7%86%E9%A2%91%E6%9C%8D%E5%8A%A1%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md
+https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20FFmpeg.md
 
 
 ### MariaDB 
-https://github.com/AndyInAi/Winter/blob/main/doc/MariaDB%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md
+https://github.com/AndyInAi/Winter/blob/main/doc/MariaDB.md
 
 
 ### 人工智能绘画
-https://github.com/AndyInAi/Winter/blob/main/doc/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E7%BB%98%E7%94%BB%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md
+https://github.com/AndyInAi/Winter/blob/main/doc/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E7%BB%98%E7%94%BB.md
 
 
 ### 人工智能会话
-https://github.com/AndyInAi/Winter/blob/main/doc/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BC%9A%E8%AF%9D%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md
+https://github.com/AndyInAi/Winter/blob/main/doc/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BC%9A%E8%AF%9D.md
 
 
 ### ElasticSearch 
-https://github.com/AndyInAi/Winter/blob/main/doc/ElasticSearch%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md
+https://github.com/AndyInAi/Winter/blob/main/doc/ElasticSearch.md
 
 
 ### Kafka 
-https://github.com/AndyInAi/Winter/blob/main/doc/Kafka%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md
+https://github.com/AndyInAi/Winter/blob/main/doc/Kafka.md
 
 
 ### Docker Whisper
-https://github.com/AndyInAi/Winter/blob/main/doc/Docker%20Whisper%20%E9%9F%B3%E9%A2%91%E6%9C%8D%E5%8A%A1%E9%9B%86%E7%BE%A4.md
+https://github.com/AndyInAi/Winter/blob/main/doc/Docker%20Whisper.md
 
 
 ### Prometheus 
-https://github.com/AndyInAi/Winter/blob/main/doc/Prometheus%20%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE.md
+https://github.com/AndyInAi/Winter/blob/main/doc/Prometheus.md
 
 
 
