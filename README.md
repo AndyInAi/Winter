@@ -37,12 +37,12 @@ https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20FFmpeg.md
 https://github.com/AndyInAi/Winter/blob/main/doc/MariaDB.md
 
 
-### 人工智能绘画
-https://github.com/AndyInAi/Winter/blob/main/doc/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E7%BB%98%E7%94%BB.md
+### AI 绘画
+https://github.com/AndyInAi/Winter/blob/main/doc/AI%20%E7%BB%98%E7%94%BB.md
 
 
-### 人工智能会话
-https://github.com/AndyInAi/Winter/blob/main/doc/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E4%BC%9A%E8%AF%9D.md
+### AI 会话
+https://github.com/AndyInAi/Winter/blob/main/doc/AI%20%E4%BC%9A%E8%AF%9D.md
 
 
 ### ElasticSearch 
