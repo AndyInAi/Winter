@@ -38,11 +38,11 @@ https://github.com/AndyInAi/Winter/blob/main/doc/MariaDB.md
 
 
 ### AI 绘画
-https://github.com/AndyInAi/Winter/blob/main/doc/AI%20%E7%BB%98%E7%94%BB.md
+https://github.com/AndyInAi/Winter/blob/main/doc/StableDiffusionWebui.md
 
 
 ### AI 会话
-https://github.com/AndyInAi/Winter/blob/main/doc/AI%20%E4%BC%9A%E8%AF%9D.md
+https://github.com/AndyInAi/Winter/blob/main/doc/ChatGLM.md
 
 
 ### ElasticSearch 
