@@ -113,6 +113,13 @@
 	systemctl --now enable haproxy
 
 
+### 测试
+
+	# 使用 Spring Boot, Mybatis
+
+	https://github.com/AndyInAi/winter-springboot-mybatis-mariadb
+
+
 ### Prometheus 监控安装配置 (可选)
 
 	# 每个节点执行
