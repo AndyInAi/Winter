@@ -1,6 +1,6 @@
 
 # Winter
-一个开箱即用的集群架构
+一个开箱即用的集群架构，每天轻松处理数以亿计请求
 
 
 ***
@@ -13,6 +13,9 @@ https://github.com/AndyInAi/Winter/blob/main/doc/GlusterFS.md
 ### K8S 
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S.md
 
+
+### K8S Gin
+https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Gin.md
 
 ### K8S SpringBoot 
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20SpringBoot.md
