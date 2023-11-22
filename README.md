@@ -3,6 +3,7 @@
 一个开箱即用的集群架构
 
 
+***
 
 
 ### GlusterFS 
@@ -61,6 +62,7 @@ https://github.com/AndyInAi/Winter/blob/main/doc/Docker%20Whisper.md
 https://github.com/AndyInAi/Winter/blob/main/doc/Prometheus.md
 
 
+***
 
 
 ### 全部代码在 Ubuntu 22.04.3 LTS 测试通过
@@ -84,5 +86,4 @@ https://github.com/AndyInAi/Winter/blob/main/doc/Prometheus.md
 	Client Version: v1.28.3
 	Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
 	Server Version: v1.28.0
-
 
