@@ -20,7 +20,7 @@
 
 ### 准备
 
-	# 下载 go 安装包，解压在 /mnt/gluster-gv0/k8s/gin 目录下
+	# 下载 go 安装包，放在 /mnt/gluster-gv0/k8s/gin 目录下
 
 	(
 		mkdir -p /mnt/gluster-gv0/k8s/gin
