@@ -3,66 +3,64 @@
 一个开箱即用的集群架构
 
 
-***
 
 
 ### GlusterFS 
-	https://github.com/AndyInAi/Winter/blob/main/doc/GlusterFS.md
+https://github.com/AndyInAi/Winter/blob/main/doc/GlusterFS.md
 
 
 ### K8S 
-	https://github.com/AndyInAi/Winter/blob/main/doc/K8S.md
+https://github.com/AndyInAi/Winter/blob/main/doc/K8S.md
 
 
 ### K8S SpringBoot 
-	https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20SpringBoot.md
+https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20SpringBoot.md
 
 
 ### K8S Tomcat 
-	https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Tomcat.md
+https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Tomcat.md
 
 
 ### K8S Resin 
-	https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Resin.md
+https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Resin.md
 
 
 ### K8S PDF
-	https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20PDF.md
+https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20PDF.md
 
 
 ### K8S FFmpeg
-	https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20FFmpeg.md
+https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20FFmpeg.md
 
 
 ### MariaDB 
-	https://github.com/AndyInAi/Winter/blob/main/doc/MariaDB.md
+https://github.com/AndyInAi/Winter/blob/main/doc/MariaDB.md
 
 
 ### Stable Diffusion Webui
-	https://github.com/AndyInAi/Winter/blob/main/doc/StableDiffusionWebui.md
+https://github.com/AndyInAi/Winter/blob/main/doc/StableDiffusionWebui.md
 
 
 ### ChatGLM
-	https://github.com/AndyInAi/Winter/blob/main/doc/ChatGLM.md
+https://github.com/AndyInAi/Winter/blob/main/doc/ChatGLM.md
 
 
 ### ElasticSearch 
-	https://github.com/AndyInAi/Winter/blob/main/doc/ElasticSearch.md
+https://github.com/AndyInAi/Winter/blob/main/doc/ElasticSearch.md
 
 
 ### Kafka 
-	https://github.com/AndyInAi/Winter/blob/main/doc/Kafka.md
+https://github.com/AndyInAi/Winter/blob/main/doc/Kafka.md
 
 
 ### Docker Whisper
-	https://github.com/AndyInAi/Winter/blob/main/doc/Docker%20Whisper.md
+https://github.com/AndyInAi/Winter/blob/main/doc/Docker%20Whisper.md
 
 
 ### Prometheus 
-	https://github.com/AndyInAi/Winter/blob/main/doc/Prometheus.md
+https://github.com/AndyInAi/Winter/blob/main/doc/Prometheus.md
 
 
-***
 
 
 ### 全部代码在 Ubuntu 22.04.3 LTS 测试通过
