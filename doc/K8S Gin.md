@@ -110,7 +110,7 @@
                           name: gin
                           namespace: winter
                         spec:
-                          replicas: 1
+                          replicas: 16
                           selector:
                             matchLabels:
                               app: gin
