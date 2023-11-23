@@ -14,15 +14,15 @@ https://github.com/AndyInAi/Winter/blob/main/doc/GlusterFS.md
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S.md
 
 
-### K8S Gin (Go)
+### K8S Gin
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Gin.md
 
 
-### K8S Actix (Rust)
+### K8S Actix
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Actix.md
 
 
-### K8S SpringBoot (Java)
+### K8S SpringBoot
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20SpringBoot.md
 
 
