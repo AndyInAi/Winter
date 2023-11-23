@@ -20,44 +20,52 @@
 
 ### 准备
 
-	# 下载 go 安装包，放在 /mnt/gluster-gv0/k8s/gin 目录下
+	# 编译 Gin 应用，以 Winter-gin 为例，编译后复制到 /mnt/gluster-gv0/k8s/gin 目录下
 
 	(
-		mkdir -p /mnt/gluster-gv0/k8s/gin
+	    echo '
+		[source.crates-io]
+		replace-with = "mirror"
+		
+		[source.mirror]
+		registry = "http://mirrors4.tuna.tsinghua.edu.cn/git/crates.io-index.git"
+	    ' > ~/.cargo/config
 
-		if [ -f ~/go1.21.4.linux-amd64.tar.gz ] && [ ! "`sha256sum ~/go1.21.4.linux-amd64.tar.gz | grep 73cac0215254d0c7d1241fa40837851f3b9a8a742d0b54714cbdfb3feaf8f0af`" = "" ]; then
-			echo 
-		else 
-			apt install -y wget
-			wget --no-check-certificate -O ~/go1.21.4.linux-amd64.tar.gz https://go.dev/dl/go1.21.4.linux-amd64.tar.gz
-		fi
+		echo "
+			deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse
+			deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse
+			deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse
+			deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-security main restricted universe multiverse
+		" > /etc/apt/sources.list
 
-		cp -f ~/go1.21.4.linux-amd64.tar.gz /mnt/gluster-gv0/k8s/gin/
+		export DEBIAN_FRONTEND=noninteractive
+		apt update -y
+		apt install -y golang-go git wget
 	)
 
-
-	# 生成一个 Gin 应用 pong，放在 /mnt/gluster-gv0/k8s/gin 目录下
-
+	# 如果访问 GitHub.com 需要代理在此设置
+	# export http_proxy=http://192.168.1.109:3128/
+	# export https_proxy=http://192.168.1.109:3128/
+	
 	(
-		mkdir -p /mnt/gluster-gv0/k8s/gin/pong
-		
-		echo '
+		if [ ! -d ~/Winter-gin]; then
+		    cd ~/ ;
+		    git clone https://github.com/AndyInAi/Winter-gin.git
+		fi
+		  
+		cd ~/Winter-gin
+		  
+		go mod init Winter-gin
+		  
+		go get github.com/gin-gonic/gin
 
-			package main
+		go build .
 
-			import "github.com/gin-gonic/gin"
+		cd ~/
 
-			func main() {
-				r := gin.Default()
-				r.GET("/ping", func(c *gin.Context) {
-					c.JSON(200, gin.H{
-						"message": "pong",
-					})
-				})
-				r.Run() // 监听并在 0.0.0.0:8080 上启动服务
-			}
-		
-		' > /mnt/gluster-gv0/k8s/gin/pong/pong.go
+		mkdir -p /mnt/gluster-gv0/k8s/gin
+
+		cp -f  ~/Winter-gin/Winter-gin /mnt/gluster-gv0/k8s/gin/
 	)
 
 
@@ -70,32 +78,11 @@
 
 		echo '#!/bin/bash
 
-			echo "
-				deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse
-				deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse
-				deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse
-				deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-security main restricted universe multiverse
-			" > /etc/apt/sources.list
+			cp -f /mnt/gin/Winter-gin ~/
 			
-			export DEBIAN_FRONTEND=noninteractive
-			apt update -y
-			apt install -y wget  # 警告: 不要删除
+			chmod +x ~/Winter-gin
 
-			cp -f /mnt/gin/go1.21.4.linux-amd64.tar.gz ~/
-			tar -C /usr/local -xzf ~/go1.21.4.linux-amd64.tar.gz
-
-			export PATH=$PATH:/usr/local/go/bin
-			echo "export PATH=\$PATH:/usr/local/go/bin" >> /etc/profile
-	
-			# 如果访问 GitHub.com 需要代理在此设置
-			# export http_proxy=http://192.168.1.109:3128/
-			# export https_proxy=http://192.168.1.109:3128/
-
-			cp -r -f /mnt/gin/pong ~/
-			cd ~/pong
-			go mod init pong
-			go get github.com/gin-gonic/gin
-			go run .
+			~/Winter-gin
 
 		'> /mnt/gluster-gv0/k8s/gin/start 
 		
@@ -123,7 +110,7 @@
                           name: gin
                           namespace: winter
                         spec:
-                          replicas: 16
+                          replicas: 1
                           selector:
                             matchLabels:
                               app: gin
