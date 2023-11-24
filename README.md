@@ -14,23 +14,27 @@ https://github.com/AndyInAi/Winter/blob/main/doc/GlusterFS.md
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S.md
 
 
-### K8S Gin
+### K8S Gin (Go)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Gin.md
 
 
-### K8S Actix
+### K8S Actix (Rust)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Actix.md
 
 
-### K8S SpringBoot
+### K8S Django (Python)
+https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Django.md
+
+
+### K8S SpringBoot (Java)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20SpringBoot.md
 
 
-### K8S Tomcat 
+### K8S Tomcat
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Tomcat.md
 
 
-### K8S Resin 
+### K8S Resin
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Resin.md
 
 
@@ -73,7 +77,7 @@ https://github.com/AndyInAi/Winter/blob/main/doc/Prometheus.md
 ***
 
 
-### 全部代码在 Ubuntu 22.04.3 LTS 测试通过
+### 代码在 Ubuntu 22.04.3 LTS 测试通过
 
 	PRETTY_NAME="Ubuntu 22.04.3 LTS"
 	NAME="Ubuntu"
@@ -89,7 +93,7 @@ https://github.com/AndyInAi/Winter/blob/main/doc/Prometheus.md
 	UBUNTU_CODENAME=jammy
 
 
-### 全部代码在 K8S v1.28 测试通过
+### 代码在 K8S v1.28 测试通过
 
 	Client Version: v1.28.3
 	Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
