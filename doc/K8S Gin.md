@@ -23,14 +23,6 @@
 	# 编译 Gin 应用，以 Winter-gin 为例，编译后复制到 /mnt/gluster-gv0/k8s/gin 目录下
 
 	(
-	    echo '
-		[source.crates-io]
-		replace-with = "mirror"
-		
-		[source.mirror]
-		registry = "http://mirrors4.tuna.tsinghua.edu.cn/git/crates.io-index.git"
-	    ' > ~/.cargo/config
-
 		echo "
 			deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse
 			deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse
