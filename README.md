@@ -26,6 +26,10 @@ https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Actix.md
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Django.md
 
 
+### K8S ThinkPHP (PHP)
+https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Thinkphp.md
+
+
 ### K8S SpringBoot (Java)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20SpringBoot.md
 
@@ -77,7 +81,7 @@ https://github.com/AndyInAi/Winter/blob/main/doc/Prometheus.md
 ***
 
 
-### 代码在 Ubuntu 22.04.3 LTS 测试通过
+### Ubuntu 22.04.3 LTS 测试通过
 
 	PRETTY_NAME="Ubuntu 22.04.3 LTS"
 	NAME="Ubuntu"
@@ -93,7 +97,7 @@ https://github.com/AndyInAi/Winter/blob/main/doc/Prometheus.md
 	UBUNTU_CODENAME=jammy
 
 
-### 代码在 K8S v1.28 测试通过
+### K8S v1.28 测试通过
 
 	Client Version: v1.28.3
 	Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
