@@ -18,6 +18,10 @@ https://github.com/AndyInAi/Winter/blob/main/doc/K8S.md
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Gin.md
 
 
+### K8S .NET (C#)
+https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Dotnet.md
+
+
 ### K8S Actix (Rust)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Actix.md
 
