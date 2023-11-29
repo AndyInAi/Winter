@@ -26,6 +26,10 @@ https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Dotnet.md
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Actix.md
 
 
+### K8S Play (Scala)
+https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Play.md
+
+
 ### K8S ThinkPHP (PHP)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Thinkphp.md
 
