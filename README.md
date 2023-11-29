@@ -26,12 +26,12 @@ https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Dotnet.md
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Actix.md
 
 
-### K8S Django (Python)
-https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Django.md
-
-
 ### K8S ThinkPHP (PHP)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Thinkphp.md
+
+
+### K8S Django (Python)
+https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Django.md
 
 
 ### K8S SpringBoot (Java)
