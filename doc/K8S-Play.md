@@ -69,10 +69,25 @@
 
 			apt -y install sbt
 
+			mkdir -p ~/.sbt
+
+			echo "
+				[repositories]
+					local
+					aliyun-maven-public: https://maven.aliyun.com/repository/public
+					huaweicloud-maven: https://repo.huaweicloud.com/repository/maven/
+					aliyun-maven-central: https://maven.aliyun.com/repository/central
+					maven-central: https://repo1.maven.org/maven2/
+			" > ~/.sbt/repositories 
+
 			cp -f -r /mnt/play/Winter-play ~/
 
-			cd ~/Winter-play
+			cd ~/Winter-play			
 
+			export SBT_LAUNCH_REPO="https://maven.aliyun.com/repository/public"
+
+			export SBT_OPTS="-Dsbt.override.build.repos=true"
+			
 			sbt run -Dhttp.port=8080
 
 			# sleep 88888
