@@ -34,6 +34,10 @@ https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Play.md
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Rails.md
 
 
+### K8S Oat++ (C++)
+https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Oatpp.md
+
+
 ### K8S Vapor (Swift)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Vapor.md
 
