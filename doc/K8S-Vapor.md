@@ -71,7 +71,7 @@
 
 			~/Winter-vapor/App serve -b 0.0.0.0:8080
 			
-			sleep 88888
+			# sleep 88888
 
 		'> /mnt/gluster-gv0/k8s/vapor/start 
 		
