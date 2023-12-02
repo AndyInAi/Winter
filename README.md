@@ -22,16 +22,20 @@ https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Gin.md
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Dotnet.md
 
 
-### K8S Rails (Ruby)
-https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Rails.md
-
-
 ### K8S Actix (Rust)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Actix.md
 
 
 ### K8S Play (Scala)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Play.md
+
+
+### K8S Rails (Ruby)
+https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Rails.md
+
+
+### K8S Vapor (Swift)
+https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Vapor.md
 
 
 ### K8S ThinkPHP (PHP)
@@ -70,12 +74,16 @@ https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20FFmpeg.md
 https://github.com/AndyInAi/Winter/blob/main/doc/MariaDB.md
 
 
-### Stable Diffusion Webui
+### Stable Diffusion Webui (AI)
 https://github.com/AndyInAi/Winter/blob/main/doc/StableDiffusionWebui.md
 
 
-### ChatGLM
+### ChatGLM (AI)
 https://github.com/AndyInAi/Winter/blob/main/doc/ChatGLM.md
+
+
+### Docker Whisper (AI)
+https://github.com/AndyInAi/Winter/blob/main/doc/Docker%20Whisper.md
 
 
 ### ElasticSearch 
@@ -84,10 +92,6 @@ https://github.com/AndyInAi/Winter/blob/main/doc/ElasticSearch.md
 
 ### Kafka 
 https://github.com/AndyInAi/Winter/blob/main/doc/Kafka.md
-
-
-### Docker Whisper
-https://github.com/AndyInAi/Winter/blob/main/doc/Docker%20Whisper.md
 
 
 ### Prometheus 
