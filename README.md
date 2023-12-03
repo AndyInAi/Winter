@@ -42,6 +42,10 @@ https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Vapor.md
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Oatpp.md
 
 
+### K8S Quarkus (Java)
+https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Quarkus.md
+
+
 ### K8S ThinkPHP (PHP)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Thinkphp.md
 
