@@ -48,7 +48,7 @@
 
 			cd ~/Winter-ntex && chmod +x ./Winter-ntex && ./Winter-ntex
 			
-			sleep 88888
+			# sleep 88888
 
 		'> /mnt/gluster-gv0/k8s/ntex/start 
 		
@@ -76,7 +76,7 @@
                           name: ntex
                           namespace: winter
                         spec:
-                          replicas: 1
+                          replicas: 8
                           selector:
                             matchLabels:
                               app: ntex
