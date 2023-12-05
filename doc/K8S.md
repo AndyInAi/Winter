@@ -29,7 +29,9 @@
 
 			host="$ip k8s$i"
 
-			if [ "`grep \"^$ip\" /etc/hosts`" == "" ]; then echo "$host" >> /etc/hosts; else sed -i "s/^$ip.*$/$host/g" /etc/hosts; fi
+			if [ "`grep \"^$ip\" /etc/hosts`" == "" ]; then 
+   				echo "$host" >> /etc/hosts; else sed -i "s/^$ip.*$/$host/g" /etc/hosts; 
+       			fi
 
 		done
 	)	
