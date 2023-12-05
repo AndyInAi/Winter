@@ -37,7 +37,7 @@
 	)	
 
 
-主机可以为物理主机，也可以为云服务器，例如 [阿里云 ecs.c6.3xlarge](https://www.aliyun.com/product/ecs?source=5176.11533457&userCode=1gbajwso){target="_blank"}
+主机可以为物理主机，也可以为云服务器，例如 [阿里云 ecs.c6.3xlarge](https://www.aliyun.com/product/ecs?source=5176.11533457&userCode=1gbajwso?_blank)
 
 
 #### 下载安装
