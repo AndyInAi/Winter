@@ -1,8 +1,33 @@
 
+### 准备
 
-### 准备硬盘
 
-#### 以 sdb 为例，必须为新硬盘或已清除所有分区
+#### 主机
+
+	# 9 台主机；主机名 gfs1 - gfs9 对应 IP 地址 192.168.1.81 - 89
+
+	# 每台主机配置：
+		8 核以上 CPU
+		16GB 以上内存 		
+		1TB 以上企业级 NVME 硬盘安装系统
+		8TB 以上企业级 NVME 硬盘或 16TB 以上企业级机械硬盘作为存储
+		10Gb 以上网卡
+
+	# 配置每台主机 /etc/hosts 
+		
+		(
+			# 9 个节点 IP 列表，对应主机名 gfs1 - gfs9
+			NODES="192.168.1.81 192.168.1.82 192.168.1.83 192.168.1.84 192.168.1.85 192.168.1.86 192.168.1.87 192.168.1.88 192.168.1.89"
+
+			no=0; for i in $NODES; do no=$(($no+1)) ; ip="$i " ;  host="$ip gfs$no" ;  if [ "`grep \"^$ip\" /etc/hosts`" == "" ]; then echo "$host" >> /etc/hosts; else sed -i "s/^$ip.*$/$host/g" /etc/hosts; fi ; done
+		)
+
+主机可以为物理主机，也可以为云服务器，例如：[阿里云 ecs.c6.2xlarge](https://www.aliyun.com/product/ecs?source=5176.11533457&userCode=1gbajwso)
+
+
+#### 存储
+
+	# 以 sdb 为例，必须为新硬盘或已清除所有分区
 
 	# 不要删除中间三个空行
 	
@@ -31,14 +56,7 @@
 	systemctl --now enable glusterd ; service glusterd status
 
 
-### 配置
-
-	NODES="192.168.1.81 192.168.1.82 192.168.1.83 192.168.1.84 192.168.1.85 192.168.1.86 192.168.1.87 192.168.1.88 192.168.1.89" # 9 个节点 IP 列表，对应主机名 gfs1 - gfs9
-
-	no=0; for i in $NODES; do no=$(($no+1)) ; ip="$i " ;  host="$ip gfs$no" ;  if [ "`grep \"^$ip\" /etc/hosts`" == "" ]; then echo "$host" >> /etc/hosts; else sed -i "s/^$ip.*$/$host/g" /etc/hosts; fi ; done
-
-
-### 配置，需要所有节点执行完成以上操作后继续
+### 配置；需要所有节点执行完成以上操作后继续
 
 	# 所有节点执行
 
