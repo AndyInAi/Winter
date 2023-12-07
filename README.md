@@ -50,16 +50,13 @@ https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Gin.md
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Play.md
 
 
-### K8S Resin (Java)
-https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Resin.md
+### K8S Boot (Java)
+https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Boot.md
+
 
 
 ### K8S Spring (Java)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Spring.md
-
-
-### K8S Tomcat (Java)
-https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Tomcat.md
 
 
 ### K8S Quarkus (Java)
