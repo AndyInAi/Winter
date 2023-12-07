@@ -1,12 +1,37 @@
 
 
+### 硬件准备
+
+	# 10 台主机；
+		1 台负载均衡主机，主机名 redis，IP 地址: 192.168.1.241
+		9 台 Redis 主机，主机名 redis1 - redis9， IP 地址 192.168.1.241 - 249
+
+	# 每台主机配置：
+		16 核以上 CPU
+		32 GB 以上内存
+		1TB 以上企业级 NVME 硬盘安装系统
+		8TB 以上企业级 NVME 硬盘作为存储
+		10Gb 以上网卡
+
+
+主机可以为物理主机，也可以为云服务器，例如 [阿里云 ecs.c6.4xlarge](https://www.aliyun.com/product/ecs?source=5176.11533457&userCode=1gbajwso)
+
+
 ### 安装配置
 
 	# 共 9 个节点，3 主 6 从，在每一个节点执行
-
+	
+	# 配置 /etc/hosts
 	(
-		NODES="192.168.1.241 192.168.1.242 192.168.1.243 192.168.1.244 192.168.1.245 192.168.1.246 192.168.1.247 192.168.1.248 192.168.1.249"; NAME="redis" # 9 个节点 IP 列表，对应主机名 redis1 - redis9
-		no=0; for i in $NODES; do no=$(($no+1)) ; ip="$i " ;  host="$ip ${NAME}$no" ;  if [ "`grep \"^$ip\" /etc/hosts`" == "" ]; then echo "$host" >> /etc/hosts; else sed -i "s/^$ip.*$/$host/g" /etc/hosts; fi ; done
+		NAME="redis" # 9 个节点 IP 列表，对应主机名 redis1 - redis9
+		NODES="192.168.1.241 192.168.1.242 192.168.1.243 192.168.1.244 192.168.1.245 192.168.1.246 192.168.1.247 192.168.1.248 192.168.1.249"; 
+		no=0;
+		for i in $NODES; do 
+			no=$(($no+1)) ; ip="$i " ;  host="$ip ${NAME}$no" ;  
+			if [ "`grep \"^$ip\" /etc/hosts`" == "" ]; then 
+				echo "$host" >> /etc/hosts; else sed -i "s/^$ip.*$/$host/g" /etc/hosts; 
+			fi 
+		done
 	)
 
 	apt install -y redis net-tools
