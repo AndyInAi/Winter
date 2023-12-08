@@ -42,6 +42,10 @@ https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Actix.md
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Vapor.md
 
 
+### K8S Kitura (Swift)
+https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Kitura.md
+
+
 ### K8S Gin (Go)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Gin.md
 
