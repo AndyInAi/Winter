@@ -82,7 +82,7 @@
 
 			~/Winter-kitura/Winter-kitura
 			
-			sleep 88888
+			# sleep 88888
 
 		'> /mnt/gluster-gv0/k8s/kitura/start 
 		
@@ -110,7 +110,7 @@
                           name: kitura
                           namespace: winter
                         spec:
-                          replicas: 1
+                          replicas: 8
                           selector:
                             matchLabels:
                               app: kitura
