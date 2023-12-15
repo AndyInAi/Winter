@@ -108,7 +108,7 @@
 
 	mkdir -p /mnt/gluster-gv0
 
-	if [ "`grep ^gfs:/gv0 /etc/fstab`" == "" ]; then echo 'localhost:/gv0 /mnt/gluster-gv0 glusterfs defaults,_netdev 0 0' >> /etc/fstab; fi
+	if [ "`grep ^localhost:/gv0 /etc/fstab`" == "" ]; then echo 'localhost:/gv0 /mnt/gluster-gv0 glusterfs defaults,_netdev 0 0' >> /etc/fstab; fi
 
 	mount -a && mount
 
