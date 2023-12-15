@@ -72,5 +72,5 @@
 
 	cat /proc/mdstat
 
-
+![image](https://github.com/AndyInAi/Winter/blob/main/img/raid10/raid10.png)
 
