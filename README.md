@@ -6,7 +6,7 @@
 ***
 
 
-# RAID10
+# Raid10
 https://github.com/AndyInAi/Winter/blob/main/doc/RAID10.md
 
 
