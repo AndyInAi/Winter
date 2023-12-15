@@ -27,6 +27,8 @@
 
 #### 存储
 
+	# 所有节点执行
+
 	# 以 sdb 为例，必须为新硬盘或已清除所有分区
 
 	# 不要删除中间三个空行
@@ -51,9 +53,16 @@
 
 ### 安装
 
-	apt install -y glusterfs-server
+	# 所有节点执行
 
-	systemctl --now enable glusterd ; service glusterd status
+	apt install -y glusterfs-server tuned
+
+	systemctl --now enable glusterd 
+	
+	service glusterd status
+
+	systemctl enable --now tuned
+	tuned-adm profile throughput-performance
 
 
 ### 配置；需要所有节点执行完成以上操作后继续
@@ -62,14 +71,34 @@
 
 	_hostname=`hostname`; for ((i=1; i<=9; i++)) do if [ ! "$_hostname" == "gfs$i" ]; then gluster peer probe gfs$i; fi;  done; gluster pool list
 
+
 	# 任一节点执行；每个文件块 3 个副本，随机分布在 9 个节点其中的 3 个
 
 	gluster volume create gv0 replica 3 gfs1:/data/brick1/gv0 gfs2:/data/brick1/gv0 gfs3:/data/brick1/gv0 gfs4:/data/brick1/gv0 gfs5:/data/brick1/gv0 gfs6:/data/brick1/gv0 gfs7:/data/brick1/gv0 gfs8:/data/brick1/gv0 gfs9:/data/brick1/gv0 force
 
-	gluster volume set gv0 performance.cache-size 1GB
+	gluster volume start gv0
+	
+	gluster volume info gv0
 
-	gluster volume start gv0 ; gluster volume info gv0
 
+	# 所有节点执行
+
+	(
+		gluster volume set gv0 performance.cache-size 1GB && \
+		gluster volume set gv0 client.event-threads 3 && \
+		gluster volume set gv0 server.event-threads 3 && \
+		gluster volume set gv0 performance.io-thread-count 24 && \
+		gluster volume set gv0 server.outstanding-rpc-limit 96 && \
+		gluster volume set gv0 config.global-threading on && \
+		gluster volume set gv0 nl-cache-positive-entry on && \
+		gluster volume set gv0 performance.iot-pass-through on && \
+		gluster volume set gv0 performance.io-cache on && \
+		gluster volume set gv0 performance.io-thread-count 8 && \
+		gluster volume set gv0 performance.parallel-readdir on && \
+		gluster volume set gv0 performance.qr-cache-timeout 600 && \
+		gluster volume set gv0 performance.readdir-ahead on && \
+		gluster volume set gv0 performance.write-behind-window-size 128MB
+	)
 
 ### 挂载存储
 
@@ -79,7 +108,7 @@
 
 	mkdir -p /mnt/gluster-gv0
 
-	if [ "`grep ^gfs:/gv0 /etc/fstab`" == "" ]; then echo 'localhost:/gv0 /mnt/gluster-gv0 glusterfs defaults 0 0' >> /etc/fstab; fi
+	if [ "`grep ^gfs:/gv0 /etc/fstab`" == "" ]; then echo 'localhost:/gv0 /mnt/gluster-gv0 glusterfs defaults,_netdev 0 0' >> /etc/fstab; fi
 
 	mount -a && mount
 
@@ -108,12 +137,6 @@
 		server gfs1 192.168.1.81:24007
 		server gfs2 192.168.1.82:24007
 		server gfs3 192.168.1.83:24007
-		server gfs4 192.168.1.84:24007
-		server gfs5 192.168.1.85:24007
-		server gfs6 192.168.1.86:24007
-		server gfs7 192.168.1.87:24007
-		server gfs8 192.168.1.88:24007
-		server gfs9 192.168.1.89:24007
 
 	' > /etc/haproxy/haproxy.cfg;)
 
@@ -138,7 +161,7 @@
 
 	mkdir -p /mnt/gluster-gv0
 
-	if [ "`grep ^gfs:/gv0 /etc/fstab`" == "" ]; then echo 'gfs:/gv0 /mnt/gluster-gv0 glusterfs defaults 0 0' >> /etc/fstab; fi
+	if [ "`grep ^gfs:/gv0 /etc/fstab`" == "" ]; then echo 'gfs:/gv0 /mnt/gluster-gv0 glusterfs defaults,_netdev 0 0' >> /etc/fstab; fi
 
 	mount -a && mount
 
