@@ -48,9 +48,11 @@
 	(
 		sd1='/dev/sdb1 /dev/sdc1 /dev/sdd1 /dev/sde1 /dev/sdf1 /dev/sdg1 /dev/sdh1 /dev/sdi1 /dev/sdj1 /dev/sdk1 /dev/sdl1 /dev/sdm1 /dev/sdn1 /dev/sdo1 /dev/sdp1 /dev/sdq1 /dev/sdr1 /dev/sds1 /dev/sdt1 /dev/sdu1 /dev/sdv1 /dev/sdw1 /dev/sdx1 /dev/sdy1'
 
-		mdadm --create /dev/md0 --name=md0 --raid-devices=24 --level=10  $sd1
+		mdadm --create /dev/md0 --name=md0 --raid-devices=22 --spare-devices=2 --level=10  $sd1
 
 		mdadm --detail --scan >> /etc/mdadm/mdadm.conf
+
+		 update-initramfs -u
 
 		mkfs.xfs -f -i size=512 /dev/md0
 	)
