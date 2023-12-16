@@ -10,7 +10,7 @@
 		8 核以上 CPU
 		16GB 以上内存 		
 		1TB 以上企业级 NVME 硬盘安装系统
-		8TB 以上企业级 NVME 硬盘或 16TB 以上企业级机械硬盘作为存储
+		8TB 以上企业级 NVME 硬盘或 16TB 以上企业级机械硬盘作为存储；如使用 RAID10 需要 4 块以上硬盘
 		10Gb 以上网卡
 
 	# 配置每台主机 /etc/hosts 
@@ -51,6 +51,11 @@
 	mount -a && mount
 
 
+#### 存储 (RAID10)
+
+可选。RAID10 安装配置 https://github.com/AndyInAi/Winter/blob/main/doc/RAID10.md
+
+
 ### 安装
 
 	# 所有节点执行
@@ -65,7 +70,9 @@
 	tuned-adm profile throughput-performance
 
 
-### 配置；需要所有节点执行完成以上操作后继续
+### 配置
+	
+需要所有节点执行完成以上操作后继续
 
 	# 所有节点执行
 
