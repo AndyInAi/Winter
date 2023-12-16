@@ -50,6 +50,8 @@
 
 		mdadm --create /dev/md0 --name=md0 --raid-devices=24 --level=10  $sd1
 
+		mdadm --detail --scan >> /etc/mdadm/mdadm.conf
+
 		mkfs.xfs -f -i size=512 /dev/md0
 	)
 
@@ -59,8 +61,8 @@
 	(
 		mkdir -p /md0
 
-		if [ "$(grep '^/dev/md0' /etc/fstab)" = "" ]; then
-			echo '/dev/md0 /md0 xfs defaults 1 2' >> /etc/fstab
+		if [ "$(grep '^/dev/disk/by-id/md-name-raid10:md0' /etc/fstab)" = "" ]; then
+			echo '/dev/disk/by-id/md-name-raid10:md0 /md0 xfs defaults 1 1' >> /etc/fstab
 			mount /md0
 		fi
 	)
