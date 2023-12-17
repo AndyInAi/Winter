@@ -11,7 +11,7 @@
 
 ### 安装软件
 
-	yum install mdadm -y
+	apt install -y mdadm
 
 
 ### 生成分区命令文件
