@@ -217,30 +217,6 @@
 	)
 
 
-### 安装插件管理工具 krew
-
-	(
-	  cd ~/
-	  set -x; cd "$(mktemp -d)" &&
-	  OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
-	  ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
-	  KREW="krew-${OS}_${ARCH}" &&
-	  curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" &&
-	  tar zxvf "${KREW}.tar.gz" &&
-	  ./"${KREW}" install krew
-	  
-	   export PATH="~/.krew/bin:$PATH"
-	   echo 'export PATH="~/.krew/bin:$PATH"' >> /etc/profile
-	
-	   kubectl krew update
-	)
-
-
-	# 使用例子，安装 rabbitmq 插件
-
-	# kubectl krew install rabbitmq
-
-
 ### GlusterFS 集群客户端安装配置
 
 	# 在每个主机执行
@@ -276,6 +252,34 @@
 
 		ll /mnt/gluster-gv0/
 	)
+
+
+### K8S 安装部署 Metrics Server
+https://github.com/AndyInAi/Winter-metrics
+
+
+### 安装插件管理工具 krew
+
+	(
+	  cd ~/
+	  set -x; cd "$(mktemp -d)" &&
+	  OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
+	  ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
+	  KREW="krew-${OS}_${ARCH}" &&
+	  curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" &&
+	  tar zxvf "${KREW}.tar.gz" &&
+	  ./"${KREW}" install krew
+	  
+	   export PATH="~/.krew/bin:$PATH"
+	   echo 'export PATH="~/.krew/bin:$PATH"' >> /etc/profile
+	
+	   kubectl krew update
+	)
+
+
+	# 使用例子，安装 rabbitmq 插件
+
+	# kubectl krew install rabbitmq
 
 
 ### 生成常用管理命令
