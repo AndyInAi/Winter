@@ -6,127 +6,127 @@
 ***
 
 
-### RAID10
+### RAID10 (存储)
 https://github.com/AndyInAi/Winter/blob/main/doc/RAID10.md
 
 
-### GlusterFS
+### GlusterFS (分布式存储)
 https://github.com/AndyInAi/Winter/blob/main/doc/GlusterFS.md
 
 
-### MariaDB 
+### MariaDB (数据库)
 https://github.com/AndyInAi/Winter/blob/main/doc/MariaDB.md
 
 
-### Redis
+### Redis (数据库缓存)
 https://github.com/AndyInAi/Winter/blob/main/doc/Redis.md
 
 
-### K8S
+### K8S (集群管理)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S.md
 
 
-### K8S Oat++ (C++)
+### K8S Oat++ (C++/微服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Oatpp.md
 
 
-### K8S Drogon (C++)
+### K8S Drogon (C++/微服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-drogon.md
 
 
-### K8S Ntex (Rust)
+### K8S Ntex (Rust/微服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Ntex.md
 
 
-### K8S Actix (Rust)
+### K8S Actix (Rust/微服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Actix.md
 
 
-### K8S Vapor (Swift)
+### K8S Vapor (Swift/微服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Vapor.md
 
 
-### K8S Kitura (Swift)
+### K8S Kitura (Swift/微服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Kitura.md
 
 
-### K8S Gin (Go)
+### K8S Gin (Go/微服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Gin.md
 
 
-### K8S Fiber (Go)
+### K8S Fiber (Go/微服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Fiber.md
 
 
-### K8S Boot (Java)
+### K8S Boot (Java/微服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Boot.md
 
 
-### K8S Spring (Java)
+### K8S Spring (Java/微服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Spring.md
 
 
-### K8S Quarkus (Java)
+### K8S Quarkus (Java/微服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Quarkus.md
 
 
-### K8S Play (Scala)
+### K8S Play (Scala/微服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Play.md
 
 
-### K8S .NET (C#)
+### K8S .NET (C#/微服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Dotnet.md
 
 
-### K8S Express (JavaScript)
+### K8S Express (JavaScript/微服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Express.md
 
 
-### K8S Django (Python)
+### K8S Django (Python/微服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Django.md
 
 
-### K8S ThinkPHP (PHP)
+### K8S ThinkPHP (PHP/微服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Thinkphp.md
 
 
-### K8S Rails (Ruby)
+### K8S Rails (Ruby/微服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Rails.md
 
 
-### K8S PDF (Shell)
+### K8S PDF (PDF生成)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20PDF.md
 
 
-### K8S FFmpeg (Shell)
+### K8S FFmpeg (视频处理)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20FFmpeg.md
 
 
-### K8S Flink
+### K8S Flink (大数据)
 https://github.com/AndyInAi/Winter-flink
 
 
-### ChatGLM (AI)
+### ChatGLM (会话/人工智能)
 https://github.com/AndyInAi/Winter/blob/main/doc/ChatGLM.md
 
 
-### Docker Whisper (AI)
+### Docker Whisper (音频/人工智能)
 https://github.com/AndyInAi/Winter/blob/main/doc/Docker%20Whisper.md
 
 
-### Stable Diffusion Webui (AI)
+### Stable Diffusion Webui (绘画/人工智能)
 https://github.com/AndyInAi/Winter/blob/main/doc/StableDiffusionWebui.md
 
 
-### ElasticSearch 
+### ElasticSearch (搜索)
 https://github.com/AndyInAi/Winter/blob/main/doc/ElasticSearch.md
 
 
-### Kafka
+### Kafka (消息)
 https://github.com/AndyInAi/Winter/blob/main/doc/Kafka.md
 
 
-### Prometheus 
+### Prometheus (监控)
 https://github.com/AndyInAi/Winter/blob/main/doc/Prometheus.md
 
 
