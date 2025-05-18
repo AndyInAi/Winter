@@ -26,71 +26,71 @@ https://github.com/AndyInAi/Winter/blob/main/doc/Redis.md
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S.md
 
 
-### K8S Oat++ (C++/微服务)
+### K8S Oat++ (C++/服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Oatpp.md
 
 
-### K8S Drogon (C++/微服务)
+### K8S Drogon (C++/服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-drogon.md
 
 
-### K8S Ntex (Rust/微服务)
+### K8S Ntex (Rust/服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Ntex.md
 
 
-### K8S Actix (Rust/微服务)
+### K8S Actix (Rust/服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Actix.md
 
 
-### K8S Vapor (Swift/微服务)
+### K8S Vapor (Swift/服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Vapor.md
 
 
-### K8S Kitura (Swift/微服务)
+### K8S Kitura (Swift/服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Kitura.md
 
 
-### K8S Gin (Go/微服务)
+### K8S Gin (Go/服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S%20Gin.md
 
 
-### K8S Fiber (Go/微服务)
+### K8S Fiber (Go/服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Fiber.md
 
 
-### K8S Boot (Java/微服务)
+### K8S Boot (Java/服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Boot.md
 
 
-### K8S Spring (Java/微服务)
+### K8S Spring (Java/服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Spring.md
 
 
-### K8S Quarkus (Java/微服务)
+### K8S Quarkus (Java/服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Quarkus.md
 
 
-### K8S Play (Scala/微服务)
+### K8S Play (Scala/服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Play.md
 
 
-### K8S .NET (C#/微服务)
+### K8S .NET (C#/服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Dotnet.md
 
 
-### K8S Express (JavaScript/微服务)
+### K8S Express (JavaScript/服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Express.md
 
 
-### K8S Django (Python/微服务)
+### K8S Django (Python/服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Django.md
 
 
-### K8S ThinkPHP (PHP/微服务)
+### K8S ThinkPHP (PHP/服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Thinkphp.md
 
 
-### K8S Rails (Ruby/微服务)
+### K8S Rails (Ruby/服务)
 https://github.com/AndyInAi/Winter/blob/main/doc/K8S-Rails.md
 
 
